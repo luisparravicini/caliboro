@@ -1,6 +1,9 @@
 package ar.com.ktulu.editorHuesos;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.DefaultListModel;
@@ -13,17 +16,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
-
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements TreeModelListener {
 
 	private JPanel contentPane;
-	private JList bonesList;
+	private JTree bonesTree;
 	private JToolBar toolBar;
 	private JButton btnAgregar;
 	private JScrollPane scrollPane;
 	private JLabel imageLabel;
+	private JButton btnAddImages;
+	private JButton btnRemoveBone;
 
 	/**
 	 * Launch the application.
@@ -57,12 +66,12 @@ public class MainFrame extends JFrame {
 		splitPane.setDividerLocation(150);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
-		bonesList = new JList();
-		splitPane.setLeftComponent(bonesList);
+		bonesTree = new JTree();
+		splitPane.setLeftComponent(bonesTree);
 
 		scrollPane = new JScrollPane();
 		splitPane.setRightComponent(scrollPane);
-		
+
 		imageLabel = new JLabel();
 		scrollPane.setViewportView(imageLabel);
 		imageLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,8 +79,50 @@ public class MainFrame extends JFrame {
 		toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar hueso");
 		toolBar.add(btnAgregar);
+
+		btnRemoveBone = new JButton("Borrar hueso");
+		toolBar.add(btnRemoveBone);
+
+		btnAddImages = new JButton("Agregar fotos");
+		btnAddImages.setEnabled(false);
+		toolBar.add(btnAddImages);
+
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addBone();
+			}
+		});
+		btnAddImages.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addBoneImages();
+			}
+		});
+		btnRemoveBone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeBone();
+			}
+		});
+	}
+
+	protected void removeBone() {
+
+	}
+
+	protected void addBoneImages() {
+	}
+
+	protected void addBone() {
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+				"Nombre del hueso");
+
+		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) bonesTree
+				.getModel().getRoot();
+
+		root.add(node);
+		model.reload();
 	}
 
 	protected void loadBones() throws IOException {
@@ -81,16 +132,42 @@ public class MainFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		DefaultListModel model = new DefaultListModel();
-		bonesList.setModel(model);
-		model.addElement(new Hueso("asdsadasd"));
-		model.addElement(new Hueso("asdsadasd"));
-		model.addElement(new Hueso("asdsadasd"));
-		model.addElement(new Hueso("asdsadasd"));
+
+		DefaultTreeModel model = new DefaultTreeModel(
+				new DefaultMutableTreeNode());
+		model.addTreeModelListener(this);
+		bonesTree.setRootVisible(false);
+		bonesTree.setModel(model);
+		bonesTree.setEditable(true);
+
+		addBone();
 
 		ImageIcon img = new ImageIcon(
-						"/Users/xrm0/Documents/dev/huesos/initializr/huesos/canines-lg.jpg");
+				"/Users/xrm0/Documents/dev/huesos/initializr/huesos/canines-lg.jpg");
 		imageLabel.setIcon(img);
+	}
+
+	public void treeNodesChanged(TreeModelEvent e) {
+		updateButtonsStatus((DefaultTreeModel) e.getSource());
+	}
+
+	public void treeNodesInserted(TreeModelEvent e) {
+		updateButtonsStatus((DefaultTreeModel) e.getSource());
+	}
+
+	public void treeNodesRemoved(TreeModelEvent e) {
+		updateButtonsStatus((DefaultTreeModel) e.getSource());
+	}
+
+	public void treeStructureChanged(TreeModelEvent e) {
+		updateButtonsStatus((DefaultTreeModel) e.getSource());
+	}
+
+	private void updateButtonsStatus(DefaultTreeModel model) {
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		boolean bonesExist = root.getChildCount() > 0;
+		
+		btnAddImages.setEnabled(bonesExist);
+		btnRemoveBone.setEnabled(bonesExist);
 	}
 }
