@@ -6,12 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -22,6 +20,8 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
 
 public class MainFrame extends JFrame implements TreeModelListener {
 
@@ -83,6 +83,7 @@ public class MainFrame extends JFrame implements TreeModelListener {
 		toolBar.add(btnAgregar);
 
 		btnRemoveBone = new JButton("Borrar hueso");
+		btnRemoveBone.setEnabled(false);
 		toolBar.add(btnRemoveBone);
 
 		btnAddImages = new JButton("Agregar fotos");
@@ -107,7 +108,13 @@ public class MainFrame extends JFrame implements TreeModelListener {
 	}
 
 	protected void removeBone() {
+		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
+		TreePath[] selection = bonesTree.getSelectionPaths();
 
+		if (selection != null)
+			for (TreePath path : selection)
+				model.removeNodeFromParent((MutableTreeNode) path
+						.getLastPathComponent());
 	}
 
 	protected void addBoneImages() {
@@ -118,8 +125,7 @@ public class MainFrame extends JFrame implements TreeModelListener {
 				"Nombre del hueso");
 
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) bonesTree
-				.getModel().getRoot();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
 		root.add(node);
 		model.reload();
@@ -139,8 +145,6 @@ public class MainFrame extends JFrame implements TreeModelListener {
 		bonesTree.setRootVisible(false);
 		bonesTree.setModel(model);
 		bonesTree.setEditable(true);
-
-		addBone();
 
 		ImageIcon img = new ImageIcon(
 				"/Users/xrm0/Documents/dev/huesos/initializr/huesos/canines-lg.jpg");
@@ -166,7 +170,7 @@ public class MainFrame extends JFrame implements TreeModelListener {
 	private void updateButtonsStatus(DefaultTreeModel model) {
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		boolean bonesExist = root.getChildCount() > 0;
-		
+
 		btnAddImages.setEnabled(bonesExist);
 		btnRemoveBone.setEnabled(bonesExist);
 	}
