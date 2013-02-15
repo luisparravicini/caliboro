@@ -3,4 +3,5 @@ TODO
 
 
   - preguntar si quiere borrar huesos
-
+  - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
+  - poner una barra de progreso cuando copia las imagenes al repo local?

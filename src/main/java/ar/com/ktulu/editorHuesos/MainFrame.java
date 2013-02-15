@@ -2,12 +2,17 @@ package ar.com.ktulu.editorHuesos;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,12 +23,15 @@ import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
-public class MainFrame extends JFrame implements TreeModelListener {
+public class MainFrame extends JFrame implements TreeModelListener,
+		TreeSelectionListener {
 
 	private JPanel contentPane;
 	private JTree bonesTree;
@@ -42,6 +50,7 @@ public class MainFrame extends JFrame implements TreeModelListener {
 			public void run() {
 				try {
 					MainFrame frame = new MainFrame();
+					frame.setup();
 					frame.loadBones();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -107,6 +116,16 @@ public class MainFrame extends JFrame implements TreeModelListener {
 		});
 	}
 
+	protected void setup() {
+		DefaultTreeModel model = new DefaultTreeModel(
+				new DefaultMutableTreeNode());
+		model.addTreeModelListener(this);
+		bonesTree.setRootVisible(false);
+		bonesTree.setModel(model);
+		bonesTree.setEditable(true);
+		bonesTree.addTreeSelectionListener(this);
+	}
+
 	protected void removeBone() {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		TreePath[] selection = bonesTree.getSelectionPaths();
@@ -118,6 +137,32 @@ public class MainFrame extends JFrame implements TreeModelListener {
 	}
 
 	protected void addBoneImages() {
+		FileDialog fileDlg = new FileDialog(this);
+		fileDlg.setMode(FileDialog.LOAD);
+		fileDlg.setFilenameFilter(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				String nameLower = name.toLowerCase();
+				return new File(dir, name).isFile()
+						&& (nameLower.endsWith(".jpg")
+								|| nameLower.endsWith(".png") || nameLower
+									.endsWith(".jpeg"));
+			}
+		});
+		fileDlg.setVisible(true);
+
+		// TODO recien en jdk7 puedo seleccionar varios archivos a la vez
+
+		String file = fileDlg.getFile();
+		if (file != null)
+			addBoneImage(file);
+	}
+
+	private void addBoneImage(String file) {
+		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+
+		bonesTree.getSelectionPath();
 	}
 
 	protected void addBone() {
@@ -138,13 +183,6 @@ public class MainFrame extends JFrame implements TreeModelListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		DefaultTreeModel model = new DefaultTreeModel(
-				new DefaultMutableTreeNode());
-		model.addTreeModelListener(this);
-		bonesTree.setRootVisible(false);
-		bonesTree.setModel(model);
-		bonesTree.setEditable(true);
 
 		ImageIcon img = new ImageIcon(
 				"/Users/xrm0/Documents/dev/huesos/initializr/huesos/canines-lg.jpg");
@@ -170,8 +208,14 @@ public class MainFrame extends JFrame implements TreeModelListener {
 	private void updateButtonsStatus(DefaultTreeModel model) {
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		boolean bonesExist = root.getChildCount() > 0;
+		boolean boneSelected = (bonesTree.getSelectionCount() > 0);
 
-		btnAddImages.setEnabled(bonesExist);
-		btnRemoveBone.setEnabled(bonesExist);
+		btnAddImages.setEnabled(bonesExist && boneSelected);
+		btnRemoveBone.setEnabled(bonesExist && boneSelected);
+	}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent event) {
+		updateButtonsStatus((DefaultTreeModel) bonesTree.getModel());
 	}
 }
