@@ -2,6 +2,14 @@ TODO
 ====
 
 
+  - persistir datos de puntos, huesos, imagenes
+  - copiar la imagen a un repo local?
+  - exportar el .json y las imagenes para que pueda usarse con un browser
+  - boton agregar/quitar puntos
+  - editar puntos
+  - ingresar nombre del punto
+  - boton preview que abra un browser?
+
   - preguntar si quiere borrar huesos
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
   - poner una barra de progreso cuando copia las imagenes al repo local?
