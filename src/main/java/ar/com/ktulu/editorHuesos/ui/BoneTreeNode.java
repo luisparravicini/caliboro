@@ -16,4 +16,17 @@ public class BoneTreeNode extends DefaultMutableTreeNode {
 		add(new BoneImageTreeNode(bone.lastImage()));
 	}
 
+	@Override
+	public boolean isLeaf() {
+		return false;
+	}
+
+	@Override
+	public void setUserObject(Object userObject) {
+		if (String.class.isInstance(userObject))
+			((Bone) getUserObject()).setName((String) userObject);
+		else
+			super.setUserObject(userObject);
+	}
+
 }
