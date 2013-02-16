@@ -1,6 +1,7 @@
 package ar.com.ktulu.editorHuesos.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,7 +42,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JToolBar toolBar;
 	private JButton btnAgregar;
 	private JScrollPane scrollPane;
-	private JLabel imageLabel;
+	private ImageView imageView;
 	private JButton btnAddImages;
 	private JButton btnRemoveBone;
 
@@ -83,9 +85,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		scrollPane = new JScrollPane();
 		splitPane.setRightComponent(scrollPane);
 
-		imageLabel = new JLabel();
-		scrollPane.setViewportView(imageLabel);
-		imageLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		imageView = new ImageView();
+		scrollPane.setViewportView(imageView);
 
 		toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -126,8 +127,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		bonesTree.setModel(model);
 		bonesTree.setEditable(true);
 		bonesTree.addTreeSelectionListener(this);
-		
-		scrollPane.addMouseListener(new ImageMouseListener());
+
+		scrollPane.addMouseListener(new ImageMouseListener(this));
 	}
 
 	protected void removeBone() {
@@ -247,7 +248,17 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	private void updateImage(String path) {
-		ImageIcon img = new ImageIcon(path);
-		imageLabel.setIcon(img);
+		imageView.loadImage(path);
+	}
+
+	public void addPoint(int x, int y) {
+		TreePath path = bonesTree.getSelectionPath();
+		if (path != null) {
+			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
+					.getLastPathComponent();
+			if (isBoneImageNode(selectedNode)) {
+				imageView.addPoint(x, y);
+			}
+		}
 	}
 }

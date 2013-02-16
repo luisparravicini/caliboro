@@ -7,3 +7,4 @@ TODO
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups
   - los nodos expandidos/contraidos son medio pedorros, no se ve por los iconos, deberia estar siempre expandido y sin iconos
+  - apenas cargo la imagen, si resizeo, se reacomoda
