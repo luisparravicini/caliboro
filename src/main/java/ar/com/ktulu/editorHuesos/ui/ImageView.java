@@ -67,6 +67,10 @@ public class ImageView extends JPanel {
 		}
 	}
 
+	public List<Dot> getDots() {
+		return dots;
+	}
+
 }
 
 class Dot {
@@ -93,5 +97,14 @@ class Dot {
 		this(point.x, point.y);
 		name = point.name;
 		this.point = point;
+	}
+
+	public void setPos(int x, int y) {
+		pos.x = x;
+		pos.y = y;
+		if (point != null) {
+			point.x = x;
+			point.y = y;
+		}
 	}
 }

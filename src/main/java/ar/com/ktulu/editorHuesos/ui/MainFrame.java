@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JButton btnAddImages;
 	private JButton btnRemoveBone;
 	private JButton btnAgregarPunto;
-	private BonePoint draggingPoint;
+	private Dot draggingPoint;
 
 	/**
 	 * Launch the application.
@@ -274,31 +274,33 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			draggingPoint = findIfPointIn(x, y);
 
 		if (draggingPoint != null) {
+			draggingPoint.setPos(x, y);
+			imageView.repaint();
 		}
 	}
 
-	private BonePoint findIfPointIn(int x, int y) {
-		TreePath path = bonesTree.getSelectionPath();
-		if (path != null) {
-			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
-					.getLastPathComponent();
-			if (!isBoneImageNode(selectedNode))
-				return null;
+	private Dot findIfPointIn(int x, int y) {
+		boolean init = false;
+		int d;
+		Rectangle hitBox = null;
 
-			BoneImage img = (BoneImage) selectedNode.getUserObject();
-			int d = 5;
-			Rectangle hitBox = new Rectangle(x - d, y - d, d * 2, d * 2);
-			for (BonePoint point : img.getPoints()) {
-				if (hitBox.contains(point.x,  point.y))
-					return point;
+		for (Dot point : imageView.getDots()) {
+			if (!init) {
+				init = true;
+				d = point.img.getWidth();
+				hitBox = new Rectangle(x - d, y - d, d * 2, d * 2);
 			}
-			img.addPoint(x, y);
+			if (hitBox.contains(point.pos))
+				return point;
 		}
 
 		return null;
 	}
 
 	public void finishDragging() {
+		if (draggingPoint != null)
+			BonesStore.getInstance().dirty();
+
 		draggingPoint = null;
 	}
 }
