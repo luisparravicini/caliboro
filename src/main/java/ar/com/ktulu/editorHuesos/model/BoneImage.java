@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.editorHuesos.model;
 
 import java.io.File;
 import java.util.ArrayList;

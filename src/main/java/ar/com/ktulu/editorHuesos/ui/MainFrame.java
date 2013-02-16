@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.editorHuesos.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -27,6 +27,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import ar.com.ktulu.editorHuesos.BonesLoader;
+import ar.com.ktulu.editorHuesos.LoaderException;
+import ar.com.ktulu.editorHuesos.model.Bone;
 
 public class MainFrame extends JFrame implements TreeModelListener,
 		TreeSelectionListener {

@@ -1,6 +1,8 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.editorHuesos.ui;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import ar.com.ktulu.editorHuesos.model.BoneImage;
 
 public class BoneImageTreeNode extends DefaultMutableTreeNode {
 	public BoneImageTreeNode(BoneImage boneImage) {
