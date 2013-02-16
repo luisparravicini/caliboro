@@ -8,11 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -72,7 +70,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		setContentPane(contentPane);
 
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setDividerLocation(150);
+		splitPane.setDividerLocation(180);
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
 		bonesTree = new JTree();
@@ -162,12 +160,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
-		bonesTree.getSelectionPath();
+		TreePath path = bonesTree.getSelectionPath();
+		if (path != null) {
+			BoneTreeNode node = (BoneTreeNode) path.getLastPathComponent();
+			node.addBoneImage(file);
+			model.reload();
+		}
 	}
 
 	protected void addBone() {
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode(
-				"Nombre del hueso");
+		BoneTreeNode node = new BoneTreeNode(new Bone("Nombre del hueso"));
 
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
@@ -183,10 +185,6 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		ImageIcon img = new ImageIcon(
-				"/Users/xrm0/Documents/dev/huesos/initializr/huesos/canines-lg.jpg");
-		imageLabel.setIcon(img);
 	}
 
 	public void treeNodesChanged(TreeModelEvent e) {
@@ -217,5 +215,24 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	@Override
 	public void valueChanged(TreeSelectionEvent event) {
 		updateButtonsStatus((DefaultTreeModel) bonesTree.getModel());
+		updateBoneImageView(event.getPath());
+	}
+
+	private void updateBoneImageView(TreePath path) {
+		if (path != null) {
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
+					.getLastPathComponent();
+			if (!BoneImageTreeNode.class.isInstance(node))
+				return;
+
+			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
+			updateImage(imgNode.getImagePath());
+		}
+	}
+
+	private void updateImage(String path) {
+		ImageIcon img = new ImageIcon(path);
+		imageLabel.setIcon(img);
+		imageLabel.invalidate();
 	}
 }
