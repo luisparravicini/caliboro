@@ -27,6 +27,7 @@ import javax.swing.tree.TreePath;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
+import ar.com.ktulu.editorHuesos.model.BoneImage;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -49,7 +50,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		BonesStore.getInstance().load();
 
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {		
+			public void run() {
 				try {
 					MainFrame frame = new MainFrame();
 					frame.setup();
@@ -128,6 +129,15 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		bonesTree.setEditable(true);
 		bonesTree.addTreeSelectionListener(this);
 
+		BonesStore store = BonesStore.getInstance();
+		store.freeze();
+		try {
+			for (Bone bone : BonesStore.getInstance().data())
+				addBone(bone);
+		} finally {
+			store.unfreeze();
+		}
+
 		scrollPane.addMouseListener(new ImageMouseListener(this));
 	}
 
@@ -181,7 +191,11 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	protected void addBone() {
-		BoneTreeNode node = new BoneTreeNode(new Bone("Nombre del hueso"));
+		addBone(new Bone("Nombre del hueso"));
+	}
+
+	private void addBone(Bone bone) {
+		BoneTreeNode node = new BoneTreeNode(bone);
 
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
@@ -229,16 +243,12 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				return;
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
-			updateImage(imgNode.getImagePath());
+			imageView.loadImage(imgNode);
 		}
 	}
 
 	private boolean isBoneImageNode(DefaultMutableTreeNode node) {
 		return (BoneImageTreeNode.class.isInstance(node));
-	}
-
-	private void updateImage(String path) {
-		imageView.loadImage(path);
 	}
 
 	public void addPoint(int x, int y) {
@@ -247,6 +257,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
 			if (isBoneImageNode(selectedNode)) {
+				BoneImage img = (BoneImage) selectedNode.getUserObject();
+				img.addPoint(x, y);
 				imageView.addPoint(x, y);
 			}
 		}

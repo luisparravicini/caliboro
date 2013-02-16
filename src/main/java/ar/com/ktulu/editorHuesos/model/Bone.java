@@ -3,6 +3,8 @@ package ar.com.ktulu.editorHuesos.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.ktulu.editorHuesos.BonesStore;
+
 public class Bone {
 	private String name;
 	private List<BoneImage> images;
@@ -24,8 +26,12 @@ public class Bone {
 		return getName();
 	}
 
+	public List<BoneImage> getImages() {
+		return images;
+	}
+
 	public void addImage(String path) {
-		images.add(new BoneImage(path));
+		addImage(new BoneImage(path));
 	}
 
 	public BoneImage lastImage() {
@@ -33,5 +39,9 @@ public class Bone {
 			return null;
 		else
 			return images.get(images.size() - 1);
+	}
+
+	public void addImage(BoneImage img) {
+		images.add(img);
 	}
 }

@@ -1,9 +1,10 @@
 package ar.com.ktulu.editorHuesos.model;
 
-import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.com.ktulu.editorHuesos.BonesStore;
 
 public class BoneImage {
 	private String name;
@@ -11,9 +12,29 @@ public class BoneImage {
 	private List<BonePoint> points;
 
 	public BoneImage(String path) {
+		this();
 		imagePath = new File(path);
-		points = new ArrayList<BonePoint>();
 		name = imagePath.getName();
+	}
+
+	public BoneImage() {
+		points = new ArrayList<BonePoint>();
+	}
+
+	public void setImagePath(String path) {
+		this.imagePath = new File(path);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public File getImagePath() {
+		return imagePath;
+	}
+
+	public List<BonePoint> getPoints() {
+		return points;
 	}
 
 	public String toString() {
@@ -27,9 +48,14 @@ public class BoneImage {
 	public String getPath() {
 		return imagePath.getAbsolutePath();
 	}
-}
 
-class BonePoint {
-	public String name;
-	public Point pos;
+	public void addPoint(BonePoint point) {
+		points.add(point);
+		
+		BonesStore.getInstance().dirty();
+	}
+
+	public void addPoint(int x, int y) {
+		addPoint(new BonePoint(x, y));
+	}
 }

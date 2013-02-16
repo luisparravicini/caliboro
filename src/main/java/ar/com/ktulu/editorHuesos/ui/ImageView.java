@@ -12,34 +12,30 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import ar.com.ktulu.editorHuesos.model.BonePoint;
+
 @SuppressWarnings("serial")
 public class ImageView extends JPanel {
 	private BufferedImage image;
 	private List<Dot> dots;
 
 	public ImageView() {
-		// try {
-		// // Use this if the image exists within the file system
-		// image = ImageIO.read(new File("/path/to/image/imageName.png"));
-		// // Use this if the image is an embedded resource
-		// // image =
-		// //
-		// ImageIO.read(getClass().getResource("/path/to/resource/imageName.png"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		//
-
 		dots = new ArrayList<Dot>();
 	}
 
-	public void loadImage(String path) {
+	public void loadImage(BoneImageTreeNode imgNode) {
 		try {
-			image = ImageIO.read(new File(path));
+			image = ImageIO.read(new File(imgNode.getImagePath()));
+
+			List<Dot> newDots = new ArrayList<Dot>();
+			for (BonePoint point : imgNode.getPoints())
+				newDots.add(new Dot(point));
+			dots = newDots;
 		} catch (IOException e) {
 			// viva la runtime exception
 			throw new RuntimeException(e);
 		}
+
 		invalidate();
 		repaint();
 	}
@@ -76,12 +72,24 @@ public class ImageView extends JPanel {
 class Dot {
 	public BufferedImage img;
 	public Point pos;
+	public String name;
 
 	public Dot(int x, int y) throws IOException {
+		this();
+		pos.x = x;
+		pos.y = y;
+
+		pos.x -= img.getWidth() / 2;
+		pos.y -= img.getHeight() / 2;
+	}
+
+	public Dot() throws IOException {
 		img = ImageIO.read(getClass().getResource("/dot.png"));
-		pos = new Point(x,  y);
-		
-		pos.x -= img.getWidth()/2;
-		pos.y -= img.getHeight()/2;
+		pos = new Point(0, 0);
+	}
+
+	public Dot(BonePoint point) throws IOException {
+		this(point.x, point.y);
+		name = point.name;
 	}
 }

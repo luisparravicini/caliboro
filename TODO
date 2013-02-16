@@ -6,9 +6,12 @@ TODO
   - copiar la imagen a un repo local?
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - boton agregar/quitar puntos
+  - cuando tengo que agregar fotos, es molesto agregar de a una
   - editar puntos
   - ingresar nombre del punto
   - boton preview que abra un browser?
+  - cuando borro un huego, no me borra del store
+  - deberia poder eliminar imagenes del hueso
   
   - como se llaman los puntos que van en los huesos?
 
@@ -17,3 +20,6 @@ TODO
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups
   - los nodos expandidos/contraidos son medio pedorros, no se ve por los iconos, deberia estar siempre expandido y sin iconos
+
+  - tal vez guardar/leer en json es un poco complicado (comparado con otras opciones). Al menos la lectura, persistirlo son dos lineas
+  - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa
