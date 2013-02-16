@@ -10,6 +10,6 @@ public class BoneImageTreeNode extends DefaultMutableTreeNode {
 	}
 
 	public String getImagePath() {
-		return ((BoneImage)getUserObject()).getPath();
+		return ((BoneImage) getUserObject()).getPath();
 	}
 }
