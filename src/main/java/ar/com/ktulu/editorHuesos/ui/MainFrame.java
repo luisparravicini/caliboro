@@ -166,7 +166,13 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		TreePath path = bonesTree.getSelectionPath();
 		if (path != null) {
-			BoneTreeNode node = (BoneTreeNode) path.getLastPathComponent();
+			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
+					.getLastPathComponent();
+			if (isBoneImageNode(selectedNode))
+				selectedNode = (DefaultMutableTreeNode) selectedNode
+						.getParent();
+
+			BoneTreeNode node = (BoneTreeNode) selectedNode;
 			node.addBoneImage(file);
 			model.reload();
 		}
@@ -226,12 +232,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		if (path != null) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
-			if (!BoneImageTreeNode.class.isInstance(node))
+			if (!isBoneImageNode(node))
 				return;
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
 			updateImage(imgNode.getImagePath());
 		}
+	}
+
+	private boolean isBoneImageNode(DefaultMutableTreeNode node) {
+		return (BoneImageTreeNode.class.isInstance(node));
 	}
 
 	private void updateImage(String path) {
