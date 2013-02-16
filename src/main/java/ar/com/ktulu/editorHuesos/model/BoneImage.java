@@ -1,5 +1,6 @@
 package ar.com.ktulu.editorHuesos.model;
 
+import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,5 @@ public class BoneImage {
 
 class BonePoint {
 	public String name;
-	public int x;
-	public int y;
+	public Point pos;
 }

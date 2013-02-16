@@ -69,7 +69,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
@@ -85,7 +85,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		imageLabel = new JLabel();
 		scrollPane.setViewportView(imageLabel);
-		imageLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		imageLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
 
 		toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -126,6 +126,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		bonesTree.setModel(model);
 		bonesTree.setEditable(true);
 		bonesTree.addTreeSelectionListener(this);
+		
+		scrollPane.addMouseListener(new ImageMouseListener());
 	}
 
 	protected void removeBone() {
