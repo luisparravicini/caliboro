@@ -155,12 +155,12 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		// TODO recien en jdk7 puedo seleccionar varios archivos a la vez
 
-		String file = fileDlg.getFile();
-		if (file != null)
-			addBoneImage(file);
+		String filename = fileDlg.getFile();
+		if (filename != null)
+			addBoneImage(new File(fileDlg.getDirectory(), filename));
 	}
 
-	private void addBoneImage(String file) {
+	private void addBoneImage(File filePath) {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
@@ -173,7 +173,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 						.getParent();
 
 			BoneTreeNode node = (BoneTreeNode) selectedNode;
-			node.addBoneImage(file);
+			node.addBoneImage(filePath.getAbsolutePath());
 			model.reload();
 		}
 	}
@@ -247,6 +247,5 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private void updateImage(String path) {
 		ImageIcon img = new ImageIcon(path);
 		imageLabel.setIcon(img);
-		imageLabel.invalidate();
 	}
 }
