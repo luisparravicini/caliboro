@@ -57,9 +57,9 @@ public class ImageView extends JPanel {
 			g.drawImage(dot.img, dot.pos.x, dot.pos.y, this);
 	}
 
-	public void addPoint(int x, int y) {
+	public void addPoint(BonePoint point) {
 		try {
-			dots.add(new Dot(x, y));
+			dots.add(new Dot(point));
 			repaint();
 		} catch (IOException e) {
 			// viva la runtime exception
@@ -73,8 +73,9 @@ class Dot {
 	public BufferedImage img;
 	public Point pos;
 	public String name;
+	public BonePoint point;
 
-	public Dot(int x, int y) throws IOException {
+	private Dot(int x, int y) throws IOException {
 		this();
 		pos.x = x;
 		pos.y = y;
@@ -83,7 +84,7 @@ class Dot {
 		pos.y -= img.getHeight() / 2;
 	}
 
-	public Dot() throws IOException {
+	private Dot() throws IOException {
 		img = ImageIO.read(getClass().getResource("/dot.png"));
 		pos = new Point(0, 0);
 	}
@@ -91,5 +92,6 @@ class Dot {
 	public Dot(BonePoint point) throws IOException {
 		this(point.x, point.y);
 		name = point.name;
+		this.point = point;
 	}
 }

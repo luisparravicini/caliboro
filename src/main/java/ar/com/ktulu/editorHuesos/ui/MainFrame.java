@@ -3,6 +3,7 @@ package ar.com.ktulu.editorHuesos.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FileDialog;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,6 +29,7 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
+import ar.com.ktulu.editorHuesos.model.BonePoint;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -42,6 +44,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JButton btnAddImages;
 	private JButton btnRemoveBone;
 	private JButton btnAgregarPunto;
+	private BonePoint draggingPoint;
 
 	/**
 	 * Launch the application.
@@ -138,7 +141,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			store.unfreeze();
 		}
 
-		scrollPane.addMouseListener(new ImageMouseListener(this));
+		ImageMouseListener mouseListener = new ImageMouseListener(this);
+		scrollPane.addMouseListener(mouseListener);
+		scrollPane.addMouseMotionListener(mouseListener);
 	}
 
 	protected void removeBone() {
@@ -251,16 +256,49 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		return (BoneImageTreeNode.class.isInstance(node));
 	}
 
-	public void addPoint(int x, int y) {
+	public void mousePressed(int x, int y) {
 		TreePath path = bonesTree.getSelectionPath();
 		if (path != null) {
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
-			if (isBoneImageNode(selectedNode)) {
-				BoneImage img = (BoneImage) selectedNode.getUserObject();
-				img.addPoint(x, y);
-				imageView.addPoint(x, y);
-			}
+			if (!isBoneImageNode(selectedNode))
+				return;
+
+			BoneImage img = (BoneImage) selectedNode.getUserObject();
+			imageView.addPoint(img.addPoint(x, y));
 		}
+	}
+
+	public void mouseDragged(int x, int y) {
+		if (draggingPoint == null)
+			draggingPoint = findIfPointIn(x, y);
+
+		if (draggingPoint != null) {
+		}
+	}
+
+	private BonePoint findIfPointIn(int x, int y) {
+		TreePath path = bonesTree.getSelectionPath();
+		if (path != null) {
+			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
+					.getLastPathComponent();
+			if (!isBoneImageNode(selectedNode))
+				return null;
+
+			BoneImage img = (BoneImage) selectedNode.getUserObject();
+			int d = 5;
+			Rectangle hitBox = new Rectangle(x - d, y - d, d * 2, d * 2);
+			for (BonePoint point : img.getPoints()) {
+				if (hitBox.contains(point.x,  point.y))
+					return point;
+			}
+			img.addPoint(x, y);
+		}
+
+		return null;
+	}
+
+	public void finishDragging() {
+		draggingPoint = null;
 	}
 }
