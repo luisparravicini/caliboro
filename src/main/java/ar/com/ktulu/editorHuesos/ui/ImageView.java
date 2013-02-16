@@ -6,17 +6,13 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.management.RuntimeErrorException;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import org.omg.CORBA.RepositoryIdHelper;
-
+@SuppressWarnings("serial")
 public class ImageView extends JPanel {
 	private BufferedImage image;
 	private List<Dot> dots;

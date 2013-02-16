@@ -4,6 +4,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import ar.com.ktulu.editorHuesos.model.Bone;
 
+@SuppressWarnings("serial")
 public class BoneTreeNode extends DefaultMutableTreeNode {
 
 	public BoneTreeNode(Bone bone) {

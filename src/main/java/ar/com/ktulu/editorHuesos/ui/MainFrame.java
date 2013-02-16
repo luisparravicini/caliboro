@@ -1,20 +1,15 @@
 package ar.com.ktulu.editorHuesos.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.net.URL;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -30,10 +25,10 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import ar.com.ktulu.editorHuesos.BonesLoader;
-import ar.com.ktulu.editorHuesos.LoaderException;
+import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
 		TreeSelectionListener {
 
@@ -45,17 +40,19 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private ImageView imageView;
 	private JButton btnAddImages;
 	private JButton btnRemoveBone;
+	private JButton btnAgregarPunto;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		BonesStore.getInstance().load();
+
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run() {		
 				try {
 					MainFrame frame = new MainFrame();
 					frame.setup();
-					frame.loadBones();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -101,6 +98,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		btnAddImages = new JButton("Agregar fotos");
 		btnAddImages.setEnabled(false);
 		toolBar.add(btnAddImages);
+
+		btnAgregarPunto = new JButton("Agregar punto");
+		toolBar.add(btnAgregarPunto);
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,7 +165,6 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 	private void addBoneImage(File filePath) {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
 		TreePath path = bonesTree.getSelectionPath();
 		if (path != null) {
@@ -189,15 +188,6 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		root.add(node);
 		model.reload();
-	}
-
-	protected void loadBones() throws IOException {
-		try {
-			new BonesLoader().load();
-		} catch (LoaderException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void treeNodesChanged(TreeModelEvent e) {
