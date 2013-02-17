@@ -51,6 +51,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		MainFrame.startup();
+	}
+
+	public static void startup() {
 		BonesStore.getInstance().load();
 
 		EventQueue.invokeLater(new Runnable() {
