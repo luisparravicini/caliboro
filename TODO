@@ -1,26 +1,28 @@
 TODO
 ====
 
-
-  - persistir datos de puntos, huesos, imagenes
-  - copiar la imagen a un repo local?
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - boton agregar/quitar puntos
-  - podria guardar todo en un zip (json + fotos)
-  - cuando tengo que agregar fotos, es molesto agregar de a una
   - editar puntos
   - ingresar nombre del punto
   - boton preview que abra un browser?
   - cuando borro un huego, no me borra del store
   - deberia poder eliminar imagenes del hueso
-  - cuando muevo el punto, tengo que moverlo ajustando con el offset del mouse
   - como se llaman los puntos que van en los huesos?
-
   - preguntar si quiere borrar huesos
+  - guia de uso
+  
+PRIORIDAD BAJA:
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
-  - poner una barra de progreso cuando copia las imagenes al repo local?
-  - no permitir agregar fotos dups
+  - cuando tengo que agregar fotos, es molesto agregar de a una
   - los nodos expandidos/contraidos son medio pedorros, no se ve por los iconos, deberia estar siempre expandido y sin iconos
 
+COSAS QUE NO RESUELVO EN ESTA VERSION:
+  - poner una barra de progreso cuando copia las imagenes al repo local?
+  - no permitir agregar fotos dups
+  - podria guardar todo en un zip (json + fotos)
+  - copiar la imagen a un repo local?
   - tal vez guardar/leer en json es un poco complicado (comparado con otras opciones). Al menos la lectura, persistirlo son dos lineas
   - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa
+  - cuando muevo el punto, tengo que moverlo ajustando con el offset del mouse
+  
