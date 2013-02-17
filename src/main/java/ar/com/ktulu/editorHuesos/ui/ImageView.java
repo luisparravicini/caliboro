@@ -14,7 +14,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.text.html.CSS.Attribute;
 
 import ar.com.ktulu.editorHuesos.model.BonePoint;
 
@@ -58,7 +57,7 @@ public class ImageView extends JPanel {
 			g.drawImage(image, 0, 0, this);
 
 		for (Dot dot : dots) {
-			if (dot.name != null) {
+			if (dot.getName() != null) {
 				g.drawString(dot.nameAttrs.getIterator(), dot.pos.x,
 						(int) (dot.pos.y + dot.img.getHeight() * 2.5));
 			}
@@ -90,7 +89,6 @@ public class ImageView extends JPanel {
 class Dot {
 	public BufferedImage img;
 	public Point pos;
-	public String name;
 	public BonePoint point;
 	public AttributedString nameAttrs;
 
@@ -110,8 +108,8 @@ class Dot {
 
 	public Dot(BonePoint point) throws IOException {
 		this(point.x, point.y);
-		name = point.name;
-		nameAttrs = new AttributedString(name);
+		this.point = point;
+		nameAttrs = new AttributedString(point.getName());
 		nameAttrs.addAttribute(TextAttribute.BACKGROUND, Color.GRAY);
 		nameAttrs.addAttribute(TextAttribute.FOREGROUND, Color.WHITE);
 	}
@@ -123,5 +121,9 @@ class Dot {
 			point.x = x;
 			point.y = y;
 		}
+	}
+
+	public String getName() {
+		return point.getName();
 	}
 }
