@@ -71,6 +71,11 @@ public class ImageView extends JPanel {
 		return dots;
 	}
 
+	public void remove(Dot dot) {
+		dots.remove(dot);
+		repaint();
+	}
+
 }
 
 class Dot {

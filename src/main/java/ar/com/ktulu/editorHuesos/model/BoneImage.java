@@ -51,14 +51,22 @@ public class BoneImage {
 
 	public void addPoint(BonePoint point) {
 		points.add(point);
-		
+
 		BonesStore.getInstance().dirty();
 	}
 
 	public BonePoint addPoint(int x, int y) {
 		BonePoint point = new BonePoint(x, y);
 		addPoint(point);
-		
+
 		return point;
+	}
+
+	public void remove(BonePoint point) {
+		if (point == null)
+			return;
+
+		points.remove(point);
+		BonesStore.getInstance().dirty();
 	}
 }

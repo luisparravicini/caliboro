@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +30,6 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
-import ar.com.ktulu.editorHuesos.model.BonePoint;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -43,8 +43,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private ImageView imageView;
 	private JButton btnAddImages;
 	private JButton btnRemoveBone;
-	private JButton btnAgregarPunto;
+	private JButton btnBonePoints;
 	private Dot draggingPoint;
+	private boolean bonePointAdding = true;
 
 	/**
 	 * Launch the application.
@@ -103,8 +104,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		btnAddImages.setEnabled(false);
 		toolBar.add(btnAddImages);
 
-		btnAgregarPunto = new JButton("Agregar punto");
-		toolBar.add(btnAgregarPunto);
+		btnBonePoints = new JButton(getBonePointButtonLabel());
+		toolBar.add(btnBonePoints);
+
+		btnBonePoints.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				bonePointAdding = !bonePointAdding;
+				btnBonePoints.setText(getBonePointButtonLabel());
+			}
+		});
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -121,6 +130,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				removeBone();
 			}
 		});
+	}
+
+	private String getBonePointButtonLabel() {
+		return "Puntos: " + (bonePointAdding ? "Agregar" : "Borrar");
 	}
 
 	protected void setup() {
@@ -265,7 +278,15 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				return;
 
 			BoneImage img = (BoneImage) selectedNode.getUserObject();
-			imageView.addPoint(img.addPoint(x, y));
+			if (bonePointAdding) {
+				imageView.addPoint(img.addPoint(x, y));
+			} else {
+				Dot dot = findIfPointIn(x, y);
+				if (dot != null) {
+					imageView.remove(dot);
+					img.remove(dot.point);
+				}
+			}
 		}
 	}
 

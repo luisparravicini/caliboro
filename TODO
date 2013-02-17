@@ -2,7 +2,6 @@ TODO
 ====
 
   - exportar el .json y las imagenes para que pueda usarse con un browser
-  - boton agregar/quitar puntos
   - editar puntos
   - ingresar nombre del punto
   - boton preview que abra un browser?
@@ -10,7 +9,7 @@ TODO
   - deberia poder eliminar imagenes del hueso
   - como se llaman los puntos que van en los huesos?
   - preguntar si quiere borrar huesos
-  - guia de uso
+  - guia de uso (en markdown y generar otro formato desde ahi)
   - script que genere un jar para distribuir
   
 PRIORIDAD BAJA:
