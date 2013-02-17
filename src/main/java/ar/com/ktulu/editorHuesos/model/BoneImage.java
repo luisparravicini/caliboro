@@ -10,14 +10,16 @@ public class BoneImage {
 	private String name;
 	private File imagePath;
 	private List<BonePoint> points;
+	private Bone parent;
 
-	public BoneImage(String path) {
-		this();
+	public BoneImage(Bone parent, String path) {
+		this(parent);
 		imagePath = new File(path);
 		name = imagePath.getName();
 	}
 
-	public BoneImage() {
+	public BoneImage(Bone parent) {
+		this.parent = parent;
 		points = new ArrayList<BonePoint>();
 	}
 
@@ -68,5 +70,9 @@ public class BoneImage {
 
 		points.remove(point);
 		BonesStore.getInstance().dirty();
+	}
+
+	public void removeFromParent() {
+		parent.remove(this);
 	}
 }

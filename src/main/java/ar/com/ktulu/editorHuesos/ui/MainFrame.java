@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -43,7 +42,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JScrollPane scrollPane;
 	private ImageView imageView;
 	private JButton btnAddImages;
-	private JButton btnRemoveBone;
+	private JButton btnRemove;
 	private JButton btnBonePoints;
 	private Dot draggingPoint;
 	private boolean bonePointAdding = true;
@@ -97,9 +96,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		btnAgregar = new JButton("Agregar hueso");
 		toolBar.add(btnAgregar);
 
-		btnRemoveBone = new JButton("Borrar hueso");
-		btnRemoveBone.setEnabled(false);
-		toolBar.add(btnRemoveBone);
+		btnRemove = new JButton("Borrar");
+		btnRemove.setEnabled(false);
+		toolBar.add(btnRemove);
 
 		btnAddImages = new JButton("Agregar fotos");
 		btnAddImages.setEnabled(false);
@@ -126,9 +125,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				addBoneImages();
 			}
 		});
-		btnRemoveBone.addActionListener(new ActionListener() {
+		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				removeBone();
+				removeNode();
 			}
 		});
 	}
@@ -160,14 +159,20 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		scrollPane.addMouseMotionListener(mouseListener);
 	}
 
-	protected void removeBone() {
+	protected void removeNode() {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
 		TreePath[] selection = bonesTree.getSelectionPaths();
 
-		if (selection != null)
-			for (TreePath path : selection)
-				model.removeNodeFromParent((MutableTreeNode) path
-						.getLastPathComponent());
+		if (selection != null) {
+			for (TreePath path : selection) {
+				MutableTreeNode node = (MutableTreeNode) path
+						.getLastPathComponent();
+				// TODO esta mal esto asi
+				if (BaseBoneTreeNode.class.isInstance(node))
+					((BaseBoneTreeNode) node).removeDataNode();
+			}
+			model.reload();
+		}
 	}
 
 	protected void addBoneImages() {
@@ -245,7 +250,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		boolean boneSelected = (bonesTree.getSelectionCount() > 0);
 
 		btnAddImages.setEnabled(bonesExist && boneSelected);
-		btnRemoveBone.setEnabled(bonesExist && boneSelected);
+		btnRemove.setEnabled(bonesExist && boneSelected);
 	}
 
 	@Override
@@ -306,9 +311,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 					JOptionPane.PLAIN_MESSAGE, null, null, null);
 			if (name == null)
 				return null;
-			
+
 			name = name.trim();
-			
+
 			if (name.isEmpty())
 				JOptionPane.showMessageDialog(this,
 						"El nombre no puede ser vacío");

@@ -122,8 +122,6 @@ class Dot {
 			point.y = y;
 		}
 	}
-
-	public String getName() {
-		return point.getName();
-	}
+	
+	public String getName() { return point.getName(); }
 }

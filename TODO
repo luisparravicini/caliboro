@@ -3,11 +3,9 @@ TODO
 
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - boton preview que abra un browser?
-  - cuando borro un huego, no me borra del store
-  - deberia poder eliminar imagenes del hueso
   - preguntar si quiere borrar huesos
-  - guia de uso (en markdown y generar otro formato desde ahi)
   - script que genere un jar para distribuir
+  - guia de uso
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   
 PRIORIDAD BAJA:
@@ -17,9 +15,11 @@ PRIORIDAD BAJA:
   - cambiar nombre de un punto que ya existe
 
 COSAS QUE NO RESUELVO EN ESTA VERSION:
+  - guia de uso en markdown (y generar otro formato desde ahi)
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups
   - podria guardar todo en un zip (json + fotos)
+  - cuando borro huesos/imagenes, el arbol se colapsa (creo que porque hago model.reload() en vez de tocar solo el nodo afectado)
   - copiar la imagen a un repo local?
   - tal vez guardar/leer en json es un poco complicado (comparado con otras opciones). Al menos la lectura, persistirlo son dos lineas
   - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa

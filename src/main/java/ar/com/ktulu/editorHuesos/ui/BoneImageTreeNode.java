@@ -2,20 +2,25 @@ package ar.com.ktulu.editorHuesos.ui;
 
 import java.util.List;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
 import ar.com.ktulu.editorHuesos.model.BonePoint;
 
 @SuppressWarnings("serial")
-public class BoneImageTreeNode extends DefaultMutableTreeNode {
+public class BoneImageTreeNode extends BaseBoneTreeNode {
 	public BoneImageTreeNode(BoneImage boneImage) {
 		setUserObject(boneImage);
 	}
 
 	public String getImagePath() {
 		return ((BoneImage) getUserObject()).getPath();
+	}
+
+	@Override
+	public void removeDataNode() {
+		((BoneImage) getUserObject()).removeFromParent();
+		BonesStore.getInstance().dirty();
+		super.removeDataNode();
 	}
 
 	@Override

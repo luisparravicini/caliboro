@@ -29,7 +29,7 @@ public class Bone {
 	}
 
 	public void addImage(String path) {
-		addImage(new BoneImage(path));
+		addImage(new BoneImage(this, path));
 	}
 
 	public BoneImage lastImage() {
@@ -41,5 +41,9 @@ public class Bone {
 
 	public void addImage(BoneImage img) {
 		images.add(img);
+	}
+
+	public void remove(BoneImage boneImage) {
+		images.remove(boneImage);
 	}
 }

@@ -44,7 +44,7 @@ public class BonesStore {
 
 		try {
 			freeze();
-			
+
 			InputStreamReader reader = new FileReader(storePath);
 			JSONArray bones = new JSONArray(new JSONTokener(reader));
 			reader.close();
@@ -69,7 +69,7 @@ public class BonesStore {
 		for (int i = 0; i < images.length(); i++) {
 			JSONObject imgObj = images.getJSONObject(i);
 
-			BoneImage img = new BoneImage();
+			BoneImage img = new BoneImage(bone);
 			img.setName(imgObj.getString("name"));
 			img.setImagePath(imgObj.getString("imagePath"));
 			readPoints(imgObj, img);
@@ -108,7 +108,7 @@ public class BonesStore {
 			System.err.println("pum");
 			throw new RuntimeException("Sin datos");
 		}
-		
+
 		JSONArray jsonData = new JSONArray();
 		for (Bone bone : data) {
 			JSONObject obj = new JSONObject(bone);
@@ -158,6 +158,11 @@ public class BonesStore {
 
 	public void unfreeze() {
 		frozen = false;
+	}
+
+	public void remove(Bone bone) {
+		data.remove(bone);
+		save();
 	}
 
 }
