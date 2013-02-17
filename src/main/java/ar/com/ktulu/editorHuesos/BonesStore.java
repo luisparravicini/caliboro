@@ -104,11 +104,6 @@ public class BonesStore {
 		if (frozen)
 			return;
 
-		if (data.size() == 0) {
-			System.err.println("pum");
-			throw new RuntimeException("Sin datos");
-		}
-
 		JSONArray jsonData = new JSONArray();
 		for (Bone bone : data) {
 			JSONObject obj = new JSONObject(bone);

@@ -172,8 +172,14 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				MutableTreeNode node = (MutableTreeNode) path
 						.getLastPathComponent();
 				// TODO esta mal esto asi
-				if (BaseBoneTreeNode.class.isInstance(node))
-					((BaseBoneTreeNode) node).removeDataNode();
+				if (BaseBoneTreeNode.class.isInstance(node)) {
+					if (JOptionPane
+							.showConfirmDialog(
+									this,
+									"¿está seguro de borrar los elementos seleccionados?",
+									"Borrar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+						((BaseBoneTreeNode) node).removeDataNode();
+				}
 			}
 			model.reload();
 		}
