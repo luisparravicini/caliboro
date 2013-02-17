@@ -11,6 +11,7 @@ TODO
   - como se llaman los puntos que van en los huesos?
   - preguntar si quiere borrar huesos
   - guia de uso
+  - script que genere un jar para distribuir
   
 PRIORIDAD BAJA:
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
