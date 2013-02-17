@@ -3,8 +3,6 @@ package ar.com.ktulu.editorHuesos.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.ktulu.editorHuesos.BonesStore;
-
 public class Bone {
 	private String name;
 	private List<BoneImage> images;

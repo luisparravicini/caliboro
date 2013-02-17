@@ -1,16 +1,20 @@
 package ar.com.ktulu.editorHuesos.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.text.html.CSS.Attribute;
 
 import ar.com.ktulu.editorHuesos.model.BonePoint;
 
@@ -53,8 +57,13 @@ public class ImageView extends JPanel {
 		if (image != null)
 			g.drawImage(image, 0, 0, this);
 
-		for (Dot dot : dots)
+		for (Dot dot : dots) {
+			if (dot.name != null) {
+				g.drawString(dot.nameAttrs.getIterator(), dot.pos.x,
+						(int) (dot.pos.y + dot.img.getHeight() * 2.5));
+			}
 			g.drawImage(dot.img, dot.pos.x, dot.pos.y, this);
+		}
 	}
 
 	public void addPoint(BonePoint point) {
@@ -83,6 +92,7 @@ class Dot {
 	public Point pos;
 	public String name;
 	public BonePoint point;
+	public AttributedString nameAttrs;
 
 	private Dot(int x, int y) throws IOException {
 		this();
@@ -101,7 +111,9 @@ class Dot {
 	public Dot(BonePoint point) throws IOException {
 		this(point.x, point.y);
 		name = point.name;
-		this.point = point;
+		nameAttrs = new AttributedString(name);
+		nameAttrs.addAttribute(TextAttribute.BACKGROUND, Color.GRAY);
+		nameAttrs.addAttribute(TextAttribute.FOREGROUND, Color.WHITE);
 	}
 
 	public void setPos(int x, int y) {

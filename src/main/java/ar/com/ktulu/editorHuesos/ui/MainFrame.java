@@ -12,6 +12,7 @@ import java.io.FilenameFilter;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -278,16 +279,42 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				return;
 
 			BoneImage img = (BoneImage) selectedNode.getUserObject();
-			if (bonePointAdding) {
-				imageView.addPoint(img.addPoint(x, y));
-			} else {
-				Dot dot = findIfPointIn(x, y);
-				if (dot != null) {
-					imageView.remove(dot);
-					img.remove(dot.point);
-				}
+			onMousePressed(img, x, y);
+		}
+	}
+
+	private void onMousePressed(BoneImage img, int x, int y) {
+		if (bonePointAdding) {
+			String name = userInputsPointName();
+			if (name == null)
+				return;
+
+			imageView.addPoint(img.addPoint(name, x, y));
+		} else {
+			Dot dot = findIfPointIn(x, y);
+			if (dot != null) {
+				imageView.remove(dot);
+				img.remove(dot.point);
 			}
 		}
+	}
+
+	private String userInputsPointName() {
+		String name;
+		do {
+			name = (String) JOptionPane.showInputDialog(this, "Nombre", null,
+					JOptionPane.PLAIN_MESSAGE, null, null, null);
+			if (name == null)
+				return null;
+			
+			name = name.trim();
+			
+			if (name.isEmpty())
+				JOptionPane.showMessageDialog(this,
+						"El nombre no puede ser vacío");
+		} while (name.isEmpty());
+
+		return name;
 	}
 
 	public void mouseDragged(int x, int y) {

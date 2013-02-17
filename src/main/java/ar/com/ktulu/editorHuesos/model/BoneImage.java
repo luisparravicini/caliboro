@@ -55,8 +55,8 @@ public class BoneImage {
 		BonesStore.getInstance().dirty();
 	}
 
-	public BonePoint addPoint(int x, int y) {
-		BonePoint point = new BonePoint(x, y);
+	public BonePoint addPoint(String name, int x, int y) {
+		BonePoint point = new BonePoint(name, x, y);
 		addPoint(point);
 
 		return point;
