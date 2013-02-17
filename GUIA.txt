@@ -1,5 +1,0 @@
-
- - usar las imagenes que se van a usar en la version final. Si estas despues las modifican en tamaño, se pierde el lugar de los puntos
- - cuando se agrega una foto al hueso, se guarda solo la referencia al archivo. Si borramos/movemos de lugar la imagen, perdemos la referencia
- - como instalar java
- 

@@ -46,6 +46,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JButton btnBonePoints;
 	private Dot draggingPoint;
 	private boolean bonePointAdding = true;
+	private JButton btnExportar;
+	private JButton btnPrevisualizar;
 
 	/**
 	 * Launch the application.
@@ -75,7 +77,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 510, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -110,6 +112,12 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		btnBonePoints = new JButton(getBonePointButtonLabel());
 		toolBar.add(btnBonePoints);
+		
+		btnExportar = new JButton("Exportar");
+		toolBar.add(btnExportar);
+		
+		btnPrevisualizar = new JButton("Previsualizar");
+		toolBar.add(btnPrevisualizar);
 
 		btnBonePoints.addActionListener(new ActionListener() {
 			@Override
