@@ -10,6 +10,7 @@ TODO
   - preguntar si quiere borrar huesos
   - guia de uso (en markdown y generar otro formato desde ahi)
   - script que genere un jar para distribuir
+  - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   
 PRIORIDAD BAJA:
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
