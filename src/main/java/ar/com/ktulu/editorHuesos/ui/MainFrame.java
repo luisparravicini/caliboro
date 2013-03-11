@@ -7,7 +7,9 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -57,16 +59,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	public static void startup() {
-		BonesStore.getInstance().load();
-
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				EventQueueErrorCatcher.install();
 				try {
+					BonesStore.getInstance().load();
 					MainFrame frame = new MainFrame();
 					frame.setup();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					EventQueueErrorCatcher.logError(e);
 				}
 			}
 		});
@@ -112,10 +114,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		btnBonePoints = new JButton(getBonePointButtonLabel());
 		toolBar.add(btnBonePoints);
-		
+
 		btnExportar = new JButton("Exportar");
 		toolBar.add(btnExportar);
-		
+
 		btnPrevisualizar = new JButton("Previsualizar");
 		toolBar.add(btnPrevisualizar);
 
@@ -129,7 +131,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addBone();
+				throw new RuntimeException("adasd");
+				// addBone();
 			}
 		});
 		btnAddImages.addActionListener(new ActionListener() {

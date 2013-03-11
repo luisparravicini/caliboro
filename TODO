@@ -4,6 +4,37 @@ TODO
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - boton preview que abra un browser?
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
+
+  - en windows dio este error (en dos maquinas):
+E:\huesos>java -jar editorHuesos-release-1.0-SNAPSHOT.jar
+Exception in thread "AWT-EventQueue-0" ar.com.ktulu.editorHuesos.StoreException:
+ No se pudo renombrar el archivo temporario
+        at ar.com.ktulu.editorHuesos.BonesStore.save(BonesStore.java:121)
+        at ar.com.ktulu.editorHuesos.BonesStore.dirty(BonesStore.java:143)
+        at ar.com.ktulu.editorHuesos.ui.BoneTreeNode.addBoneImage(BoneTreeNode.j
+ava:31)
+        at ar.com.ktulu.editorHuesos.ui.MainFrame.addBoneImage(MainFrame.java:23
+0)
+        at ar.com.ktulu.editorHuesos.ui.MainFrame.addBoneImages(MainFrame.java:2
+15)
+        at ar.com.ktulu.editorHuesos.ui.MainFrame$4.actionPerformed(MainFrame.ja
+va:137)
+        at javax.swing.AbstractButton.fireActionPerformed(Unknown Source)
+        at javax.swing.AbstractButton$Handler.actionPerformed(Unknown Source)
+        at javax.swing.DefaultButtonModel.fireActionPerformed(Unknown Source)
+        at javax.swing.DefaultButtonModel.setPressed(Unknown Source)
+        at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Sour
+ce)
+        at java.awt.Component.processMouseEvent(Unknown Source)
+        at javax.swing.JComponent.processMouseEvent(Unknown Source)
+        at java.awt.Component.processEvent(Unknown Source)
+        at java.awt.Container.processEvent(Unknown Source)
+        at java.awt.Component.dispatchEventImpl(Unknown Source)
+        at java.awt.Container.dispatchEventImpl(Unknown Source)
+        at java.awt.Component.dispatchEvent(Unknown Source)
+        at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+        at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+
   
 PRIORIDAD BAJA:
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
