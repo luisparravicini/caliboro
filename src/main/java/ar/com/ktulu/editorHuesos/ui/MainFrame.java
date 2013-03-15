@@ -89,6 +89,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		contentPane.add(splitPane, BorderLayout.CENTER);
 
 		bonesTree = new JTree();
+		bonesTree.setShowsRootHandles(true);
 		splitPane.setLeftComponent(bonesTree);
 
 		scrollPane = new JScrollPane();

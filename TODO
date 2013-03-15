@@ -39,7 +39,6 @@ ce)
 PRIORIDAD BAJA:
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
   - cuando tengo que agregar fotos, es molesto agregar de a una
-  - los nodos expandidos/contraidos son medio pedorros, no se ve por los iconos, deberia estar siempre expandido y sin iconos
   - cambiar nombre de un punto que ya existe
 
 COSAS QUE NO RESUELVO EN ESTA VERSION:
@@ -47,7 +46,6 @@ COSAS QUE NO RESUELVO EN ESTA VERSION:
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups
   - podria guardar todo en un zip (json + fotos)
-  - cuando borro huesos/imagenes, el arbol se colapsa (creo que porque hago model.reload() en vez de tocar solo el nodo afectado)
   - copiar la imagen a un repo local?
   - tal vez guardar/leer en json es un poco complicado (comparado con otras opciones). Al menos la lectura, persistirlo son dos lineas
   - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa
