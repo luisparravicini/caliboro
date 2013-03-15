@@ -178,20 +178,19 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		TreePath[] selection = bonesTree.getSelectionPaths();
 
 		if (selection != null) {
+			if (JOptionPane.showConfirmDialog(this,
+					"¿está seguro de borrar los elementos seleccionados?",
+					"Borrar", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+				return;
+
 			for (TreePath path : selection) {
 				MutableTreeNode node = (MutableTreeNode) path
 						.getLastPathComponent();
 				// TODO esta mal esto asi
 				if (BaseBoneTreeNode.class.isInstance(node)) {
-					if (JOptionPane
-							.showConfirmDialog(
-									this,
-									"¿está seguro de borrar los elementos seleccionados?",
-									"Borrar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						TreeNode parent = node.getParent();
-						((BaseBoneTreeNode) node).removeDataNode();
-						model.reload(parent);
-					}
+					TreeNode parent = node.getParent();
+					((BaseBoneTreeNode) node).removeDataNode();
+					model.reload(parent);
 				}
 			}
 		}
