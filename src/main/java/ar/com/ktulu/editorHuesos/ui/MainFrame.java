@@ -232,6 +232,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			BoneTreeNode node = (BoneTreeNode) selectedNode;
 			node.addBoneImage(filePath.getAbsolutePath());
 			model.reload();
+			bonesTree.expandPath(path);
 		}
 	}
 
