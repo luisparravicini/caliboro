@@ -7,9 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,6 +25,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
@@ -131,8 +130,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				throw new RuntimeException("adasd");
-				// addBone();
+				addBone();
 			}
 		});
 		btnAddImages.addActionListener(new ActionListener() {
@@ -188,11 +186,13 @@ public class MainFrame extends JFrame implements TreeModelListener,
 							.showConfirmDialog(
 									this,
 									"¿está seguro de borrar los elementos seleccionados?",
-									"Borrar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+									"Borrar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						TreeNode parent = node.getParent();
 						((BaseBoneTreeNode) node).removeDataNode();
+						model.reload(parent);
+					}
 				}
 			}
-			model.reload();
 		}
 	}
 
@@ -231,7 +231,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 			BoneTreeNode node = (BoneTreeNode) selectedNode;
 			node.addBoneImage(filePath.getAbsolutePath());
-			model.reload();
+			model.reload(selectedNode);
 			bonesTree.expandPath(path);
 		}
 	}
