@@ -5,7 +5,7 @@ TODO
   - boton preview que abra un browser?
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
 
-  - en windows dio este error (en dos maquinas):
+  - [corregido, pero no tengo un windows donde este error pase para probarlo] en windows dio este error (en dos maquinas):
 E:\huesos>java -jar editorHuesos-release-1.0-SNAPSHOT.jar
 Exception in thread "AWT-EventQueue-0" ar.com.ktulu.editorHuesos.StoreException:
  No se pudo renombrar el archivo temporario

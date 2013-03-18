@@ -117,9 +117,7 @@ public class BonesStore {
 			jsonData.write(writer);
 			writer.close();
 
-			if (!tmpPath.renameTo(getStorePath()))
-				throw new StoreException(
-						"No se pudo renombrar el archivo temporario");
+			renameFile(tmpPath, getStorePath());
 		} catch (IOException e) {
 			throw new StoreException(e);
 		} catch (JSONException e) {
@@ -127,8 +125,29 @@ public class BonesStore {
 		}
 	}
 
+	private void renameFile(File tmpPath, File storePath) throws IOException {
+		// TODO en algunos Windows (no se que version son) File.renameTo me
+		// falla siempre.
+		// tmpPath.renameTo(getStorePath()));
+
+		File backupPath = new File(storePath.getCanonicalPath() + ".old");
+		if (backupPath.exists() && !backupPath.delete())
+			throw new StoreException("No se pudo borrar el archivo de backup");
+
+		if (!storePath.renameTo(backupPath))
+			throw new StoreException("No se pudo crear el archivo de backup");
+		
+		if (!tmpPath.renameTo(storePath))
+			throw new StoreException(
+					"No se pudo renombrar el archivo temporario");
+	}
+
 	private File getTempPath() throws IOException {
-		return File.createTempFile("bone", "");
+		// TODO en algunos Windows (no se que version son) el usar un archivo
+		// creado por createTempFile hace que el renameTo siguiente falle.
+		// return File.createTempFile("bone", "");
+
+		return new File(getStorePath() + ".tmp");
 	}
 
 	public void add(Bone bone) {
