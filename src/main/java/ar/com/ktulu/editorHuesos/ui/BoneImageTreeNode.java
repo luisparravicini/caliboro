@@ -13,7 +13,7 @@ public class BoneImageTreeNode extends BaseBoneTreeNode {
 	}
 
 	public String getImagePath() {
-		return ((BoneImage) getUserObject()).getPath();
+		return ((BoneImage) getUserObject()).imageAbsolutePath();
 	}
 
 	@Override

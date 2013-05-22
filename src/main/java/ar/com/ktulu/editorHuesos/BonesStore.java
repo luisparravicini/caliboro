@@ -7,9 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,16 +17,16 @@ import org.json.JSONTokener;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
 import ar.com.ktulu.editorHuesos.model.BonePoint;
+import ar.com.ktulu.editorHuesos.model.StoreRootNode;
 
 public class BonesStore {
 	private static BonesStore instance;
 
-	private List<Bone> data;
-
+	private StoreRootNode data;
 	private boolean frozen;
 
 	private BonesStore() {
-		data = new ArrayList<Bone>();
+		data = new StoreRootNode();
 	}
 
 	public static BonesStore getInstance() {
@@ -46,9 +45,12 @@ public class BonesStore {
 			freeze();
 
 			InputStreamReader reader = new FileReader(bonesPath);
-			JSONArray bones = new JSONArray(new JSONTokener(reader));
+			JSONObject auxData = new JSONObject(new JSONTokener(reader));
 			reader.close();
 
+			data.setLastImageId(auxData.getInt("lastImageId"));
+			data.clearBones();
+			JSONArray bones = auxData.getJSONArray("bones");
 			for (int i = 0; i < bones.length(); i++)
 				addObject(bones.getJSONObject(i));
 		} catch (FileNotFoundException e) {
@@ -82,7 +84,7 @@ public class BonesStore {
 			bone.addImage(img);
 		}
 
-		data.add(bone);
+		data.addBone(bone);
 	}
 
 	private void readPoints(JSONObject imgObj, BoneImage img)
@@ -101,7 +103,7 @@ public class BonesStore {
 	}
 
 	private File getStorePath() {
-		String dir = System.getProperty("user.home");
+		File dir = FileUtils.getUserDirectory();
 		File storePath = new File(dir, "bones");
 
 		if (!storePath.exists()) {
@@ -117,15 +119,11 @@ public class BonesStore {
 		if (frozen)
 			return;
 
-		JSONArray jsonData = new JSONArray();
-		for (Bone bone : data) {
-			JSONObject obj = new JSONObject(bone);
-			jsonData.put(obj);
-		}
-
-		File tmpPath;
 		try {
-			tmpPath = getBonesTempPath();
+			copyBoneImages();
+
+			JSONObject jsonData = dumpDataAsJson();
+			File tmpPath = getBonesTempPath();
 			Writer writer = new FileWriter(tmpPath);
 			jsonData.write(writer);
 			writer.close();
@@ -138,6 +136,16 @@ public class BonesStore {
 		}
 	}
 
+	private void copyBoneImages() throws IOException {
+		for (Bone bone : data.getBones())
+			for (BoneImage image : bone.getImages())
+				image.relocate(getStorePath());
+	}
+
+	private JSONObject dumpDataAsJson() {
+		return new JSONObject(data);
+	}
+
 	private void renameFile(File tmpPath, File storePath) throws IOException {
 		// TODO en algunos Windows (no se que version son) File.renameTo me
 		// falla siempre.
@@ -148,7 +156,8 @@ public class BonesStore {
 			throw new StoreException("No se pudo borrar el archivo de backup");
 
 		if (storePath.exists() && !storePath.renameTo(backupPath))
-			throw new StoreException("No se pudo renombrar el archivo de backup");
+			throw new StoreException(
+					"No se pudo renombrar el archivo de backup");
 
 		if (!tmpPath.renameTo(storePath))
 			throw new StoreException(
@@ -167,7 +176,7 @@ public class BonesStore {
 		if (frozen)
 			return;
 
-		data.add(bone);
+		data.addBone(bone);
 		save();
 	}
 
@@ -176,7 +185,7 @@ public class BonesStore {
 	}
 
 	public Iterable<Bone> data() {
-		return data;
+		return data.getBones();
 	}
 
 	public void freeze() {
@@ -188,8 +197,18 @@ public class BonesStore {
 	}
 
 	public void remove(Bone bone) {
-		data.remove(bone);
+		data.removeBone(bone);
 		save();
+	}
+
+	/**
+	 * Asume que en el contexto donde se llama a este metodo se va a guardar
+	 * luego.
+	 * 
+	 * @return
+	 */
+	public int nextImageId() {
+		return data.nextImage();
 	}
 
 }

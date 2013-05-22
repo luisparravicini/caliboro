@@ -4,7 +4,9 @@ TODO
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - boton preview que abra un browser?
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
+  - si borro una imagen, esta queda en el visor, quitarla de ahi
   - la primera vez que entro a una imagen mas grande que la ventana no me pone las barras de scroll 
+  - consultar con los demas un nombre para el editor
 
   - [corregido, pero no tengo un windows donde este error pase para probarlo] en windows dio este error (en dos maquinas):
 E:\huesos>java -jar editorHuesos-release-1.0-SNAPSHOT.jar
