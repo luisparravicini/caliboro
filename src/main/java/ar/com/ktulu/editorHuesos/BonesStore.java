@@ -38,14 +38,14 @@ public class BonesStore {
 	}
 
 	public void load() {
-		File storePath = getStorePath();
-		if (!storePath.exists())
+		File bonesPath = getBonesPath();
+		if (!bonesPath.exists())
 			return;
 
 		try {
 			freeze();
 
-			InputStreamReader reader = new FileReader(storePath);
+			InputStreamReader reader = new FileReader(bonesPath);
 			JSONArray bones = new JSONArray(new JSONTokener(reader));
 			reader.close();
 
@@ -60,6 +60,11 @@ public class BonesStore {
 		} finally {
 			unfreeze();
 		}
+	}
+
+	private File getBonesPath() {
+		File dir = getStorePath();
+		return new File(dir, "bones.json");
 	}
 
 	private void addObject(JSONObject obj) throws JSONException {
@@ -97,7 +102,15 @@ public class BonesStore {
 
 	private File getStorePath() {
 		String dir = System.getProperty("user.home");
-		return new File(dir, "bones.json");
+		File storePath = new File(dir, "bones");
+
+		if (!storePath.exists()) {
+			if (!storePath.mkdirs())
+				throw new StoreException("No se pudo crear " + storePath);
+		} else if (!storePath.isDirectory())
+			throw new StoreException("No es un directorio" + storePath);
+
+		return storePath;
 	}
 
 	public void save() {
@@ -112,12 +125,12 @@ public class BonesStore {
 
 		File tmpPath;
 		try {
-			tmpPath = getTempPath();
+			tmpPath = getBonesTempPath();
 			Writer writer = new FileWriter(tmpPath);
 			jsonData.write(writer);
 			writer.close();
 
-			renameFile(tmpPath, getStorePath());
+			renameFile(tmpPath, getBonesPath());
 		} catch (IOException e) {
 			throw new StoreException(e);
 		} catch (JSONException e) {
@@ -134,20 +147,20 @@ public class BonesStore {
 		if (backupPath.exists() && !backupPath.delete())
 			throw new StoreException("No se pudo borrar el archivo de backup");
 
-		if (!storePath.renameTo(backupPath))
-			throw new StoreException("No se pudo crear el archivo de backup");
-		
+		if (storePath.exists() && !storePath.renameTo(backupPath))
+			throw new StoreException("No se pudo renombrar el archivo de backup");
+
 		if (!tmpPath.renameTo(storePath))
 			throw new StoreException(
 					"No se pudo renombrar el archivo temporario");
 	}
 
-	private File getTempPath() throws IOException {
+	private File getBonesTempPath() throws IOException {
 		// TODO en algunos Windows (no se que version son) el usar un archivo
 		// creado por createTempFile hace que el renameTo siguiente falle.
 		// return File.createTempFile("bone", "");
 
-		return new File(getStorePath() + ".tmp");
+		return new File(getBonesPath() + ".tmp");
 	}
 
 	public void add(Bone bone) {
