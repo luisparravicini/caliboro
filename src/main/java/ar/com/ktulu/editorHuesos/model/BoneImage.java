@@ -1,11 +1,11 @@
 package ar.com.ktulu.editorHuesos.model;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,8 +97,8 @@ public class BoneImage {
 
 	public void relocate(File storePath) throws IOException {
 		if (imagePath.getParent() != null) {
-			Reader reader = null;
-			Writer writer = null;
+			InputStream in = null;
+			OutputStream out = null;
 			try {
 				String newImageName = String.format("%d.%s", imageId,
 						FilenameUtils.getExtension(imagePath.getName()));
@@ -106,16 +106,16 @@ public class BoneImage {
 				if (newImagePath.exists())
 					throw new IOException(String.format(
 							"El archivo %s no deberia existir", newImagePath));
-				reader = new FileReader(imagePath);
-				writer = new FileWriter(newImagePath);
-				IOUtils.copy(reader, writer);
+				in = new FileInputStream(imagePath);
+				out = new FileOutputStream(newImagePath);
+				IOUtils.copy(in, out);
 
 				imagePath = new File(newImagePath.getName());
 			} finally {
-				if (reader != null)
-					IOUtils.closeQuietly(reader);
-				if (writer != null)
-					IOUtils.closeQuietly(writer);
+				if (in != null)
+					IOUtils.closeQuietly(in);
+				if (in != null)
+					IOUtils.closeQuietly(in);
 			}
 		}
 	}
