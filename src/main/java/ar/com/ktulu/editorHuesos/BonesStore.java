@@ -25,6 +25,8 @@ public class BonesStore {
 	private StoreRootNode data;
 	private boolean frozen;
 
+	private File storeBasePath;
+
 	private BonesStore() {
 		data = new StoreRootNode();
 	}
@@ -103,8 +105,10 @@ public class BonesStore {
 	}
 
 	private File getStorePath() {
-		File dir = FileUtils.getUserDirectory();
-		File storePath = new File(dir, "bones");
+		File dir = storeBasePath;
+		if (dir == null)
+			dir = new File(FileUtils.getUserDirectory(), "bones");
+		File storePath = dir;
 
 		if (!storePath.exists()) {
 			if (!storePath.mkdirs())
@@ -209,6 +213,10 @@ public class BonesStore {
 	 */
 	public int nextImageId() {
 		return data.nextImage();
+	}
+
+	public void setPath(File path) {
+		storeBasePath = path.getAbsoluteFile();
 	}
 
 }

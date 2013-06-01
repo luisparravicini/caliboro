@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -62,8 +63,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			public void run() {
 				EventQueueErrorCatcher.install();
 				try {
-					BonesStore.getInstance().load();
 					MainFrame frame = new MainFrame();
+					frame.setInitialStoreFolder();
+					BonesStore.getInstance().load();
 					frame.setup();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -71,6 +73,46 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				}
 			}
 		});
+	}
+
+	private void setInitialStoreFolder() {
+		File path;
+		while ((path = askForStoreFolder()) == null) {
+			JOptionPane.showMessageDialog(null,
+					"Debe seleccionar una carpeta para guardar los datos",
+					null, JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		BonesStore.getInstance().setPath(path);
+	}
+
+	private File askForStoreFolder() {
+		JFileChooser chooserDlg = new JFileChooser();
+		chooserDlg.setDialogTitle("Seleccionar carpeta");
+		chooserDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooserDlg.setDialogType(JFileChooser.SAVE_DIALOG);
+
+		int result = chooserDlg.showDialog(this, "Seleccionar");
+
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File path = chooserDlg.getSelectedFile().getAbsoluteFile();
+			return createFolder(path) ? path : null;
+		}
+
+		return null;
+	}
+
+	private boolean createFolder(File path) {
+		boolean result = true;
+		if (!path.exists())
+			if (!path.mkdirs()) {
+				JOptionPane.showMessageDialog(null,
+						"No se pudo crear la carpeta", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				result = false;
+			}
+
+		return result;
 	}
 
 	/**
