@@ -3,10 +3,9 @@ TODO
 
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
+  - si borro una imagen, esta queda en el visor, quitarla de ahi
   - boton preview que abra un browser?
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
-  - si borro una imagen, esta queda en el visor, quitarla de ahi
-  - la primera vez que entro a una imagen mas grande que la ventana no me pone las barras de scroll 
   - consultar con los demas un nombre para el editor
 
   - [corregido, pero no tengo un windows donde este error pase para probarlo] en windows dio este error (en dos maquinas):
