@@ -101,7 +101,7 @@ public class ImageManager {
 
 			imageView.addPoint(img.addPoint(name, x, y));
 		} else {
-			Dot dot = imageView.findIfPointIn(x, y);
+			Dot dot = imageView.findDotAt(x, y);
 			if (dot != null) {
 				imageView.remove(dot);
 				img.remove(dot.point);
@@ -111,7 +111,7 @@ public class ImageManager {
 
 	public void mouseDragged(int x, int y) {
 		if (draggingPoint == null)
-			draggingPoint = imageView.findIfPointIn(x, y);
+			draggingPoint = imageView.findDotAt(x, y);
 
 		if (draggingPoint != null) {
 			draggingPoint.setPos(x, y);

@@ -154,7 +154,7 @@ public class ImageView extends JPanel {
 		setup();
 	}
 
-	public Dot findIfPointIn(int x, int y) {
+	public Dot findDotAt(int x, int y) {
 		boolean init = false;
 		int d;
 		Rectangle hitBox = null;
