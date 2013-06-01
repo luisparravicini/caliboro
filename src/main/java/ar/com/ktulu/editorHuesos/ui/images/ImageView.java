@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -151,6 +152,28 @@ public class ImageView extends JPanel {
 
 	public void removeImage() {
 		setup();
+	}
+
+	public Dot findIfPointIn(int x, int y) {
+		boolean init = false;
+		int d;
+		Rectangle hitBox = null;
+
+		float zoomLevel = getZoomLevel();
+		Point pos = new Point(x, y);
+		pos.x /= zoomLevel;
+		pos.y /= zoomLevel;
+		for (Dot point : getDots()) {
+			if (!init) {
+				init = true;
+				d = (int) (point.img.getWidth() / zoomLevel);
+				hitBox = new Rectangle(pos.x - d, pos.y - d, d * 2, d * 2);
+			}
+			if (hitBox.contains(point.pos))
+				return point;
+		}
+
+		return null;
 	}
 
 }

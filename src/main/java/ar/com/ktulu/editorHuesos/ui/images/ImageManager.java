@@ -1,7 +1,5 @@
 package ar.com.ktulu.editorHuesos.ui.images;
 
-import java.awt.Rectangle;
-
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -74,8 +72,8 @@ public class ImageManager {
 	private String userInputsPointName() {
 		String name;
 		do {
-			name = (String) JOptionPane.showInputDialog(mainFrame, "Nombre", null,
-					JOptionPane.PLAIN_MESSAGE, null, null, null);
+			name = (String) JOptionPane.showInputDialog(mainFrame, "Nombre",
+					null, JOptionPane.PLAIN_MESSAGE, null, null, null);
 			if (name == null)
 				return null;
 
@@ -103,7 +101,7 @@ public class ImageManager {
 
 			imageView.addPoint(img.addPoint(name, x, y));
 		} else {
-			Dot dot = findIfPointIn(x, y);
+			Dot dot = imageView.findIfPointIn(x, y);
 			if (dot != null) {
 				imageView.remove(dot);
 				img.remove(dot.point);
@@ -111,27 +109,9 @@ public class ImageManager {
 		}
 	}
 
-	private Dot findIfPointIn(int x, int y) {
-		boolean init = false;
-		int d;
-		Rectangle hitBox = null;
-
-		for (Dot point : imageView.getDots()) {
-			if (!init) {
-				init = true;
-				d = point.img.getWidth();
-				hitBox = new Rectangle(x - d, y - d, d * 2, d * 2);
-			}
-			if (hitBox.contains(point.pos))
-				return point;
-		}
-
-		return null;
-	}
-
 	public void mouseDragged(int x, int y) {
 		if (draggingPoint == null)
-			draggingPoint = findIfPointIn(x, y);
+			draggingPoint = imageView.findIfPointIn(x, y);
 
 		if (draggingPoint != null) {
 			draggingPoint.setPos(x, y);
