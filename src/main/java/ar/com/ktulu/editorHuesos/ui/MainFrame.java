@@ -12,13 +12,17 @@ import java.io.FilenameFilter;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -32,7 +36,6 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
-import javax.swing.JProgressBar;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -51,6 +54,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private boolean bonePointAdding = true;
 	private JButton btnExportar;
 	private JButton btnPrevisualizar;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JLabel imageInfo;
+	private JSlider imageZoom;
 
 	/**
 	 * Launch the application.
@@ -83,7 +90,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 					"Debe seleccionar una carpeta para guardar los datos",
 					null, JOptionPane.INFORMATION_MESSAGE);
 		}
-		
+
 		BonesStore.getInstance().setPath(path);
 	}
 
@@ -135,8 +142,34 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		bonesTree.setShowsRootHandles(true);
 		splitPane.setLeftComponent(bonesTree);
 
+		panel = new JPanel();
+		splitPane.setRightComponent(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+
+		panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		imageInfo = new JLabel();
+		panel_1.add(imageInfo, BorderLayout.WEST);
+
+		imageZoom = new JSlider();
+		imageZoom.setToolTipText("Nivel de zoom de la imagen");
+		imageZoom.setMaximum(150);
+		imageZoom.setMinimum(20);
+		imageZoom.setValue(100);
+		imageZoom.setMajorTickSpacing(10);
+		imageZoom.setSnapToTicks(true);
+		imageZoom.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent event) {
+				sliderChangedValue();
+			}
+		});
+		panel_1.add(imageZoom, BorderLayout.EAST);
+
 		scrollPane = new JScrollPane();
-		splitPane.setRightComponent(scrollPane);
+		panel.add(scrollPane);
 
 		imageView = new ImageView();
 		scrollPane.setViewportView(imageView);
@@ -332,10 +365,19 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				return;
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
-			imageView.loadImage(imgNode);
-			scrollPane.revalidate();
-			scrollPane.repaint();
+			loadBoneImage(imgNode);
 		}
+	}
+
+	private void loadBoneImage(BoneImageTreeNode imgNode) {
+		imageView.loadImage(imgNode);
+		updateImageInfo();
+		invalidateImageContainer();
+	}
+
+	private void invalidateImageContainer() {
+		scrollPane.revalidate();
+		scrollPane.repaint();
 	}
 
 	private boolean isBoneImageNode(DefaultMutableTreeNode node) {
@@ -422,5 +464,24 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			BonesStore.getInstance().dirty();
 
 		draggingPoint = null;
+	}
+
+	private void sliderChangedValue() {
+		if (imageZoom.getValueIsAdjusting())
+			return;
+
+		imageView.setZoom(imageZoom.getValue());
+		updateImageInfo();
+		invalidateImageContainer();
+	}
+
+	private void updateImageInfo() {
+		String msg = null;
+		if (imageView.hasImage())
+			msg = String.format("Imagen: %dx%d   Zoom: %d%%",
+					imageView.getImageWidth(), imageView.getImageHeight(),
+					imageView.getZoom());
+
+		imageInfo.setText(msg);
 	}
 }

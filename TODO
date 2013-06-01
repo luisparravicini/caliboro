@@ -5,6 +5,8 @@ TODO
   - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
   - si borro una imagen, esta queda en el visor, quitarla de ahi
   - boton preview que abra un browser?
+  - cuando draggeo el slider de zoom, que aparezca un tooltip diciendo el valor actual
+  - puedo poner puntos fuera de la imagen
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - consultar con los demas un nombre para el editor
 

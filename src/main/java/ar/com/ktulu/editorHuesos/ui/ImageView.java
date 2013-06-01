@@ -22,12 +22,12 @@ import ar.com.ktulu.editorHuesos.model.BonePoint;
 public class ImageView extends JPanel {
 	private BufferedImage image;
 	private BufferedImage scaledImage;
-	private float zoom;
+	private int zoom;
 	private List<Dot> dots;
 
 	public ImageView() {
 		dots = new ArrayList<Dot>();
-		zoom = 0.5f;
+		zoom = 100;
 	}
 
 	public void loadImage(BoneImageTreeNode imgNode) {
@@ -52,8 +52,9 @@ public class ImageView extends JPanel {
 		if (image == null)
 			scaledImage = null;
 		else {
-			int newImageWidth = (int) (image.getWidth() * zoom);
-			int newImageHeight = (int) (image.getHeight() * zoom);
+			float zoomLevel = getZoomLevel();
+			int newImageWidth = (int) (image.getWidth() * zoomLevel);
+			int newImageHeight = (int) (image.getHeight() * zoomLevel);
 			BufferedImage resizedImage = new BufferedImage(newImageWidth,
 					newImageHeight, image.getType());
 			Graphics2D g = resizedImage.createGraphics();
@@ -103,6 +104,31 @@ public class ImageView extends JPanel {
 	public void remove(Dot dot) {
 		dots.remove(dot);
 		repaint();
+	}
+
+	public void setZoom(int value) {
+		zoom = value;
+		updateZoomedImage();
+	}
+
+	private float getZoomLevel() {
+		return zoom / 100f;
+	}
+
+	public int getZoom() {
+		return zoom;
+	}
+
+	public boolean hasImage() {
+		return (image != null);
+	}
+
+	public int getImageWidth() {
+		return (image != null ? image.getWidth() : 0);
+	}
+
+	public int getImageHeight() {
+		return (image != null ? image.getHeight() : 0);
 	}
 
 }
