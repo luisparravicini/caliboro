@@ -26,6 +26,11 @@ public class ImageView extends JPanel {
 	private List<Dot> dots;
 
 	public ImageView() {
+		setup();
+	}
+
+	private void setup() {
+		image = scaledImage = null;
 		dots = new ArrayList<Dot>();
 		zoom = 100;
 	}
@@ -141,6 +146,10 @@ public class ImageView extends JPanel {
 	public boolean isInsideImage(int x, int y) {
 		return scaledImage != null && x >= 0 && y >= 0
 				&& x < scaledImage.getWidth() && y < scaledImage.getHeight();
+	}
+
+	public void removeImage() {
+		setup();
 	}
 
 }

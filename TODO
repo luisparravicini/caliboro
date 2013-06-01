@@ -1,7 +1,6 @@
 TODO
 ====
 
-  - cuamdo salgo de la imagen, deberia desaparecer la info de esta
   - consultar con los demas un nombre para el editor
 
 
@@ -11,7 +10,6 @@ PRIORIDAD BAJA
   - un menu para la app
   - un menu contextual en los elementos de hueso/imagen para renombrar/borrar
   - exportar el .json y las imagenes para que pueda usarse con un browser
-  - el slider de zoom deberia desaparecer cuando tengo un hueso seleccionado
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
   - si borro una imagen, esta queda en el visor, quitarla de ahi

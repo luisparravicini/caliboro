@@ -220,6 +220,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				removeNode();
 			}
 		});
+		
+		hideImage();
 	}
 
 	private String getBonePointButtonLabel() {
@@ -361,8 +363,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		if (path != null) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
-			if (!isBoneImageNode(node))
+			if (!isBoneImageNode(node)) {
+				hideImage();
 				return;
+			}
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
 			loadBoneImage(imgNode);
@@ -370,6 +374,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	private void loadBoneImage(BoneImageTreeNode imgNode) {
+		showImage();
 		imageView.loadImage(imgNode);
 		imageZoom.setValue(100);
 		updateImageInfo();
@@ -401,7 +406,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private void onMousePressed(BoneImage img, int x, int y) {
 		if (!imageView.isInsideImage(x, y))
 			return;
-		
+
 		if (bonePointAdding) {
 			String name = userInputsPointName();
 			if (name == null)
@@ -487,5 +492,19 @@ public class MainFrame extends JFrame implements TreeModelListener,
 					imageView.getZoom());
 
 		imageInfo.setText(msg);
+	}
+
+	private void hideImage() {
+		setImageVisibility(false);
+	}
+
+	private void showImage() {
+		setImageVisibility(true);
+	}
+
+	private void setImageVisibility(boolean visible) {
+		imageView.removeImage();
+		imageInfo.setVisible(visible);
+		imageZoom.setVisible(visible);
 	}
 }
