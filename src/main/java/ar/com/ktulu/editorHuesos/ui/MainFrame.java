@@ -371,6 +371,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 	private void loadBoneImage(BoneImageTreeNode imgNode) {
 		imageView.loadImage(imgNode);
+		imageZoom.setValue(100);
 		updateImageInfo();
 		invalidateImageContainer();
 	}
