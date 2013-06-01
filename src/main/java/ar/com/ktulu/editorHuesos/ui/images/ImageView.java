@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.editorHuesos.ui.images;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import ar.com.ktulu.editorHuesos.model.BonePoint;
+import ar.com.ktulu.editorHuesos.ui.BoneImageTreeNode;
 
 @SuppressWarnings("serial")
 public class ImageView extends JPanel {

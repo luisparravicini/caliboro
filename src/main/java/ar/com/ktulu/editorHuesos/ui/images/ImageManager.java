@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.editorHuesos.ui.images;
 
 import java.awt.Rectangle;
 
@@ -9,8 +9,10 @@ import javax.swing.JSlider;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
+import ar.com.ktulu.editorHuesos.ui.BoneImageTreeNode;
+import ar.com.ktulu.editorHuesos.ui.MainFrame;
 
-class ImageManager {
+public class ImageManager {
 
 	public JSlider imageZoom;
 	public JLabel imageInfo;

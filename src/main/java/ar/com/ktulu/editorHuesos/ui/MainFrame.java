@@ -35,6 +35,9 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
+import ar.com.ktulu.editorHuesos.ui.images.ImageManager;
+import ar.com.ktulu.editorHuesos.ui.images.ImageMouseListener;
+import ar.com.ktulu.editorHuesos.ui.images.ImageView;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -376,7 +379,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		return (BoneImageTreeNode.class.isInstance(node));
 	}
 
-	BoneImage getImageSelected() {
+	public BoneImage getImageSelected() {
 		BoneImage result = null;
 		TreePath path = bonesTree.getSelectionPath();
 		if (path != null) {
