@@ -114,7 +114,7 @@ public class ImageManager {
 			draggingPoint = imageView.findDotAt(x, y);
 
 		if (draggingPoint != null) {
-			draggingPoint.setPos(x, y);
+			imageView.movePoint(draggingPoint, x, y);
 			imageView.repaint();
 		}
 	}

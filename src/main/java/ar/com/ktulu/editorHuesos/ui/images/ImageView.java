@@ -160,20 +160,36 @@ public class ImageView extends JPanel {
 		Rectangle hitBox = null;
 
 		float zoomLevel = getZoomLevel();
-		Point pos = new Point(x, y);
-		pos.x /= zoomLevel;
-		pos.y /= zoomLevel;
+		Point pos = unzoomPoint(x, y);
 		for (Dot point : getDots()) {
 			if (!init) {
 				init = true;
 				d = (int) (point.img.getWidth() / zoomLevel);
 				hitBox = new Rectangle(pos.x - d, pos.y - d, d * 2, d * 2);
 			}
-			if (hitBox.contains(point.pos))
-				return point;
-		}
+			if (hitBox.contains(point.pos)) {
+				System.out.println(pos.x - point.pos.x);
+				System.out.println(pos.y - point.pos.y);
 
+				return point;
+			}
+		}
+		
 		return null;
+	}
+
+	private Point unzoomPoint(int x, int y) {
+		float zoomLevel = getZoomLevel();
+		Point pos = new Point(x, y);
+		pos.x /= zoomLevel;
+		pos.y /= zoomLevel;
+		
+		return pos;
+	}
+
+	public void movePoint(Dot dot, int x, int y) {
+		Point pos = unzoomPoint(x, y);
+		dot.setPos(pos.x, pos.y);
 	}
 
 }
