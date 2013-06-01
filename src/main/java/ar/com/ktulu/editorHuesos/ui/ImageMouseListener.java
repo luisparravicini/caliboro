@@ -8,34 +8,37 @@ import javax.swing.event.MouseInputAdapter;
 
 public class ImageMouseListener extends MouseInputAdapter {
 
-	private MainFrame mainFrame;
+	private ImageManager imageManager;
 	private boolean dragging;
 
-	public ImageMouseListener(MainFrame mainFrame) {
-		this.mainFrame = mainFrame;
+	public ImageMouseListener(ImageManager imageManager) {
+		this.imageManager = imageManager;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		if (dragging) {
-			if (dragging) mainFrame.finishDragging();
+			if (dragging)
+				imageManager.finishDragging();
 			dragging = false;
 			return;
 		}
-		
+
 		Point pos = getPosition(event);
-		mainFrame.mousePressed(pos.x, pos.y);
+		imageManager.mousePressed(pos.x, pos.y);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		if (dragging) mainFrame.finishDragging();
+		if (dragging)
+			imageManager.finishDragging();
 		dragging = false;
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (dragging) mainFrame.finishDragging();
+		if (dragging)
+			imageManager.finishDragging();
 		dragging = false;
 	}
 
@@ -44,7 +47,7 @@ public class ImageMouseListener extends MouseInputAdapter {
 		dragging = true;
 
 		Point pos = getPosition(event);
-		mainFrame.mouseDragged(pos.x, pos.y);
+		imageManager.mouseDragged(pos.x, pos.y);
 	}
 
 	private Point getPosition(MouseEvent event) {

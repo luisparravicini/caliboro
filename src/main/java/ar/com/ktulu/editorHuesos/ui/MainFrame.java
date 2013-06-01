@@ -3,7 +3,6 @@ package ar.com.ktulu.editorHuesos.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FileDialog;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -46,18 +45,15 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JToolBar toolBar;
 	private JButton btnAgregar;
 	private JScrollPane scrollPane;
-	private ImageView imageView;
 	private JButton btnAddImages;
 	private JButton btnRemove;
 	private JButton btnBonePoints;
-	private Dot draggingPoint;
 	private boolean bonePointAdding = true;
 	private JButton btnExportar;
 	private JButton btnPrevisualizar;
 	private JPanel panel;
 	private JPanel panel_1;
-	private JLabel imageInfo;
-	private JSlider imageZoom;
+	private ImageManager imageManager;
 
 	/**
 	 * Launch the application.
@@ -127,6 +123,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		imageManager = new ImageManager(this);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 578, 337);
 		contentPane = new JPanel();
@@ -150,10 +148,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		panel.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		imageInfo = new JLabel();
-		panel_1.add(imageInfo, BorderLayout.WEST);
+		imageManager.imageInfo = new JLabel();
+		panel_1.add(imageManager.imageInfo, BorderLayout.WEST);
 
-		imageZoom = new JSlider();
+		JSlider imageZoom = new JSlider();
 		imageZoom.setToolTipText("Nivel de zoom de la imagen");
 		imageZoom.setMaximum(150);
 		imageZoom.setMinimum(20);
@@ -163,16 +161,17 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		imageZoom.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent event) {
-				sliderChangedValue();
+				imageManager.sliderChangedValue();
 			}
 		});
 		panel_1.add(imageZoom, BorderLayout.EAST);
+		imageManager.imageZoom = imageZoom;
 
 		scrollPane = new JScrollPane();
 		panel.add(scrollPane);
 
-		imageView = new ImageView();
-		scrollPane.setViewportView(imageView);
+		imageManager.imageView = new ImageView();
+		scrollPane.setViewportView(imageManager.imageView);
 
 		toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -220,8 +219,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				removeNode();
 			}
 		});
-		
-		hideImage();
+
+		imageManager.hideImage();
 	}
 
 	private String getBonePointButtonLabel() {
@@ -246,7 +245,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			store.unfreeze();
 		}
 
-		ImageMouseListener mouseListener = new ImageMouseListener(this);
+		ImageMouseListener mouseListener = new ImageMouseListener(imageManager);
 		scrollPane.addMouseListener(mouseListener);
 		scrollPane.addMouseMotionListener(mouseListener);
 	}
@@ -364,147 +363,33 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
 			if (!isBoneImageNode(node)) {
-				hideImage();
+				imageManager.hideImage();
 				return;
 			}
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
-			loadBoneImage(imgNode);
+			imageManager.loadBoneImage(imgNode);
 		}
-	}
-
-	private void loadBoneImage(BoneImageTreeNode imgNode) {
-		showImage();
-		imageView.loadImage(imgNode);
-		imageZoom.setValue(100);
-		updateImageInfo();
-		invalidateImageContainer();
-	}
-
-	private void invalidateImageContainer() {
-		scrollPane.revalidate();
-		scrollPane.repaint();
 	}
 
 	private boolean isBoneImageNode(DefaultMutableTreeNode node) {
 		return (BoneImageTreeNode.class.isInstance(node));
 	}
 
-	public void mousePressed(int x, int y) {
+	BoneImage getImageSelected() {
+		BoneImage result = null;
 		TreePath path = bonesTree.getSelectionPath();
 		if (path != null) {
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path
 					.getLastPathComponent();
-			if (!isBoneImageNode(selectedNode))
-				return;
-
-			BoneImage img = (BoneImage) selectedNode.getUserObject();
-			onMousePressed(img, x, y);
+			if (isBoneImageNode(selectedNode))
+				result = (BoneImage) selectedNode.getUserObject();
 		}
+		return result;
 	}
 
-	private void onMousePressed(BoneImage img, int x, int y) {
-		if (!imageView.isInsideImage(x, y))
-			return;
-
-		if (bonePointAdding) {
-			String name = userInputsPointName();
-			if (name == null)
-				return;
-
-			imageView.addPoint(img.addPoint(name, x, y));
-		} else {
-			Dot dot = findIfPointIn(x, y);
-			if (dot != null) {
-				imageView.remove(dot);
-				img.remove(dot.point);
-			}
-		}
+	public boolean isAddingPoints() {
+		return bonePointAdding;
 	}
 
-	private String userInputsPointName() {
-		String name;
-		do {
-			name = (String) JOptionPane.showInputDialog(this, "Nombre", null,
-					JOptionPane.PLAIN_MESSAGE, null, null, null);
-			if (name == null)
-				return null;
-
-			name = name.trim();
-
-			if (name.isEmpty())
-				JOptionPane.showMessageDialog(this,
-						"El nombre no puede ser vacío");
-		} while (name.isEmpty());
-
-		return name;
-	}
-
-	public void mouseDragged(int x, int y) {
-		if (draggingPoint == null)
-			draggingPoint = findIfPointIn(x, y);
-
-		if (draggingPoint != null) {
-			draggingPoint.setPos(x, y);
-			imageView.repaint();
-		}
-	}
-
-	private Dot findIfPointIn(int x, int y) {
-		boolean init = false;
-		int d;
-		Rectangle hitBox = null;
-
-		for (Dot point : imageView.getDots()) {
-			if (!init) {
-				init = true;
-				d = point.img.getWidth();
-				hitBox = new Rectangle(x - d, y - d, d * 2, d * 2);
-			}
-			if (hitBox.contains(point.pos))
-				return point;
-		}
-
-		return null;
-	}
-
-	public void finishDragging() {
-		if (draggingPoint != null)
-			BonesStore.getInstance().dirty();
-
-		draggingPoint = null;
-	}
-
-	private void sliderChangedValue() {
-		if (imageZoom.getValueIsAdjusting())
-			return;
-
-		imageView.setZoom(imageZoom.getValue());
-		updateImageInfo();
-		invalidateImageContainer();
-	}
-
-	private void updateImageInfo() {
-		String msg = null;
-		if (imageView.hasImage())
-			msg = String.format("Imagen: %dx%d   Zoom: %d%%",
-					imageView.getImageWidth(), imageView.getImageHeight(),
-					imageView.getZoom());
-
-		imageInfo.setText(msg);
-	}
-
-	private void hideImage() {
-		setImageVisibility(false);
-	}
-
-	private void showImage() {
-		setImageVisibility(true);
-	}
-
-	private void setImageVisibility(boolean visible) {
-		imageView.removeImage();
-		imageInfo.setVisible(visible);
-		imageZoom.setVisible(visible);
-	}
 }
