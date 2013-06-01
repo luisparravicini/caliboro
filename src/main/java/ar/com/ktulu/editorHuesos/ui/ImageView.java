@@ -72,8 +72,8 @@ public class ImageView extends JPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return (image == null ? super.getPreferredSize() : new Dimension(
-				image.getWidth(), image.getHeight()));
+		return (scaledImage == null ? super.getPreferredSize() : new Dimension(
+				scaledImage.getWidth(), scaledImage.getHeight()));
 	}
 
 	@Override
