@@ -219,4 +219,8 @@ public class BonesStore {
 		storeBasePath = path.getAbsoluteFile();
 	}
 
+	public File getPath() {
+		return storeBasePath;
+	}
+
 }

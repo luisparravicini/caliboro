@@ -58,9 +58,11 @@ public class BoneImage {
 	}
 
 	// TODO no tiene 'get' para que en la serializacion a json no quede como un
-	// atributo de este objeto. No veo algo más simple de hacer en la doc de org.json
+	// atributo de este objeto. No veo algo más simple de hacer en la doc de
+	// org.json
 	public String imageAbsolutePath() {
-		return imagePath.getAbsolutePath();
+		File basePath = BonesStore.getInstance().getPath();
+		return new File(basePath, imagePath.getName()).getAbsolutePath();
 	}
 
 	public void addPoint(BonePoint point) {
@@ -85,6 +87,11 @@ public class BoneImage {
 	}
 
 	public void removeFromParent() {
+		boolean deleted = new File(imageAbsolutePath()).delete();
+		if (!deleted)
+			throw new RuntimeException("No se pudo borrar la imagen: "
+					+ getImagePath());
+
 		parent.remove(this);
 	}
 

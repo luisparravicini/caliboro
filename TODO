@@ -2,6 +2,8 @@ TODO
 ====
 
   - exportar el .json y las imagenes para que pueda usarse con un browser
+  - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
+  - la copia de la imagen a la carpeta de los huesos copia basura
   - boton preview que abra un browser?
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - si borro una imagen, esta queda en el visor, quitarla de ahi
