@@ -32,6 +32,7 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
+import javax.swing.JProgressBar;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -120,7 +121,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 510, 330);
+		setBounds(100, 100, 578, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

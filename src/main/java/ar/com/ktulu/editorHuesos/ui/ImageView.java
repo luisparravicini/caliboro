@@ -3,6 +3,7 @@ package ar.com.ktulu.editorHuesos.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
@@ -20,15 +21,19 @@ import ar.com.ktulu.editorHuesos.model.BonePoint;
 @SuppressWarnings("serial")
 public class ImageView extends JPanel {
 	private BufferedImage image;
+	private BufferedImage scaledImage;
+	private float zoom;
 	private List<Dot> dots;
 
 	public ImageView() {
 		dots = new ArrayList<Dot>();
+		zoom = 0.5f;
 	}
 
 	public void loadImage(BoneImageTreeNode imgNode) {
 		try {
 			image = ImageIO.read(new File(imgNode.getImagePath()));
+			updateZoomedImage();
 
 			List<Dot> newDots = new ArrayList<Dot>();
 			for (BonePoint point : imgNode.getPoints())
@@ -43,6 +48,22 @@ public class ImageView extends JPanel {
 		repaint();
 	}
 
+	private void updateZoomedImage() {
+		if (image == null)
+			scaledImage = null;
+		else {
+			int newImageWidth = (int) (image.getWidth() * zoom);
+			int newImageHeight = (int) (image.getHeight() * zoom);
+			BufferedImage resizedImage = new BufferedImage(newImageWidth,
+					newImageHeight, image.getType());
+			Graphics2D g = resizedImage.createGraphics();
+			g.drawImage(image, 0, 0, newImageWidth, newImageHeight, null);
+			g.dispose();
+
+			scaledImage = resizedImage;
+		}
+	}
+
 	@Override
 	public Dimension getPreferredSize() {
 		return (image == null ? super.getPreferredSize() : new Dimension(
@@ -53,8 +74,8 @@ public class ImageView extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (image != null)
-			g.drawImage(image, 0, 0, this);
+		if (scaledImage != null)
+			g.drawImage(scaledImage, 0, 0, this);
 
 		for (Dot dot : dots) {
 			if (dot.getName() != null) {
@@ -122,6 +143,8 @@ class Dot {
 			point.y = y;
 		}
 	}
-	
-	public String getName() { return point.getName(); }
+
+	public String getName() {
+		return point.getName();
+	}
 }
