@@ -93,6 +93,9 @@ public class ImageView extends JPanel {
 
 	public void addPoint(BonePoint point) {
 		try {
+			point.x /= getZoomLevel();
+			point.y /= getZoomLevel();
+
 			dots.add(new Dot(point));
 			repaint();
 		} catch (IOException e) {
@@ -133,6 +136,11 @@ public class ImageView extends JPanel {
 
 	public int getImageHeight() {
 		return (image != null ? image.getHeight() : 0);
+	}
+
+	public boolean isInsideImage(int x, int y) {
+		return scaledImage != null && x >= 0 && y >= 0
+				&& x < scaledImage.getWidth() && y < scaledImage.getHeight();
 	}
 
 }

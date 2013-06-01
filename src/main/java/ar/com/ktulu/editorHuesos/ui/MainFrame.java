@@ -399,6 +399,9 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	private void onMousePressed(BoneImage img, int x, int y) {
+		if (!imageView.isInsideImage(x, y))
+			return;
+		
 		if (bonePointAdding) {
 			String name = userInputsPointName();
 			if (name == null)
