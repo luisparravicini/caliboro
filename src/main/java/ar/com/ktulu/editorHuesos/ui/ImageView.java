@@ -78,12 +78,16 @@ public class ImageView extends JPanel {
 		if (scaledImage != null)
 			g.drawImage(scaledImage, 0, 0, this);
 
+		float zoomLevel = getZoomLevel();
 		for (Dot dot : dots) {
+			int x = (int) (dot.pos.x * zoomLevel);
+			int y = (int) (dot.pos.y * zoomLevel);
+
 			if (dot.getName() != null) {
-				g.drawString(dot.nameAttrs.getIterator(), dot.pos.x,
-						(int) (dot.pos.y + dot.img.getHeight() * 2.5));
+				g.drawString(dot.nameAttrs.getIterator(), x,
+						(int) (y + dot.img.getHeight() * 2.5));
 			}
-			g.drawImage(dot.img, dot.pos.x, dot.pos.y, this);
+			g.drawImage(dot.img, x, y, this);
 		}
 	}
 
