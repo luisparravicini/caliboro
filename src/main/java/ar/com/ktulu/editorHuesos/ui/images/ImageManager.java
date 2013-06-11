@@ -62,7 +62,8 @@ public class ImageManager {
 			imageZoom.setValue(100);
 			updateImageInfo();
 			invalidateImageContainer();
-		}
+		} else
+			hideImage();
 	}
 
 	private void invalidateImageContainer() {

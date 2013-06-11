@@ -10,7 +10,6 @@ TODO
   - exportar a js/html
   - merge de varios directorios en uno solo?
   - preview
-  - con un jpg da "invalid image type"
 
 
 PRIORIDAD BAJA
@@ -23,8 +22,6 @@ PRIORIDAD BAJA
   - un menu contextual en los elementos de hueso/imagen para renombrar/borrar
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
-  - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
-  - si borro una imagen, esta queda en el visor, quitarla de ahi
   - cuando tengo que agregar fotos, es molesto agregar de a una
   - cambiar nombre de un punto que ya existe
   - boton preview que abra un browser?
