@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -109,13 +108,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		return null;
 	}
 
+	private void showError(String msg) {
+		JOptionPane.showMessageDialog(null, msg, "Error",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
 	private boolean createFolder(File path) {
 		boolean result = true;
 		if (!path.exists())
 			if (!path.mkdirs()) {
-				JOptionPane.showMessageDialog(null,
-						"No se pudo crear la carpeta", "Error",
-						JOptionPane.ERROR_MESSAGE);
+				showError("No se pudo crear la carpeta");
 				result = false;
 			}
 
@@ -282,11 +284,8 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		fileDlg.setFilenameFilter(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				String nameLower = name.toLowerCase();
-				return new File(dir, name).isFile()
-						&& (nameLower.endsWith(".jpg")
-								|| nameLower.endsWith(".png") || nameLower
-									.endsWith(".jpeg"));
+				boolean isFile = new File(dir, name).isFile();
+				return isFile && knownImageType(name);
 			}
 		});
 		fileDlg.setVisible(true);
@@ -294,8 +293,24 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		// TODO recien en jdk7 puedo seleccionar varios archivos a la vez
 
 		String filename = fileDlg.getFile();
-		if (filename != null)
-			addBoneImage(new File(fileDlg.getDirectory(), filename));
+		if (filename != null) {
+			// en windows no corre la validacion de FilenameFilter, asi que
+			// chequeo aca también
+			if (!knownImageType(filename))
+				showError("Tipo de imagen no reconocida");
+			else
+				addBoneImage(new File(fileDlg.getDirectory(), filename));
+		}
+	}
+
+	private boolean knownImageType(String name) {
+		name = name.toLowerCase();
+		final String[] accepted = { ".jpg", ".png", ".jpeg" };
+		for (String ext : accepted)
+			if (name.endsWith(ext))
+				return true;
+
+		return false;
 	}
 
 	private void addBoneImage(File filePath) {

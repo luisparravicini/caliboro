@@ -56,11 +56,13 @@ public class ImageManager {
 	}
 
 	public void loadBoneImage(BoneImageTreeNode imgNode) {
-		showImage();
-		imageView.loadImage(imgNode);
-		imageZoom.setValue(100);
-		updateImageInfo();
-		invalidateImageContainer();
+		if (imgNode.fileExists()) {
+			showImage();
+			imageView.loadImage(imgNode);
+			imageZoom.setValue(100);
+			updateImageInfo();
+			invalidateImageContainer();
+		}
 	}
 
 	private void invalidateImageContainer() {

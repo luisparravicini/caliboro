@@ -1,23 +1,36 @@
 TODO
 ====
 
+  - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
+
   - consultar con los demas un nombre para el editor
+  - actualizar docs
+  - en agregar imagen se puede agregar cualquier archivo (.doc), y despues el programa revienta al querer leer la imagen (revento al borrar la imagen)
+  - que el programa exporte el log para ver los errores
+  - exportar a js/html
+  - merge de varios directorios en uno solo?
+  - preview
+  - con un jpg da "invalid image type"
 
 
 PRIORIDAD BAJA
 ==============
 
+  - especificar un size minimo para la ventana, ahora puedo achicarla y hacer que se solapen los controles de la imagen
+  - en windows, la carpeta de seleccionar dir no tiene el new folder
+  - poner el metodo de showError en MainFrame en una clase utils 
   - un menu para la app
   - un menu contextual en los elementos de hueso/imagen para renombrar/borrar
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - si borro una imagen, llega un evento de value changed y el nodo existe, y revienta todo
   - si borro una imagen, esta queda en el visor, quitarla de ahi
-  - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
   - cuando tengo que agregar fotos, es molesto agregar de a una
   - cambiar nombre de un punto que ya existe
   - boton preview que abra un browser?
   - cuando draggeo el slider de zoom, que aparezca un tooltip diciendo el valor actual
+  - el about no toma la version del proyecto
+  - en win, creo que no se ve el menu (para el about)
   - guia de uso en markdown (y generar otro formato desde ahi)
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups

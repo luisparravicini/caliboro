@@ -1,5 +1,6 @@
 package ar.com.ktulu.editorHuesos.ui;
 
+import java.io.File;
 import java.util.List;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
@@ -34,5 +35,9 @@ public class BoneImageTreeNode extends BaseBoneTreeNode {
 
 	public List<BonePoint> getPoints() {
 		return ((BoneImage) getUserObject()).getPoints();
+	}
+
+	public boolean fileExists() {
+		return new File(getImagePath()).exists();
 	}
 }
