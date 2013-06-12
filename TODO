@@ -9,6 +9,7 @@ TODO
   - exportar a js/html
   - merge de varios directorios en uno solo?
   - preview
+  - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
 
 
 PRIORIDAD BAJA
