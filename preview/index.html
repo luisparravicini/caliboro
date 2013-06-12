@@ -1,0 +1,92 @@
+<html>
+<head>
+<script src="jquery-1.7.min.js"></script>
+<style>
+
+#bones ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 1em;
+}
+
+#bones li a {
+  text-decoration: none;
+}
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 14px;
+  background: #202020;
+}
+
+body, a {
+  color: #f0f0f0;
+}
+
+
+#bones {
+  float: left;
+  margin-right: 24px;
+}
+
+#image {
+  margin-left: auto;
+  margin-right: auto;
+  width: 410px;
+}
+
+#bones, #image {
+  border: 1px solid red;
+}
+
+
+</style>
+</head>
+
+<div id="bones">
+</div>
+<div id="image">
+<img src="0.jpg" width="400px"/>
+</div>
+
+<script>
+//TODO ponerlo en $(window).onload
+
+
+var Huesitos = {};
+
+Huesitos.data = {"bones":[{"name":"Cintura Pélvica","images":[{"imagePath":"0.jpg","name":"Cara lateral","points":[{"name":"Pubis","y":1010,"x":1400},{"name":"Acetabulo","y":990,"x":1065},{"name":"Foramen obturador","y":835,"x":1155},{"name":"Ileon","y":2100,"x":640},{"name":"Isquion","y":335,"x":745}]},{"imagePath":"1.jpg","name":"Cara Dorsal","points":[{"name":"Pubis","y":900,"x":1005},{"name":"Acetabulo","y":920,"x":1605},{"name":"Foramen obturador","y":680,"x":1390},{"name":"Isquion","y":190,"x":1505},{"name":"Ileon","y":2235,"x":1525}]},{"imagePath":"3.jpg","name":"cintura pelvica1.jpg","points":[{"name":"Acetabulo","y":1200,"x":919},{"name":"Pubis","y":1260,"x":713},{"name":"Isquion","y":513,"x":1306},{"name":"Foramen obturador","y":823,"x":926},{"name":"Ileon","y":2316,"x":1256}]},{"imagePath":"4.jpg","name":"cintura.jpg","points":[{"name":"Isquion","y":325,"x":315},{"name":"Foramen obturador","y":765,"x":815},{"name":"Acetabulo","y":1050,"x":540},{"name":"Pubis","y":940,"x":1055},{"name":"Ileon","y":443,"x":321}]}]}],"lastImageId":5};
+
+Huesitos.listBoneImages = function(bone) {
+  var images = bone['images'];
+  var node = "<ul class='images'>";
+  for (var idx in images) {
+    var image = images[idx];
+    node += "<li><a href='#'>" + image['name'] + "</a></li>";
+  }
+  node += "</ul>";
+
+  return node;
+};
+
+Huesitos.listBones = function() {
+  var div = $('#bones');
+  div.empty();
+
+  var bones = Huesitos.data['bones'];
+  var node = "<ul class='bones'>";
+  for (var idx in bones) {
+    var bone = bones[idx];
+    node += "<li>" + bone['name'] + Huesitos.listBoneImages(bone) + "</li>";
+  }
+  node += "</ul>";
+
+  div.append(node);
+};
+
+
+Huesitos.listBones();
+</script>
+<body>
+</body>
+
