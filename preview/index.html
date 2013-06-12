@@ -33,13 +33,14 @@ body, a {
   margin-left: auto;
   margin-right: auto;
   width: 410px;
+  position: relative;
 }
 
 #bones, #image {
   border: 1px solid red;
 }
 
-#image img#main {
+#image img.main {
   width: 400px;
 }
 
@@ -63,14 +64,27 @@ Huesitos.showImage = function(node) {
   var image = $(node).data('image-data');
   var container = $('#image');
 
-  container.empty().append("<img id='main' src='" + image['imagePath'] + "'/>");
+  var img = new Image();
+  $(img).addClass('main');
+  img.onload = function() {
+    var w = this.width;
+    var h = this.height;
+    var nw = this.naturalWidth;
+    var nh = this.naturalHeight;
+  
 
-  var points = image['points'];
-  points.forEach(function(point) {
-    var dot = $('<img src="dot.png">');
-    dot.css('left', point.x).css('top', point.y).css('position', 'absolute');
-    container.append(dot);
-  });
+    var points = image['points'];
+    points.forEach(function(point) {
+      var dot = $('<img src="dot.png">');
+      var x = w * point.x / nw;
+      var y = h * point.y / nh;
+      dot.css('left', x).css('top', y).css('position', 'absolute');
+      container.append(dot);
+    });
+  }
+  img.src = image['imagePath'];
+  container.empty().append(img);
+
 };
 
 Huesitos.listImages = function(bone) {
