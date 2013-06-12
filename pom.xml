@@ -4,7 +4,7 @@
 
 	<groupId>ar.com.ktulu.editorHuesos</groupId>
 	<artifactId>editorHuesos</artifactId>
-	<version>1.3-SNAPSHOT</version>
+	<version>1.4</version>
 	<packaging>jar</packaging>
 
 	<name>editorHuesos</name>

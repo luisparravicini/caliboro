@@ -9,8 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.swing.JOptionPane;
-
 public class EventQueueErrorCatcher extends EventQueue {
 
 	public static void install() {
@@ -33,12 +31,11 @@ public class EventQueueErrorCatcher extends EventQueue {
 	}
 
 	private static void logToUser(Throwable t) {
-		JOptionPane.showMessageDialog(null, t.getMessage(), "Error",
-				JOptionPane.ERROR_MESSAGE);
+		DialogUtil.showError(t.getMessage());
 		System.exit(1);
 	}
 
-	private static void logToFile(Throwable t) {
+	public static void logToFile(Throwable t) {
 		File logPath = new File(System.getProperty("user.home"), "atlas.log");
 		PrintWriter writer;
 		try {

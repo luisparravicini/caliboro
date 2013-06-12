@@ -14,6 +14,7 @@ import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -37,7 +38,7 @@ public class ImageView extends JPanel {
 		zoom = 100;
 	}
 
-	public void loadImage(BoneImageTreeNode imgNode) {
+	public void loadImage(BoneImageTreeNode imgNode) throws ImageException {
 		try {
 			image = ImageIO.read(new File(imgNode.getImagePath()));
 			updateZoomedImage();
@@ -46,6 +47,8 @@ public class ImageView extends JPanel {
 			for (BonePoint point : imgNode.getPoints())
 				newDots.add(new Dot(point));
 			dots = newDots;
+		} catch (IIOException e) {
+			throw new ImageException(e);
 		} catch (IOException e) {
 			// viva la runtime exception
 			throw new RuntimeException(e);

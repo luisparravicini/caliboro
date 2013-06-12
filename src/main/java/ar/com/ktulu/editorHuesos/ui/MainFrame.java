@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -34,6 +35,7 @@ import javax.swing.tree.TreePath;
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
+import ar.com.ktulu.editorHuesos.ui.images.ImageException;
 import ar.com.ktulu.editorHuesos.ui.images.ImageManager;
 import ar.com.ktulu.editorHuesos.ui.images.ImageMouseListener;
 import ar.com.ktulu.editorHuesos.ui.images.ImageView;
@@ -108,16 +110,11 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		return null;
 	}
 
-	private void showError(String msg) {
-		JOptionPane.showMessageDialog(null, msg, "Error",
-				JOptionPane.ERROR_MESSAGE);
-	}
-
 	private boolean createFolder(File path) {
 		boolean result = true;
 		if (!path.exists())
 			if (!path.mkdirs()) {
-				showError("No se pudo crear la carpeta");
+				DialogUtil.showError("No se pudo crear la carpeta");
 				result = false;
 			}
 
@@ -297,7 +294,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			// en windows no corre la validacion de FilenameFilter, asi que
 			// chequeo aca también
 			if (!knownImageType(filename))
-				showError("Tipo de imagen no reconocida");
+				DialogUtil.showError("Tipo de imagen no reconocida");
 			else
 				addBoneImage(new File(fileDlg.getDirectory(), filename));
 		}
@@ -386,7 +383,12 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			}
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
-			imageManager.loadBoneImage(imgNode);
+			try {
+				imageManager.loadBoneImage(imgNode);
+			} catch (ImageException e) {
+				EventQueueErrorCatcher.logToFile(e);
+				DialogUtil.showError(e.getMessage());
+			}
 		}
 	}
 
