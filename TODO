@@ -14,6 +14,8 @@ TODO
 PRIORIDAD BAJA
 ==============
 
+  - que guarde los datos en una carpeta hace que manipulen por afuera la carpeta, deberia repensar lo de usar un zip o algun archivo contenedor
+  - al cargarse, lo de que al cancelar en la seleccion de carpeta sigue preguntando es molestisimo, al menos preguntar si quiere salir 
   - especificar un size minimo para la ventana, ahora puedo achicarla y hacer que se solapen los controles de la imagen
   - en windows, la carpeta de seleccionar dir no tiene el new folder
   - poner el metodo de showError en MainFrame en una clase utils 
