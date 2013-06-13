@@ -10,6 +10,9 @@ TODO
   - merge de varios directorios en uno solo?
   - preview
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
+  - testear que el exe funcione en windows
+  - meterle como icono el esqueleto de los goones (esta el gif del spritesheet) http://www.hascode.com/2012/08/creating-a-windows-executable-from-a-jar-using-maven/ http://9stmaryrd.com/tools/launch4j-maven-plugin/
+  - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://truezip.java.net/concepts.html https://truevfs.java.net/
 
 
 PRIORIDAD BAJA
