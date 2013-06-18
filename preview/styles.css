@@ -1,0 +1,42 @@
+#bones ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 1em;
+}
+
+#bones li a {
+  text-decoration: none;
+}
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 14px;
+  background: #202020;
+}
+
+body, a {
+  color: #f0f0f0;
+}
+
+
+#bones {
+  float: left;
+  margin-right: 24px;
+}
+
+#image {
+  margin-left: auto;
+  margin-right: auto;
+  width: 410px;
+  position: relative;
+}
+
+#image img.main {
+  width: 400px;
+}
+
+#control {
+  clear: both;
+  padding-top: 50px;
+  padding-left: 20px;
+}
