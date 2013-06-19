@@ -8,10 +8,9 @@ TODO
   - que el programa exporte el log para ver los errores
   - exportar a js/html
   - merge de varios directorios en uno solo?
-  - preview
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - testear que el exe funcione en windows
-  - meterle como icono el esqueleto de los goones (esta el gif del spritesheet) http://www.hascode.com/2012/08/creating-a-windows-executable-from-a-jar-using-maven/ http://9stmaryrd.com/tools/launch4j-maven-plugin/
+  - meterle como icono el esqueleto de los goonies (esta el gif del spritesheet) http://www.hascode.com/2012/08/creating-a-windows-executable-from-a-jar-using-maven/ http://9stmaryrd.com/tools/launch4j-maven-plugin/
   - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
   - al cargar el programa, en el dialogo de seleccionar directorio, hacerlo mas como un wizard y explicar porque se necesita un directorio, sino es muy confuso para el que lo usa por primera vez
   - en js, bonesData no necesita del hash, con solo lo que haya en el key 'bones' esta bien
