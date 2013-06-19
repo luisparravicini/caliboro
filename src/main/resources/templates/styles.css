@@ -16,6 +16,14 @@
   background: #505050;
 }
 
+#image #refName {
+  background: #405060;
+  border: #203030;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+
 body {
   font-family: Arial, Verdana, sans-serif;
   font-size: 14px;

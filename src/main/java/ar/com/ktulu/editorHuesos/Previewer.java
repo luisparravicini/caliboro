@@ -84,7 +84,7 @@ public class Previewer {
 		deployResource("jquery-2.0.2.min.js", tmpDir);
 		deployResource("styles.css", tmpDir);
 		deployResource("huesitos.js", tmpDir);
-		deployResource("../dot.png", tmpDir);
+		deployResource("dot.png", tmpDir);
 	}
 
 	private void deployResource(String name, File dir)

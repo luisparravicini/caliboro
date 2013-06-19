@@ -6,6 +6,24 @@ Huesitos.basePath = '.';
 Huesitos.showingRefs = false;
 Huesitos.currentBone = null;
 
+Huesitos.showReferenceName = function(node) {
+  Huesitos.getImageContainer().find('#refName').remove();
+
+  var container = Huesitos.getImageContainer();
+  var name = node.data('name');
+  var refNode = $('<div id="refName">').text(name);
+  refNode.css('position', 'absolute').css('display', 'none');
+  container.append(refNode);
+  var x = parseInt(node.css('left')) - refNode.width() / 2;
+  var y = parseInt(node.css('top')) + node.height();
+  refNode.css('left', x).css('top', y);
+  refNode.fadeIn(100);
+};
+
+Huesitos.hideReferenceName = function() {
+  Huesitos.getImageContainer().find('#refName').fadeOut(800, function() { $(this).remove(); });
+};
+
 Huesitos.showReferences = function() {
   Huesitos.showingRefs = true;
 
@@ -19,7 +37,12 @@ Huesitos.showReferences = function() {
 
   var points = Huesitos.currentImage.points;
   points.forEach(function(point) {
-    var dot = $('<img src="dot.png">').addClass('reference');
+    var dot = $('<img src="dot.png">').data('name', point.name).
+    addClass('reference').hover(function() {
+      Huesitos.showReferenceName($(this));
+    }, function() {
+      Huesitos.hideReferenceName();
+    });
     var x = w * point.x / nw;
     var y = h * point.y / nh;
     dot.css('left', x).css('top', y).css('position', 'absolute');
@@ -90,7 +113,7 @@ Huesitos.listImages = function(bone) {
   var images = bone['images'];
   var node = $("<ul class='images'>");
   images.forEach(function(image) {
-    var linkNode = $("<a href='#'>").append(image.name).data('image-data', image)
+    var linkNode = $("<a href='#'>").text(image.name).data('image-data', image)
     .click(function() {
       Huesitos.getBonesContainer().find('li').removeClass('selected');
       $(this).parent().addClass('selected');
@@ -114,7 +137,7 @@ Huesitos.listBones = function() {
   var bones = Huesitos.data['bones'];
   var node = $("<ul class='bones'>")
   bones.forEach(function(bone) {
-    node.append($("<li>").append(bone.name).append(Huesitos.listImages(bone)));
+    node.append($("<li>").text(bone.name).append(Huesitos.listImages(bone)));
   });
 
   div.append(node);
