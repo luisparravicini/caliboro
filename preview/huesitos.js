@@ -134,7 +134,7 @@ Huesitos.listBones = function() {
   var div = Huesitos.getBonesContainer();
   div.empty();
 
-  var bones = Huesitos.data['bones'];
+  var bones = Huesitos.data;
   var node = $("<ul class='bones'>")
   bones.forEach(function(bone) {
     node.append($("<li>").text(bone.name).append(Huesitos.listImages(bone)));

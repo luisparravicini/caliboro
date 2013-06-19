@@ -243,7 +243,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		Previewer previewer = new Previewer();
 		try {
 			BonesStore store = BonesStore.getInstance();
-			previewer.deploy(store.dataNode(), store.getPath());
+			previewer.deploy(store.dataNode().getBones(), store.getPath());
 			String indexPath = previewer.getIndexPath();
 			if (!Util.open(indexPath))
 				Util.showError("No se pudo abrir el archivo de previsualizacion");

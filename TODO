@@ -13,7 +13,6 @@ TODO
   - meterle como icono el esqueleto de los goonies (esta el gif del spritesheet) http://www.hascode.com/2012/08/creating-a-windows-executable-from-a-jar-using-maven/ http://9stmaryrd.com/tools/launch4j-maven-plugin/
   - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
   - al cargar el programa, en el dialogo de seleccionar directorio, hacerlo mas como un wizard y explicar porque se necesita un directorio, sino es muy confuso para el que lo usa por primera vez
-  - en js, bonesData no necesita del hash, con solo lo que haya en el key 'bones' esta bien
   - no borro el directorio de previsualizacion
 
 PRIORIDAD BAJA
