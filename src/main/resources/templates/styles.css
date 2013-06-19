@@ -4,8 +4,16 @@
   padding-left: 1em;
 }
 
+#bones li {
+  padding: 0px 6px 2px 6px;
+}
+
 #bones li a {
   text-decoration: none;
+}
+
+#bones .selected {
+  background: #505050;
 }
 
 body {

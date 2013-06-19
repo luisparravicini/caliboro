@@ -86,6 +86,8 @@ Huesitos.listImages = function(bone) {
   images.forEach(function(image) {
     var linkNode = $("<a href='#'>").append(image.name).data('image-data', image)
     .click(function() {
+      Huesitos.getBonesContainer().find('li').removeClass('selected');
+      $(this).parent().addClass('selected');
       Huesitos.showImage(this);
       return false;
     });
@@ -95,8 +97,12 @@ Huesitos.listImages = function(bone) {
   return node;
 };
 
+Huesitos.getBonesContainer = function() {
+  return $('#bones');
+};
+
 Huesitos.listBones = function() {
-  var div = $('#bones');
+  var div = Huesitos.getBonesContainer();
   div.empty();
 
   var bones = Huesitos.data['bones'];
