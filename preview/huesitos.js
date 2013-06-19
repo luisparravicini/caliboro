@@ -6,6 +6,9 @@ Huesitos.basePath = '.';
 Huesitos.showingRefs = false;
 Huesitos.currentBone = null;
 
+Huesitos.showReferenceName = function() {
+};
+
 Huesitos.showReferences = function() {
   Huesitos.showingRefs = true;
 
@@ -19,7 +22,9 @@ Huesitos.showReferences = function() {
 
   var points = Huesitos.currentImage.points;
   points.forEach(function(point) {
-    var dot = $('<img src="dot.png">').addClass('reference');
+    var dot = $('<img src="dot.png">').addClass('reference').hover(function() {
+      Huesitos.showReferenceName();
+    });
     var x = w * point.x / nw;
     var y = h * point.y / nh;
     dot.css('left', x).css('top', y).css('position', 'absolute');
