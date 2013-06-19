@@ -14,7 +14,8 @@ TODO
   - meterle como icono el esqueleto de los goones (esta el gif del spritesheet) http://www.hascode.com/2012/08/creating-a-windows-executable-from-a-jar-using-maven/ http://9stmaryrd.com/tools/launch4j-maven-plugin/
   - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
   - al cargar el programa, en el dialogo de seleccionar directorio, hacerlo mas como un wizard y explicar porque se necesita un directorio, sino es muy confuso para el que lo usa por primera vez
-
+  - en js, bonesData no necesita del hash, con solo lo que haya en el key 'bones' esta bien
+  - no borro el directorio de previsualizacion
 
 PRIORIDAD BAJA
 ==============
@@ -29,6 +30,7 @@ PRIORIDAD BAJA
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - cuando tengo que agregar fotos, es molesto agregar de a una
+  - chequear que si tengo un dir con espacios/acentos, al previsualizar se encodea bien el path
   - cambiar nombre de un punto que ya existe
   - boton preview que abra un browser?
   - cuando draggeo el slider de zoom, que aparezca un tooltip diciendo el valor actual

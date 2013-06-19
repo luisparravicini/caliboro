@@ -6,7 +6,10 @@ import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -118,7 +121,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		boolean result = true;
 		if (!path.exists())
 			if (!path.mkdirs()) {
-				DialogUtil.showError("No se pudo crear la carpeta");
+				Util.showError("No se pudo crear la carpeta");
 				result = false;
 			}
 
@@ -237,7 +240,20 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	protected void preview() {
-		new Previewer().process(BonesStore.getInstance().dataNode());
+		Previewer previewer = new Previewer();
+		try {
+			BonesStore store = BonesStore.getInstance();
+			previewer.deploy(store.dataNode(), store.getPath());
+			String indexPath = previewer.getIndexPath();
+			if (!Util.open(indexPath))
+				Util.showError("No se pudo abrir el archivo de previsualizacion");
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private String getBonePointButtonLabel() {
@@ -309,7 +325,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			// en windows no corre la validacion de FilenameFilter, asi que
 			// chequeo aca también
 			if (!knownImageType(filename))
-				DialogUtil.showError("Tipo de imagen no reconocida");
+				Util.showError("Tipo de imagen no reconocida");
 			else
 				addBoneImage(new File(fileDlg.getDirectory(), filename));
 		}
@@ -402,7 +418,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 				imageManager.loadBoneImage(imgNode);
 			} catch (ImageException e) {
 				EventQueueErrorCatcher.logToFile(e);
-				DialogUtil.showError(e.getMessage());
+				Util.showError(e.getMessage());
 			}
 		}
 	}

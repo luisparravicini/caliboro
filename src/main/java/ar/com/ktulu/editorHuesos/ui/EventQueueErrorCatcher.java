@@ -31,7 +31,7 @@ public class EventQueueErrorCatcher extends EventQueue {
 	}
 
 	private static void logToUser(Throwable t) {
-		DialogUtil.showError(t.getMessage());
+		Util.showError(t.getMessage());
 		System.exit(1);
 	}
 
