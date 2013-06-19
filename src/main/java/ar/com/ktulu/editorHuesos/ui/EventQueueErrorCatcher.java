@@ -31,7 +31,10 @@ public class EventQueueErrorCatcher extends EventQueue {
 	}
 
 	private static void logToUser(Throwable t) {
-		Util.showError(t.getMessage());
+		String msg = t.getMessage();
+		if (msg == null || msg.trim().isEmpty())
+			msg = "Ocurrió un error";
+		Util.showError(msg);
 		System.exit(1);
 	}
 

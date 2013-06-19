@@ -3,7 +3,7 @@
 <head>
   <link type="text/css" rel="stylesheet" href="styles.css">
   <script src="jquery-2.0.2.min.js"></script>
-  <script src="huesitos.js"></script>
+  <script src="caliboro.js"></script>
 </head>
 
 <div id="bones"></div>
@@ -12,11 +12,11 @@
 <div id="controls"></div>
 
 <script>
-Huesitos.basePath = '$bonesBasePath';
-Huesitos.data = $bonesData;
+Caliboro.basePath = '$bonesBasePath';
+Caliboro.data = $bonesData;
 
 $(document).ready(function() {
-  Huesitos.listBones();
+  Caliboro.listBones();
 });
 </script>
 <body>

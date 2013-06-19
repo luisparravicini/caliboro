@@ -35,6 +35,8 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import org.json.JSONObject;
+
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.Previewer;
 import ar.com.ktulu.editorHuesos.model.Bone;

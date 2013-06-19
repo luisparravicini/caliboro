@@ -9,7 +9,10 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import ar.com.ktulu.editorHuesos.model.Bone;
 
@@ -36,10 +39,8 @@ public class AppTest extends TestCase {
 
 	public void testPreviewerEmptyList() throws URISyntaxException {
 		List<Bone> bones = new ArrayList<Bone>();
-		String expected = String.format("Huesitos.data = %s;", new JSONArray(
-				bones));
-
 		previewer.process(bones, new File("/"));
+		String expected = String.format("Caliboro.data = [];");
 		assertTrue(previewer.getIndexContent().contains(expected));
 	}
 
@@ -49,10 +50,14 @@ public class AppTest extends TestCase {
 		Bone bone = new Bone("nombre2");
 		bone.addImage("/xxyyzz");
 		bones.add(bone);
-		String expected = String.format("Huesitos.data = %s;", new JSONArray(
-				bones));
-
 		previewer.process(bones, new File("/"));
+		String expected = String.format("Caliboro.data = %s;", new JSONArray(
+				CollectionUtils.collect(bones, new Transformer() {
+					@Override
+					public Object transform(Object obj) {
+						return new JSONObject(obj);
+					}
+				})));
 		assertTrue(previewer.getIndexContent().contains(expected));
 	}
 }

@@ -9,6 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -16,6 +18,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import ar.com.ktulu.editorHuesos.model.Bone;
 
@@ -37,7 +40,7 @@ public class Previewer {
 		ve.init();
 		Template template = ve.getTemplate("templates/index.html.vm", "utf-8");
 		VelocityContext context = new VelocityContext();
-		context.put("bonesData", new JSONArray(data));
+		context.put("bonesData", getDataAsJSON(data));
 		context.put("bonesBasePath",
 				new URI("file://" + basePath.getAbsolutePath()));
 		StringWriter writer = new StringWriter();
@@ -46,6 +49,15 @@ public class Previewer {
 		indexContent = writer.toString();
 
 		return null;
+	}
+
+	private Object getDataAsJSON(List<Bone> data) {
+		return new JSONArray(CollectionUtils.collect(data, new Transformer() {
+			@Override
+			public Object transform(Object obj) {
+				return new JSONObject(obj);
+			}
+		}));
 	}
 
 	protected String getIndexContent() {
@@ -84,7 +96,7 @@ public class Previewer {
 			IOException {
 		deployResource("jquery-2.0.2.min.js", tmpDir);
 		deployResource("styles.css", tmpDir);
-		deployResource("huesitos.js", tmpDir);
+		deployResource("caliboro.js", tmpDir);
 		deployResource("dot.png", tmpDir);
 	}
 
