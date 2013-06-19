@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.editorHuesos.ui.treeModel;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.Bone;

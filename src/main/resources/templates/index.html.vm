@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="styles.css">
+  <script src="jquery-2.0.2.min.js"></script>
+  <script src="huesitos.js"></script>
+</head>
+
+<div id="bones"></div>
+<div id="image"></div>
+
+<div id="controls"></div>
+
+<script>
+Huesitos.basePath = '$bonesBasePath';
+Huesitos.data = $bonesData;
+
+$(document).ready(function() {
+  Huesitos.listBones();
+});
+</script>
+<body>
+</body>
+

@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import ar.com.ktulu.editorHuesos.model.BonePoint;
-import ar.com.ktulu.editorHuesos.ui.BoneImageTreeNode;
+import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
 
 @SuppressWarnings("serial")
 public class ImageView extends JPanel {

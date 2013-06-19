@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.editorHuesos.ui.treeModel;
 
 import java.io.File;
 import java.util.List;

@@ -33,12 +33,16 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
+import ar.com.ktulu.editorHuesos.Previewer;
 import ar.com.ktulu.editorHuesos.model.Bone;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
 import ar.com.ktulu.editorHuesos.ui.images.ImageException;
 import ar.com.ktulu.editorHuesos.ui.images.ImageManager;
 import ar.com.ktulu.editorHuesos.ui.images.ImageMouseListener;
 import ar.com.ktulu.editorHuesos.ui.images.ImageView;
+import ar.com.ktulu.editorHuesos.ui.treeModel.BaseBoneTreeNode;
+import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
+import ar.com.ktulu.editorHuesos.ui.treeModel.BoneTreeNode;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,
@@ -198,6 +202,13 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		btnPrevisualizar = new JButton("Previsualizar");
 		toolBar.add(btnPrevisualizar);
 
+		btnPrevisualizar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				preview();
+			}
+		});
+
 		btnBonePoints.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -223,6 +234,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		});
 
 		imageManager.hideImage();
+	}
+
+	protected void preview() {
+		new Previewer().process(BonesStore.getInstance().dataNode());
 	}
 
 	private String getBonePointButtonLabel() {

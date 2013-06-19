@@ -7,8 +7,8 @@ import javax.swing.JSlider;
 
 import ar.com.ktulu.editorHuesos.BonesStore;
 import ar.com.ktulu.editorHuesos.model.BoneImage;
-import ar.com.ktulu.editorHuesos.ui.BoneImageTreeNode;
 import ar.com.ktulu.editorHuesos.ui.MainFrame;
+import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
 
 public class ImageManager {
 

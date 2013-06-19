@@ -223,4 +223,8 @@ public class BonesStore {
 		return storeBasePath;
 	}
 
+	public StoreRootNode dataNode() {
+		return data;
+	}
+
 }
