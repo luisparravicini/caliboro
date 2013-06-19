@@ -7,8 +7,6 @@ Huesitos.showingRefs = false;
 Huesitos.currentBone = null;
 
 Huesitos.showReferences = function() {
-  if (Huesitos.showingRefs)
-    return;
   Huesitos.showingRefs = true;
 
   var container = Huesitos.getImageContainer();
@@ -51,6 +49,13 @@ Huesitos.toggleReferences = function() {
   Huesitos.updateReferencesButton();
 };
 
+Huesitos.updateReferences = function() {
+  if (Huesitos.showingRefs) {
+    Huesitos.removeReferences();
+    Huesitos.showReferences();
+  }
+};
+
 Huesitos.getControlsContainer = function() {
   return $('#controls');
 };
@@ -76,6 +81,7 @@ Huesitos.showImage = function(node) {
   Huesitos.getImageContainer().empty().append(img);
   img.onload = function() {
     Huesitos.showControls();
+    Huesitos.updateReferences();
   }
   img.src = Huesitos.basePath + '/' + Huesitos.currentImage.imagePath;
 };
