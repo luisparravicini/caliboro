@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import ar.com.ktulu.caliboro.model.Bone;
+import ar.com.ktulu.caliboro.ui.Util;
 
 public class Previewer {
 
@@ -28,8 +28,7 @@ public class Previewer {
 	private String indexPath;
 
 	// TODO esto esta publico para el test
-	public String process(List<Bone> data, File basePath)
-			throws URISyntaxException {
+	public String process(List<Bone> data, File basePath) throws IOException {
 		if (data == null)
 			throw new IllegalArgumentException("Faltan datos");
 
@@ -42,7 +41,7 @@ public class Previewer {
 		VelocityContext context = new VelocityContext();
 		context.put("bonesData", getDataAsJSON(data));
 		context.put("bonesBasePath",
-				new URI("file://" + basePath.getAbsolutePath()));
+				Util.encodePath(basePath.getAbsolutePath()));
 		StringWriter writer = new StringWriter();
 		template.merge(context, writer);
 

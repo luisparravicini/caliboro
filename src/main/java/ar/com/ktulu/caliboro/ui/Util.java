@@ -1,11 +1,14 @@
 package ar.com.ktulu.caliboro.ui;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.swing.JOptionPane;
+
+import org.apache.commons.io.FileUtils;
 
 public class Util {
 	private Util() {
@@ -22,12 +25,16 @@ public class Util {
 		if (Desktop.isDesktopSupported()) {
 			Desktop desktop = Desktop.getDesktop();
 			if (desktop.isSupported(Desktop.Action.BROWSE)) {
-				URI uri = new URI("file://" + indexPath);
-				desktop.browse(uri);
+				desktop.browse(Util.encodePath(indexPath).toURI());
 				result = true;
 			}
 		}
 
 		return result;
+	}
+
+	public static URL encodePath(String path) throws IOException {
+		File[] paths = { new File(path) };
+		return FileUtils.toURLs(paths)[0];
 	}
 }

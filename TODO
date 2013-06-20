@@ -9,8 +9,8 @@ TODO
   - exportar a js/html
   - merge de varios directorios en uno solo?
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
-  - testear que el exe funcione en windows
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
+  - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error
   - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
   - al cargar el programa, en el dialogo de seleccionar directorio, hacerlo mas como un wizard y explicar porque se necesita un directorio, sino es muy confuso para el que lo usa por primera vez
   - no borro el directorio de previsualizacion
@@ -28,7 +28,6 @@ PRIORIDAD BAJA
   - exportar el .json y las imagenes para que pueda usarse con un browser
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - cuando tengo que agregar fotos, es molesto agregar de a una
-  - chequear que si tengo un dir con espacios/acentos, al previsualizar se encodea bien el path
   - cambiar nombre de un punto que ya existe
   - cuando draggeo el slider de zoom, que aparezca un tooltip diciendo el valor actual
   - el about no toma la version del proyecto

@@ -35,8 +35,6 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import org.json.JSONObject;
-
 import ar.com.ktulu.caliboro.BonesStore;
 import ar.com.ktulu.caliboro.Previewer;
 import ar.com.ktulu.caliboro.model.Bone;
