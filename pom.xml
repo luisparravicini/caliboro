@@ -55,20 +55,43 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>release</shadedClassifierName>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>ar.com.ktulu.caliboro.Main</mainClass>
+						</transformer>
+					</transformers>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
 				<version>1.5.2</version>
 				<executions>
 					<execution>
-						<id>l4j-clui</id>
+						<id>l4j-gui</id>
 						<phase>package</phase>
 						<goals>
 							<goal>launch4j</goal>
 						</goals>
 						<configuration>
-							<headerType>console</headerType>
+							<headerType>gui</headerType>
 							<outfile>${project.build.directory}/${project.artifactId}-${project.version}.exe</outfile>
-							<jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
+							<jar>${project.build.directory}/${project.artifactId}-${project.version}-release.jar</jar>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
 								<mainClass>${mainClass}</mainClass>
@@ -87,28 +110,10 @@
 								<internalName>${project.artifactId}</internalName>
 								<originalFilename>${project.artifactId}.exe</originalFilename>
 							</versionInfo>
+							<icon>src/main/resources/caliboro.ico</icon>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<finalName>${project.artifactId}</finalName>
-					<descriptors>
-						<descriptor>src/assemble/single-jar.xml</descriptor>
-					</descriptors>
-					<archive>
-						<manifest>
-							<mainClass>${mainClass}</mainClass>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-						<manifestEntries>
-							<Implementation-Build>${buildNumber}</Implementation-Build>
-						</manifestEntries>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
