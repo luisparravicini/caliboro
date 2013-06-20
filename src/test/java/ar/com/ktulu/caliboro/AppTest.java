@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.caliboro;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -14,7 +14,8 @@ import org.apache.commons.collections.Transformer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ar.com.ktulu.editorHuesos.model.Bone;
+import ar.com.ktulu.caliboro.Previewer;
+import ar.com.ktulu.caliboro.model.Bone;
 
 public class AppTest extends TestCase {
 	private Previewer previewer;

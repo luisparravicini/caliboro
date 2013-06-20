@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui.images;
+package ar.com.ktulu.caliboro.ui.images;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,8 +18,8 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import ar.com.ktulu.editorHuesos.model.BonePoint;
-import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
+import ar.com.ktulu.caliboro.model.BonePoint;
+import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
 
 @SuppressWarnings("serial")
 public class ImageView extends JPanel {

@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui.treeModel;
+package ar.com.ktulu.caliboro.ui.treeModel;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 

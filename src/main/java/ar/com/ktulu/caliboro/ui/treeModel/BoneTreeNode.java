@@ -1,8 +1,8 @@
-package ar.com.ktulu.editorHuesos.ui.treeModel;
+package ar.com.ktulu.caliboro.ui.treeModel;
 
-import ar.com.ktulu.editorHuesos.BonesStore;
-import ar.com.ktulu.editorHuesos.model.Bone;
-import ar.com.ktulu.editorHuesos.model.BoneImage;
+import ar.com.ktulu.caliboro.BonesStore;
+import ar.com.ktulu.caliboro.model.Bone;
+import ar.com.ktulu.caliboro.model.BoneImage;
 
 @SuppressWarnings("serial")
 public class BoneTreeNode extends BaseBoneTreeNode {

@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.caliboro;
 
 
 @SuppressWarnings("serial")

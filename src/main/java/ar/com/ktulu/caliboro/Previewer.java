@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.caliboro;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ar.com.ktulu.editorHuesos.model.Bone;
+import ar.com.ktulu.caliboro.model.Bone;
 
 public class Previewer {
 

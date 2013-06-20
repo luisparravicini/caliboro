@@ -1,14 +1,14 @@
-package ar.com.ktulu.editorHuesos.ui.images;
+package ar.com.ktulu.caliboro.ui.images;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 
-import ar.com.ktulu.editorHuesos.BonesStore;
-import ar.com.ktulu.editorHuesos.model.BoneImage;
-import ar.com.ktulu.editorHuesos.ui.MainFrame;
-import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
+import ar.com.ktulu.caliboro.BonesStore;
+import ar.com.ktulu.caliboro.model.BoneImage;
+import ar.com.ktulu.caliboro.ui.MainFrame;
+import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
 
 public class ImageManager {
 

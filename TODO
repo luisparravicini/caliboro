@@ -3,8 +3,8 @@ TODO
 
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
 
-  - consultar con los demas un nombre para el editor (renombrar la app /js a Caliboro (huesos frescos en mapuche) y consultar a los demas)
-  - actualizar docs
+  - consultar con los demas el cambio de nombre a caliboro
+  - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - que el programa exporte el log para ver los errores
   - exportar a js/html
   - merge de varios directorios en uno solo?

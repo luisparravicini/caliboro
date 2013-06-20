@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.caliboro.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -37,17 +37,17 @@ import javax.swing.tree.TreePath;
 
 import org.json.JSONObject;
 
-import ar.com.ktulu.editorHuesos.BonesStore;
-import ar.com.ktulu.editorHuesos.Previewer;
-import ar.com.ktulu.editorHuesos.model.Bone;
-import ar.com.ktulu.editorHuesos.model.BoneImage;
-import ar.com.ktulu.editorHuesos.ui.images.ImageException;
-import ar.com.ktulu.editorHuesos.ui.images.ImageManager;
-import ar.com.ktulu.editorHuesos.ui.images.ImageMouseListener;
-import ar.com.ktulu.editorHuesos.ui.images.ImageView;
-import ar.com.ktulu.editorHuesos.ui.treeModel.BaseBoneTreeNode;
-import ar.com.ktulu.editorHuesos.ui.treeModel.BoneImageTreeNode;
-import ar.com.ktulu.editorHuesos.ui.treeModel.BoneTreeNode;
+import ar.com.ktulu.caliboro.BonesStore;
+import ar.com.ktulu.caliboro.Previewer;
+import ar.com.ktulu.caliboro.model.Bone;
+import ar.com.ktulu.caliboro.model.BoneImage;
+import ar.com.ktulu.caliboro.ui.images.ImageException;
+import ar.com.ktulu.caliboro.ui.images.ImageManager;
+import ar.com.ktulu.caliboro.ui.images.ImageMouseListener;
+import ar.com.ktulu.caliboro.ui.images.ImageView;
+import ar.com.ktulu.caliboro.ui.treeModel.BaseBoneTreeNode;
+import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
+import ar.com.ktulu.caliboro.ui.treeModel.BoneTreeNode;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements TreeModelListener,

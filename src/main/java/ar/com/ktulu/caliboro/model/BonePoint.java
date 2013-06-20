@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.model;
+package ar.com.ktulu.caliboro.model;
 
 
 public class BonePoint {

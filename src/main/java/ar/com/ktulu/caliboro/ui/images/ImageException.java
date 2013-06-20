@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui.images;
+package ar.com.ktulu.caliboro.ui.images;
 
 
 public class ImageException extends Exception {

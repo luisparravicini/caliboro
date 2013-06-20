@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.model;
+package ar.com.ktulu.caliboro.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-import ar.com.ktulu.editorHuesos.BonesStore;
+import ar.com.ktulu.caliboro.BonesStore;
 
 public class BoneImage {
 	private String name;

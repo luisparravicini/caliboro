@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ar.com.ktulu.editorHuesos</groupId>
-	<artifactId>editorHuesos</artifactId>
+	<groupId>ar.com.ktulu.caliboro</groupId>
+	<artifactId>caliboro</artifactId>
 	<version>1.4</version>
 	<packaging>jar</packaging>
 
-	<name>editorHuesos</name>
+	<name>Caliboro</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -80,7 +80,6 @@
 								<fileVersion>${project.version}.0.0</fileVersion>
 								<txtFileVersion>${project.version}.0.0</txtFileVersion>
 								<fileDescription>Editor para atlas de huesos</fileDescription>
-								V>
 								<copyright>Luis Parravicini</copyright>
 								<productVersion>${project.version}.0.0</productVersion>
 								<txtProductVersion>${project.version}.0.0</txtProductVersion>

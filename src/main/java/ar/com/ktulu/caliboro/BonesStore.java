@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos;
+package ar.com.ktulu.caliboro;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import ar.com.ktulu.editorHuesos.model.Bone;
-import ar.com.ktulu.editorHuesos.model.BoneImage;
-import ar.com.ktulu.editorHuesos.model.BonePoint;
-import ar.com.ktulu.editorHuesos.model.StoreRootNode;
+import ar.com.ktulu.caliboro.model.Bone;
+import ar.com.ktulu.caliboro.model.BoneImage;
+import ar.com.ktulu.caliboro.model.BonePoint;
+import ar.com.ktulu.caliboro.model.StoreRootNode;
 
 public class BonesStore {
 	private static BonesStore instance;

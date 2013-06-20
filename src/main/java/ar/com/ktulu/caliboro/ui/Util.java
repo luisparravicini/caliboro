@@ -1,4 +1,4 @@
-package ar.com.ktulu.editorHuesos.ui;
+package ar.com.ktulu.caliboro.ui;
 
 import java.awt.Desktop;
 import java.io.IOException;
