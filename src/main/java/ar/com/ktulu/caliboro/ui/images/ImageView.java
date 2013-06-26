@@ -77,8 +77,8 @@ public class ImageView extends JPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		return (scaledImage == null ? super.getPreferredSize() : new Dimension(
-				scaledImage.getWidth(), scaledImage.getHeight()));
+		return (!isVisible() || scaledImage == null ? super.getPreferredSize()
+				: new Dimension(scaledImage.getWidth(), scaledImage.getHeight()));
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class ImageView extends JPanel {
 				return point;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -186,7 +186,7 @@ public class ImageView extends JPanel {
 		Point pos = new Point(x, y);
 		pos.x /= zoomLevel;
 		pos.y /= zoomLevel;
-		
+
 		return pos;
 	}
 

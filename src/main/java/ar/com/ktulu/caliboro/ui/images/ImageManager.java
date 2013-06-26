@@ -50,7 +50,7 @@ public class ImageManager {
 	}
 
 	private void setImageVisibility(boolean visible) {
-		imageView.removeImage();
+		imageView.setVisible(visible);
 		imageInfo.setVisible(visible);
 		imageZoom.setVisible(visible);
 	}
