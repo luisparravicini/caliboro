@@ -34,10 +34,10 @@ Caliboro.showReferences = function() {
   var nw = img.naturalWidth;
   var nh = img.naturalHeight;
 
-
   var points = Caliboro.currentImage.points;
   points.forEach(function(point) {
-    var dot = $('<img src="dot.png">').data('name', point.name).
+    var img = new Image();
+    var dot = $(img).hide().data('name', point.name).
     addClass('reference').hover(function() {
       Caliboro.showReferenceName($(this));
     }, function() {
@@ -46,6 +46,10 @@ Caliboro.showReferences = function() {
     var x = w * point.x / nw;
     var y = h * point.y / nh;
     dot.css('left', x).css('top', y).css('position', 'absolute');
+    img.onload = function() {
+      dot.css('left', x - this.width/2).css('top', y - this.height/2).show();
+    };
+    img.src = 'dot.png';
     container.append(dot);
   });
 };
