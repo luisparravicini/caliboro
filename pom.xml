@@ -102,7 +102,7 @@
 							<versionInfo>
 								<fileVersion>${project.version}.0.0</fileVersion>
 								<txtFileVersion>${project.version}.0.0</txtFileVersion>
-								<fileDescription>Editor para atlas de huesos</fileDescription>
+								<fileDescription>Editor para atlas osteológico</fileDescription>
 								<copyright>Luis Parravicini</copyright>
 								<productVersion>${project.version}.0.0</productVersion>
 								<txtProductVersion>${project.version}.0.0</txtProductVersion>

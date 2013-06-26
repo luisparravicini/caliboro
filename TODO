@@ -6,6 +6,7 @@ TODO
   - consultar con los demas el cambio de nombre a caliboro
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - que el programa exporte el log para ver los errores
+  - preguntar como se denonima el atlas, atlas de huesos? atlas osteológico?
   - exportar a js/html
   - merge de varios directorios en uno solo?
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
