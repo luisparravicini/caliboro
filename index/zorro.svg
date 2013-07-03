@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="zorro" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="600px" height="415px" viewBox="0 0 600 415" enable-background="new 0 0 600 415" xml:space="preserve" onload="init(evt)">
+<script type="text/ecmascript">
+<![CDATA[
+var label = null;
+function init(evt) {
+  if (window.svgDocument == null)
+    svgDocument = evt.target.ownerDocument;
+  label = svgDocument.getElementById('region_label');
+}
+
+function overShape(evt, txt) {
+  evt.target.setAttribute('opacity', '0.6');
+  label.setAttribute('visibility', 'visible');
+  label.firstChild.data = txt;
+}
+
+function outShape(evt) {
+  evt.target.setAttribute('opacity', '0.3');
+  label.setAttribute('visibility', 'hidden');
+}
+
+]]></script>
+
+<image overflow="visible" enable-background="new    " width="552" height="368" id="zorro_xA0_Image" xlink:href="6AAD92564E1CF59C.png"  transform="matrix(1 0 0 1 11 21)">
+</image>
+<path onmouseover="overShape(evt, 'Apendicular anterior');" onmouseout="outShape(evt);" opacity="0.3" fill="#33CC33" enable-background="new    " d="
+	M105.33,279.67l14,82l22,8l11.33-8v-8l-20-5.33c0,0-6-41.33-3.67-43.33c2.33-2,21-25.33,21-25.33l-8,22l30,68l8,6h23.33L210,373
+	v-11.33l-8-6.67l-9.33,2l-21.33-36l2-13.33L188,287l8-16l24.67-17.33l-10-41.33l-16-20.5L147.33,206l-16.67,19L130,238.33
+	c0,0,4,15.33,2,16S105.33,279.67,105.33,279.67z"/>
+<polygon onmouseover="overShape(evt, 'Apendicular posterior');" onmouseout="outShape(evt);" opacity="0.3" fill="#33CC33" enable-background="new    " points="
+	346.67,230 351.33,326.67 351.33,346.67 358,358 374,358 390,358 393.33,348 384,342 376,338.67 370,324 377.33,277.33 406,367.33 
+	437.33,370.67 442.67,365.33 438,354.67 420,352 409.33,328.67 412.67,322.67 412,223.33 407.33,166 384.67,158 362.67,168 
+	346.67,186.67 340,207.5 "/>
+<path onmouseover="overShape(evt, 'Axial / cráneo');" onmouseout="outShape(evt);" opacity="0.3" fill="#33CC33" enable-background="new    " d="
+	M439.33,72l43.33,64.67l21.33-7.33l11.33,4.67c0,0,13.33,2.67,16,2.67s23.33-2.67,23.33-2.67l8.33-11.33l-26.33-25.33l4-9.33l-14-26
+	l8.67-26l-24,16L494,53.33L484.67,28L472,21l-12.67,28.33L452,62.67L439.33,72z"/>
+<polyline onmouseover="overShape(evt, 'Axial / costillas');" onmouseout="outShape(evt);" opacity="0.3" fill="#33CC33" enable-background="new    " points="
+	416,118 412.67,150 391.33,154.67 362.67,168 336.67,195.33 313.33,195.33 279.33,165.33 287,132.67 307.33,111.33 405.33,101.33 
+	"/>
+<path onmouseover="overShape(evt, 'Axial / vértebras');" onmouseout="outShape(evt);" opacity="0.3" fill="#33CC33" enable-background="new    " d="
+	M435.33,71.33l21.33,30l-38,13.33L408,101.33l-108,10L287,128l-104.33-5.33l-27.33,14l-36.67,24l-10,26v28l-8.67,24l-41.33,74
+	L29.33,352l-12,6.67v-9.33v-34l14-51l25.33-69l26-32c0,0,24.67-34,26.67-34s30-21.33,30-21.33L163,98l31-6.67l76.67,6H300l36-2
+	L374.67,90l36.67-11.17"/>
+<text id="region_label" visibility="hidden" transform="matrix(1 0 0 1 193 33.8872)" font-family="'ArialMT'" font-size="18">Apendicular anterior</text>
+</svg>

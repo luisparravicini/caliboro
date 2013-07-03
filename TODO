@@ -10,6 +10,7 @@ TODO
   - que el programa exporte el log para ver los errores
   - merge de varios directorios en uno solo?
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
+  - reemplazar la imagen del zorro en index por alguna que se pueda usar, esta la saque de google images para probar
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]
   - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
