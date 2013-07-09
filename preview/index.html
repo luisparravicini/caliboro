@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link type="text/css" rel="stylesheet" href="styles.css">
   <script src="jquery-2.0.2.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="jquery-ui.css" />
+  <link type="text/css" rel="stylesheet" href="styles.css">
+  <script src="jquery-ui.min.js"></script>
   <script src="caliboro.js"></script>
 </head>
 
 <div id="bones"></div>
-<div id="image"></div>
+<div id="container">
+  <div id="controls"></div>
+  <div id="image"></div>
+</div>
 
-<div id="controls"></div>
 
 <script>
 Caliboro.basePath = '.';
@@ -17,6 +21,7 @@ Caliboro.data = [{"name":"Cintura Pélvica","images":[{"imagePath":"0.jpg","name"
 
 
 $(document).ready(function() {
+  Caliboro.init();
   Caliboro.listBones();
 });
 </script>

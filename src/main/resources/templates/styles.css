@@ -8,12 +8,29 @@
   padding: 0px 6px 2px 6px;
 }
 
-#bones li a {
+#bones li a, #controls a {
   text-decoration: none;
 }
 
 #bones .selected {
   background: #505050;
+}
+
+#controls {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 40%;
+  margin-bottom: 20px;
+}
+
+#controls .updateRefs {
+  float: left;
+}
+
+#controls #zoomSlider {
+  width: 100px;
+  float: right;
 }
 
 #image #refName {
@@ -43,12 +60,36 @@ body, a {
 #image {
   margin-left: auto;
   margin-right: auto;
-  width: 410px;
+  border: 2px solid #808080;
+  border-width: thin;
+}
+
+#image, #refs {
+  width: 400px;
+  height: 600px;
+}
+
+#image {
   position: relative;
+  overflow: auto;
+}
+
+#refs, #refs2 {
+  position: absolute;
+  top: 0;
+  text-align: center;
 }
 
 #image img.main {
   width: 400px;
+  position: absolute;
+  top: 0;
+}
+
+#image div {
+  margin-left: auto;
+  margin-left: auto;
+  padding: 0;
 }
 
 #control {
@@ -56,3 +97,8 @@ body, a {
   padding-top: 50px;
   padding-left: 20px;
 }
+
+#container {
+  border: 1px solid #101010;
+}
+

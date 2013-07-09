@@ -3,13 +3,17 @@ TODO
 
   - exportar a js/html
   - zoom en la exportacion/previsualizacion
-  - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes 
+  - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
+  - documentacion de la ui html 
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
   - en una maquina con xp el jar del 1.3 decia que no encontraba el main class pero en el manifest estaba, tenia java 1.6 instalado
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - que el programa exporte el log para ver los errores
   - merge de varios directorios en uno solo?
+  - el widget del zoom en html tiene que ser mas fino
+  - html: que diga en algun lado el zoom actual
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
+  - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - reemplazar la imagen del zorro en index por alguna que se pueda usar, esta la saque de google images para probar
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]

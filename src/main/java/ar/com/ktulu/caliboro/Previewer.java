@@ -94,9 +94,17 @@ public class Previewer {
 	private void deployResources(File tmpDir) throws FileNotFoundException,
 			IOException {
 		deployResource("jquery-2.0.2.min.js", tmpDir);
+		deployResource("jquery-ui.min.js", tmpDir);
+		deployResource("jquery-ui.css", tmpDir);
 		deployResource("styles.css", tmpDir);
 		deployResource("caliboro.js", tmpDir);
 		deployResource("dot.png", tmpDir);
+		
+		File imgDir = new File(tmpDir, "images");
+		if (!imgDir.mkdir())
+			throw new RuntimeException("Error creando directorio de imagenes");
+		
+		deployResource("images/ui-icons_222222_256x240.png", tmpDir);
 	}
 
 	private void deployResource(String name, File dir)

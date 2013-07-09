@@ -5,6 +5,7 @@ Caliboro.basePath = '.';
 
 Caliboro.showingRefs = false;
 Caliboro.currentBone = null;
+Caliboro.imageNormalSize = null;
 
 Caliboro.showReferenceName = function(node) {
   Caliboro.getImageContainer().find('#refName').remove();
@@ -24,11 +25,26 @@ Caliboro.hideReferenceName = function() {
   Caliboro.getImageContainer().find('#refName').fadeOut(800, function() { $(this).remove(); });
 };
 
+Caliboro.getReferencesContainer = function() {
+  var imageContainer = Caliboro.getImageContainer();
+  var container = imageContainer.find('#refs')[0];
+  if (container == null) {
+    container = $('<div id="refs">');
+    imageContainer.append(container);
+  }
+
+  return $(container);
+};
+
+Caliboro.getImage = function() {
+  return Caliboro.getImageContainer().find('img.main')[0];
+};
+
 Caliboro.showReferences = function() {
   Caliboro.showingRefs = true;
 
-  var container = Caliboro.getImageContainer();
-  var img = container.find('img.main')[0];
+  var container = Caliboro.getReferencesContainer();
+  var img = Caliboro.getImage();
   var w = img.width;
   var h = img.height;
   var nw = img.naturalWidth;
@@ -87,12 +103,31 @@ Caliboro.getControlsContainer = function() {
   return $('#controls');
 };
 
+Caliboro.changeZoom = function(zoom) {
+  var img = Caliboro.getImage();
+  zoom /= 100.0;
+  $(img).css('width', Caliboro.imageNormalSize.width * zoom);
+
+  Caliboro.updateReferences();
+  Caliboro.updateReferencesContainer();
+};
+
 Caliboro.showControls = function() {
   var refs = $('<a href="#">').addClass('updateRefs').click(function() {
     Caliboro.toggleReferences();
     return false;
   });
-  Caliboro.getControlsContainer().empty().append(refs);
+  var zoom = $('<div id="zoomSlider">');
+  Caliboro.getControlsContainer().empty().append(refs).append(zoom);
+
+  $(zoom).slider({
+    value:100,
+    min: 100,
+    max: 300,
+    step: 25,
+    slide: function(event, ui) { Caliboro.changeZoom(ui.value); }
+  });
+
   Caliboro.updateReferencesButton();
 };
 
@@ -107,10 +142,15 @@ Caliboro.showImage = function(node) {
   $(img).addClass('main');
   Caliboro.getImageContainer().empty().append(img);
   img.onload = function() {
+    Caliboro.imageNormalSize = { 'width': this.width, 'height': this.height };
     Caliboro.showControls();
     Caliboro.updateReferences();
+    Caliboro.updateReferencesContainer();
   }
   img.src = Caliboro.basePath + '/' + Caliboro.currentImage.imagePath;
+
+  Caliboro.getImageContainer().resizable('destroy');
+  Caliboro.setupImageContainer();
 };
 
 Caliboro.listImages = function(bone) {
@@ -120,7 +160,7 @@ Caliboro.listImages = function(bone) {
     var linkNode = $("<a href='#'>").text(image.name).data('image-data', image)
     .click(function() {
       Caliboro.getBonesContainer().find('li').removeClass('selected');
-      $(this).parent().addClass('selected');
+      $(this).addClass('selected');
       Caliboro.showImage(this);
       return false;
     });
@@ -146,3 +186,37 @@ Caliboro.listBones = function() {
 
   div.append(node);
 };
+
+Caliboro.updateReferencesContainer = function() {
+  var img = Caliboro.getImage();
+  if (img) {
+    img = $(img);
+    var refs = Caliboro.getReferencesContainer();
+    if (refs) {
+      var width = parseInt(img.css('width'));
+      refs.css('width', width + 'px');
+      refs.css('height', img.css('height'));
+
+      var x = Math.round((parseInt(refs.parent().css('width')) - width) / 2);
+      if (x < 0) {
+        x = 0;
+      }
+      refs.css('left', x + 'px');
+      img.css('left', x + 'px');
+    }
+  }
+};
+
+Caliboro.setupImageContainer = function() {
+  var container = Caliboro.getImageContainer();
+  container.resizable({ handles: "se", minWidth: 400, minHeight: 400 });
+
+  container.resize(function() {
+    Caliboro.updateReferencesContainer();
+  });
+};
+
+Caliboro.init = function() {
+  Caliboro.setupImageContainer();
+};
+
