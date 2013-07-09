@@ -10,19 +10,19 @@ Caliboro.imageNormalSize = null;
 Caliboro.showReferenceName = function(node) {
   Caliboro.getImageContainer().find('#refName').remove();
 
-  var container = Caliboro.getImageContainer();
+  var container = Caliboro.getReferencesContainer();
   var name = node.data('name');
   var refNode = $('<div id="refName">').text(name);
   refNode.css('position', 'absolute').css('display', 'none');
   container.append(refNode);
-  var x = parseInt(node.css('left')) - refNode.width() / 2;
+  var x = Math.round(parseInt(node.css('left')) - refNode.width() / 2);
   var y = parseInt(node.css('top')) + node.height();
   refNode.css('left', x).css('top', y);
   refNode.fadeIn(100);
 };
 
 Caliboro.hideReferenceName = function() {
-  Caliboro.getImageContainer().find('#refName').fadeOut(800, function() { $(this).remove(); });
+  Caliboro.getReferencesContainer().find('#refName').fadeOut(800, function() { $(this).remove(); });
 };
 
 Caliboro.getReferencesContainer = function() {
