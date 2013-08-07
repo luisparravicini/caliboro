@@ -13,6 +13,7 @@ TODO
   - reemplazar la imagen del zorro en index por alguna que se pueda usar, esta la saque de google images para probar
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]
+  - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
   - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
   - documentacion de la ui html 
 
@@ -46,3 +47,5 @@ PRIORIDAD BAJA
   - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa
   - cuando muevo el punto, tengo que moverlo ajustando con el offset del mouse
   - los nombres de los puntos en el editor se ven bastante feos
+  - dot.png, pasarlo a algun directorio
+  - las imagenes exportadas ponerlas dentro de algun directorio y no al lado del html

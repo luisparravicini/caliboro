@@ -73,16 +73,18 @@ public class BaseExporter {
 
 	protected void deployResources(File dir) throws FileNotFoundException,
 			IOException {
-		deployResource("jquery-2.0.2.min.js", dir);
-		deployResource("jquery-ui.min.js", dir);
-		deployResource("jquery-ui.css", dir);
-		deployResource("styles.css", dir);
-		deployResource("caliboro.js", dir);
 		deployResource("dot.png", dir);
 
-		createDirectory(dir, "images");
+		createDirectory(dir, "js");
+		deployResource("js/jquery-2.0.2.min.js", dir);
+		deployResource("js/jquery-ui.min.js", dir);
+		deployResource("js/caliboro.js", dir);
 
-		deployResource("images/ui-icons_222222_256x240.png", dir);
+		createDirectory(dir, "css/images");
+		deployResource("css/jquery-ui.css", dir);
+		deployResource("css/styles.css", dir);
+
+		deployResource("css/images/ui-icons_222222_256x240.png", dir);
 	}
 
 	protected void exportFiles(List<Bone> data, File exportPath, File basePath)
@@ -94,8 +96,8 @@ public class BaseExporter {
 
 	private void createDirectory(File dir, String dirName) {
 		File newDir = new File(dir, dirName);
-		if (!newDir.isDirectory() && !newDir.mkdir())
-			throw new RuntimeException("Error creando directorio: " + dirName);
+		if (!newDir.isDirectory() && !newDir.mkdirs())
+			throw new RuntimeException("Error creando directorio");
 	}
 
 	private void deployResource(String name, File dir)
