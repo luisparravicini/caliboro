@@ -8,6 +8,8 @@
   <script src="caliboro.js"></script>
 </head>
 
+<body>
+
 <div id="bones"></div>
 <div id="container">
   <div id="controls"></div>
@@ -23,6 +25,6 @@ $(document).ready(function() {
   Caliboro.listBones();
 });
 </script>
-<body>
+
 </body>
 
