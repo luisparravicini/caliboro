@@ -4,18 +4,18 @@ TODO
   - exportar a js/html
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
-  - triangulo resize ventana html a veces queda en el medio
-  - documentacion de la ui html 
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - merge de varios directorios en uno solo?
   - el widget del zoom en html tiene que ser mas fino
   - html: que diga en algun lado el zoom actual
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
+  - triangulo resize ventana html a veces queda en el medio
   - reemplazar la imagen del zorro en index por alguna que se pueda usar, esta la saque de google images para probar
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]
   - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
+  - documentacion de la ui html 
 
 PRIORIDAD BAJA
 ==============
