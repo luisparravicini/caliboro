@@ -1,11 +1,10 @@
 TODO
 ====
 
-  - exportar a js/html
+  - exportar varios huesos en una sola exportacion
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
-  - merge de varios directorios en uno solo?
   - el widget del zoom en html tiene que ser mas fino
   - html: que diga en algun lado el zoom actual
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta

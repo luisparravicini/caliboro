@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FileUtils;
@@ -36,5 +37,32 @@ public class Util {
 	public static URL encodePath(String path) throws IOException {
 		File[] paths = { new File(path) };
 		return FileUtils.toURLs(paths)[0];
+	}
+
+	public static File askForFolder() {
+		JFileChooser chooserDlg = new JFileChooser();
+		chooserDlg.setDialogTitle("Seleccionar carpeta");
+		chooserDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooserDlg.setDialogType(JFileChooser.SAVE_DIALOG);
+
+		int result = chooserDlg.showDialog(null, "Seleccionar");
+
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File path = chooserDlg.getSelectedFile().getAbsoluteFile();
+			return createFolder(path) ? path : null;
+		}
+
+		return null;
+	}
+
+	private static boolean createFolder(File path) {
+		boolean result = true;
+		if (!path.exists())
+			if (!path.mkdirs()) {
+				Util.showError("No se pudo crear la carpeta");
+				result = false;
+			}
+
+		return result;
 	}
 }

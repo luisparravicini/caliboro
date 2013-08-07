@@ -11,8 +11,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import javax.swing.DropMode;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,9 +36,11 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import ar.com.ktulu.caliboro.BonesStore;
+import ar.com.ktulu.caliboro.Exporter;
 import ar.com.ktulu.caliboro.Previewer;
 import ar.com.ktulu.caliboro.model.Bone;
 import ar.com.ktulu.caliboro.model.BoneImage;
+import ar.com.ktulu.caliboro.ui.dnd.BonesTransferHandler;
 import ar.com.ktulu.caliboro.ui.images.ImageException;
 import ar.com.ktulu.caliboro.ui.images.ImageManager;
 import ar.com.ktulu.caliboro.ui.images.ImageMouseListener;
@@ -92,40 +94,13 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 	private void setInitialStoreFolder() {
 		File path;
-		while ((path = askForStoreFolder()) == null) {
+		while ((path = Util.askForFolder()) == null) {
 			JOptionPane.showMessageDialog(null,
 					"Debe seleccionar una carpeta para guardar los datos",
 					null, JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		BonesStore.getInstance().setPath(path);
-	}
-
-	private File askForStoreFolder() {
-		JFileChooser chooserDlg = new JFileChooser();
-		chooserDlg.setDialogTitle("Seleccionar carpeta");
-		chooserDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		chooserDlg.setDialogType(JFileChooser.SAVE_DIALOG);
-
-		int result = chooserDlg.showDialog(this, "Seleccionar");
-
-		if (result == JFileChooser.APPROVE_OPTION) {
-			File path = chooserDlg.getSelectedFile().getAbsoluteFile();
-			return createFolder(path) ? path : null;
-		}
-
-		return null;
-	}
-
-	private boolean createFolder(File path) {
-		boolean result = true;
-		if (!path.exists())
-			if (!path.mkdirs()) {
-				Util.showError("No se pudo crear la carpeta");
-				result = false;
-			}
-
-		return result;
 	}
 
 	/**
@@ -202,6 +177,13 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		btnExportar = new JButton("Exportar");
 		toolBar.add(btnExportar);
 
+		btnExportar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				export();
+			}
+		});
+
 		btnPrevisualizar = new JButton("Previsualizar");
 		toolBar.add(btnPrevisualizar);
 
@@ -237,6 +219,28 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		});
 
 		imageManager.hideImage();
+	}
+
+	protected void export() {
+		Exporter exporter = new Exporter();
+		try {
+			File exportPath = Util.askForFolder();
+			if (exportPath == null)
+				return;
+			
+			BonesStore store = BonesStore.getInstance();
+			exporter.export(exportPath, store.dataNode().getBones(), store.getPath());
+			//TODO mostrar un dialogo que diga que terminó
+			//TODO abrir la carpeta donde se exporto
+			//if (!Util.openFolder(exportPath))
+			//	Util.showError("No se pudo abrir la carpeta de exportación");
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	protected void preview() {
@@ -278,10 +282,15 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			store.unfreeze();
 		}
 
+		bonesTree.setDragEnabled(true);
+		bonesTree.setDropMode(DropMode.ON);
+		bonesTree.setTransferHandler(new BonesTransferHandler());
+
 		ImageMouseListener mouseListener = new ImageMouseListener(imageManager);
 		scrollPane.addMouseListener(mouseListener);
 		scrollPane.addMouseMotionListener(mouseListener);
 	}
+
 
 	protected void removeNode() {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
