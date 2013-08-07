@@ -102,3 +102,7 @@ body, a {
   border: 1px solid #101010;
 }
 
+.zoom-text {
+  float: right;
+  margin: 0 20px;
+}

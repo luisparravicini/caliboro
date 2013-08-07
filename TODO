@@ -1,12 +1,9 @@
 TODO
 ====
 
-  - exportar varios huesos en una sola exportacion
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
-  - el widget del zoom en html tiene que ser mas fino
-  - html: que diga en algun lado el zoom actual
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - triangulo resize ventana html a veces queda en el medio
@@ -37,7 +34,6 @@ PRIORIDAD BAJA
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - cuando tengo que agregar fotos, es molesto agregar de a una
   - cambiar nombre de un punto que ya existe
-  - cuando draggeo el slider de zoom, que aparezca un tooltip diciendo el valor actual
   - el about no toma la version del proyecto
   - no borro el directorio de previsualizacion
   - en win, creo que no se ve el menu (para el about)

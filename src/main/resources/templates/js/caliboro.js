@@ -1,8 +1,9 @@
 var Caliboro = {};
 
 Caliboro.data = [];
+Caliboro.ZOOM_DEFAULT_VALUE = 100;
 Caliboro.basePath = '.';
-
+Caliboro.zoom = Caliboro.ZOOM_DEFAULT_VALUE;
 Caliboro.showingRefs = false;
 Caliboro.currentBone = null;
 Caliboro.imageNormalSize = null;
@@ -105,11 +106,18 @@ Caliboro.getControlsContainer = function() {
 
 Caliboro.changeZoom = function(zoom) {
   var img = Caliboro.getImage();
-  zoom /= 100.0;
-  $(img).css('width', Caliboro.imageNormalSize.width * zoom);
+  Caliboro.zoom = zoom;
+  var imgZoom = Caliboro.zoom / 100.0;
+  $(img).css('width', Caliboro.imageNormalSize.width * imgZoom);
 
+  Caliboro.updateZoomText();
   Caliboro.updateReferences();
   Caliboro.updateReferencesContainer();
+};
+
+Caliboro.updateZoomText = function() {
+  var elem = Caliboro.getControlsContainer().find('.zoom-text');
+  elem.text(Math.round(Caliboro.zoom) + '%');
 };
 
 Caliboro.showControls = function() {
@@ -118,10 +126,12 @@ Caliboro.showControls = function() {
     return false;
   });
   var zoom = $('<div id="zoomSlider">');
-  Caliboro.getControlsContainer().empty().append(refs).append(zoom);
+  var zoomLabel = $('<p>').addClass('zoom-text');
+  Caliboro.getControlsContainer().empty().append(refs).append(zoomLabel).append(zoom);
+  Caliboro.updateZoomText();
 
   $(zoom).slider({
-    value:100,
+    value: Caliboro.zoom,
     min: 100,
     max: 300,
     step: 25,
@@ -143,6 +153,7 @@ Caliboro.showImage = function(node) {
   Caliboro.getImageContainer().empty().append(img);
   img.onload = function() {
     Caliboro.imageNormalSize = { 'width': this.width, 'height': this.height };
+    Caliboro.zoom = Caliboro.ZOOM_DEFAULT_VALUE;
     Caliboro.showControls();
     Caliboro.updateReferences();
     Caliboro.updateReferencesContainer();
@@ -217,6 +228,6 @@ Caliboro.setupImageContainer = function() {
 };
 
 Caliboro.init = function() {
-  Caliboro.setupImageContainer();
+  this.setupImageContainer();
 };
 
