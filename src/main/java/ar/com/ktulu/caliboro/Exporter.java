@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -18,11 +17,9 @@ import ar.com.ktulu.caliboro.model.BoneImage;
 public class Exporter extends BaseExporter {
 
 	public void export(File exportPath, List<Bone> data, File basePath)
-			throws FileNotFoundException, IOException, URISyntaxException {
+			throws FileNotFoundException, IOException {
 		createExportPath(exportPath);
-		process(data, null);
-		deployResources(exportPath);
-		indexPath = deployIndex(exportPath);
+		exportFiles(data, exportPath, null);
 		copyImages(data, basePath, exportPath);
 	}
 

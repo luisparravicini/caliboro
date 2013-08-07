@@ -3,7 +3,6 @@ package ar.com.ktulu.caliboro;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import ar.com.ktulu.caliboro.model.Bone;
@@ -11,11 +10,9 @@ import ar.com.ktulu.caliboro.model.Bone;
 public class Previewer extends BaseExporter {
 
 	public void deploy(List<Bone> data, File basePath)
-			throws FileNotFoundException, IOException, URISyntaxException {
+			throws FileNotFoundException, IOException {
 		File tmpDir = createPreviewDirectory();
-		process(data, basePath);
-		deployResources(tmpDir);
-		indexPath = deployIndex(tmpDir);
+		exportFiles(data, tmpDir, basePath);
 	}
 
 	private File createPreviewDirectory() {

@@ -85,6 +85,13 @@ public class BaseExporter {
 		deployResource("images/ui-icons_222222_256x240.png", dir);
 	}
 
+	protected void exportFiles(List<Bone> data, File exportPath, File basePath)
+			throws IOException {
+		process(data, basePath);
+		deployResources(exportPath);
+		indexPath = deployIndex(exportPath);
+	}
+
 	private void createDirectory(File dir, String dirName) {
 		File newDir = new File(dir, dirName);
 		if (!newDir.isDirectory() && !newDir.mkdir())

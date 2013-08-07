@@ -227,18 +227,17 @@ public class MainFrame extends JFrame implements TreeModelListener,
 			File exportPath = Util.askForFolder();
 			if (exportPath == null)
 				return;
-			
+
 			BonesStore store = BonesStore.getInstance();
-			exporter.export(exportPath, store.dataNode().getBones(), store.getPath());
-			//TODO mostrar un dialogo que diga que terminó
-			//TODO abrir la carpeta donde se exporto
-			//if (!Util.openFolder(exportPath))
-			//	Util.showError("No se pudo abrir la carpeta de exportación");
+			exporter.export(exportPath, store.dataNode().getBones(),
+					store.getPath());
+			// TODO mostrar un dialogo que diga que terminó
+			// TODO abrir la carpeta donde se exporto
+			// if (!Util.openFolder(exportPath))
+			// Util.showError("No se pudo abrir la carpeta de exportación");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -290,7 +289,6 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		scrollPane.addMouseListener(mouseListener);
 		scrollPane.addMouseMotionListener(mouseListener);
 	}
-
 
 	protected void removeNode() {
 		DefaultTreeModel model = (DefaultTreeModel) bonesTree.getModel();
