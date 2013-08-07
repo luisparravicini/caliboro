@@ -7,7 +7,6 @@ TODO
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - triangulo resize ventana html a veces queda en el medio
-  - reemplazar la imagen del zorro en index por alguna que se pueda usar, esta la saque de google images para probar
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]
   - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
