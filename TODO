@@ -1,18 +1,17 @@
 TODO
 ====
 
+  - cuando se carga una imagen, calcular el nivel de zoom a usar para que entre lo maximo posible en el ancho actual de la ventana
+  - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
+  - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
-  - cuando se carga una imagen, calcular el nivel de zoom a usar para que entre lo maximo posible en el ancho actual de la ventana
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
-  - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
+  - documentacion de la ui html 
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - triangulo resize ventana html a veces queda en el medio
   - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
-  - probandolo por vnc, cargue como imagen un png y no lo mostraba en la vista de la imagen, tampoco daba error [tal vez sea el bug que arregle en la 1.5, probarlo de nuevo]
-  - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
   - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
-  - documentacion de la ui html 
 
 PRIORIDAD BAJA
 ==============
