@@ -85,6 +85,8 @@ public class BaseExporter {
 		deployResource("css/styles.css", dir);
 
 		deployResource("css/images/ui-icons_222222_256x240.png", dir);
+		deployResource("css/images/ui-bg_flat_75_ffffff_40x100.png", dir);
+		deployResource("css/images/ui-bg_glass_75_e6e6e6_1x400.png", dir);
 	}
 
 	protected void exportFiles(List<Bone> data, File exportPath, File basePath)

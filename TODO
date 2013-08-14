@@ -1,11 +1,8 @@
 TODO
 ====
 
-  - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
-  - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
-  - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - documentacion de la ui html 
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - triangulo resize ventana html a veces queda en el medio
@@ -15,6 +12,8 @@ TODO
 PRIORIDAD BAJA
 ==============
 
+  - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
+  - documentar que no funciona en ie < 9 (por jquery 2.x y codigo que uso de ecmascript 1.6)
   - revisar en el preview, creo que algunos? puntos quedan un poquito desfazados de lo que se ve en el editor, pero no estoy seguro
   - en una maquina con xp el jar del 1.3 decia que no encontraba el main class pero en el manifest estaba, tenia java 1.6 instalado
   - que guarde los datos en una carpeta hace que manipulen por afuera la carpeta, deberia repensar lo de usar un zip o algun archivo contenedor
@@ -23,12 +22,10 @@ PRIORIDAD BAJA
   - al cargarse, lo de que al cancelar en la seleccion de carpeta sigue preguntando es molestisimo, al menos preguntar si quiere salir 
   - especificar un size minimo para la ventana, ahora puedo achicarla y hacer que se solapen los controles de la imagen
   - en windows, la carpeta de seleccionar dir no tiene el new folder
-  - poner el metodo de showError en MainFrame en una clase utils 
   - segun la doc, Filenamefilter no funca en win, asi que tengo que hacer el mismo chequeo
   - al cargar el programa, en el dialogo de seleccionar directorio, hacerlo mas como un wizard y explicar porque se necesita un directorio, sino es muy confuso para el que lo usa por primera vez
   - un menu para la app
   - un menu contextual en los elementos de hueso/imagen para renombrar/borrar
-  - exportar el .json y las imagenes para que pueda usarse con un browser
   - thumbnails de las diferentes tomas del hueso abajo (en el modo html)
   - cuando tengo que agregar fotos, es molesto agregar de a una
   - cambiar nombre de un punto que ya existe
