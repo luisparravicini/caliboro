@@ -76,7 +76,6 @@ public class ImageView extends JPanel {
 
 		zoom = (int) (zoomLevel * 100);
 		zoomSlider.setValue(zoom);
-		System.out.println(zoom);
 	}
 
 	private void updateZoomedImage() {
