@@ -17,6 +17,7 @@ import java.util.List;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 import ar.com.ktulu.caliboro.model.BonePoint;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
@@ -38,9 +39,10 @@ public class ImageView extends JPanel {
 		zoom = 100;
 	}
 
-	public void loadImage(BoneImageTreeNode imgNode) throws ImageException {
+	public void loadImage(BoneImageTreeNode imgNode, JSlider zoomSlider) throws ImageException {
 		try {
 			image = ImageIO.read(new File(imgNode.getImagePath()));
+			findProperZoomLevel(zoomSlider);
 			updateZoomedImage();
 
 			List<Dot> newDots = new ArrayList<Dot>();
@@ -56,6 +58,25 @@ public class ImageView extends JPanel {
 
 		invalidate();
 		repaint();
+	}
+
+	private void findProperZoomLevel(JSlider zoomSlider) {
+		float zoomLevel = 1;
+		float step = zoomSlider.getMajorTickSpacing() / 100.0f;
+		float minZoomLevel = zoomSlider.getMinimum() / 100.0f;
+		int width = getWidth();
+		int newWidth;
+		boolean found;
+		do {
+			newWidth = (int) (image.getWidth() * zoomLevel);
+			found = (newWidth <= width || zoomLevel <= minZoomLevel);
+			if (!found)
+				zoomLevel -= step;
+		} while (!found);
+
+		zoom = (int) (zoomLevel * 100);
+		zoomSlider.setValue(zoom);
+		System.out.println(zoom);
 	}
 
 	private void updateZoomedImage() {

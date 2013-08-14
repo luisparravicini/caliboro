@@ -57,9 +57,8 @@ public class ImageManager {
 
 	public void loadBoneImage(BoneImageTreeNode imgNode) throws ImageException {
 		if (imgNode.fileExists()) {
-			imageView.loadImage(imgNode);
+			imageView.loadImage(imgNode, imageZoom);
 			showImage();
-			imageZoom.setValue(100);
 			updateImageInfo();
 			invalidateImageContainer();
 		} else

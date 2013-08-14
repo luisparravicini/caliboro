@@ -1,7 +1,6 @@
 TODO
 ====
 
-  - cuando se carga una imagen, calcular el nivel de zoom a usar para que entre lo maximo posible en el ancho actual de la ventana
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - el css de jquery ui referencia dos imagenes que no tengo, despues bajarlas
   - cambiar el orden de las fotos
