@@ -3,6 +3,7 @@ TODO
 
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
+  - cuando se carga una imagen, calcular el nivel de zoom a usar para que entre lo maximo posible en el ancho actual de la ventana
   - actualizar docs (funcionalidad diferente, .exe para windows, cambio de nombre)
   - en el preview, detectar si se usa <=ie8 y avisar que no se soporta
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
