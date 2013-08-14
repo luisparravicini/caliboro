@@ -171,7 +171,7 @@ Caliboro.listImages = function(bone) {
     var linkNode = $("<a href='#'>").text(image.name).data('image-data', image)
     .click(function() {
       Caliboro.getBonesContainer().find('li').removeClass('selected');
-      $(this).addClass('selected');
+      $(this).parent().addClass('selected');
       Caliboro.showImage(this);
       return false;
     });
