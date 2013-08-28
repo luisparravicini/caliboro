@@ -48,7 +48,11 @@ public class Util {
 		int result = chooserDlg.showDialog(null, "Seleccionar");
 
 		if (result == JFileChooser.APPROVE_OPTION) {
-			File path = chooserDlg.getSelectedFile().getAbsoluteFile();
+			File path = chooserDlg.getSelectedFile();
+			if (path == null)
+				return null;
+
+			path = path.getAbsoluteFile();
 			return createFolder(path) ? path : null;
 		}
 
