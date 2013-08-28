@@ -1,6 +1,11 @@
 TODO
 ====
 
+  - permitir abrir otro dir de datos sin cerrar/abrir el programa
+  - la pagina inicial de lo que vaya en el CD, deberia ser una que no use jquery (la version que tengo aca) 
+  y que diga que se necesita de IE > 8. Tal vez poner un chrome portable en el cd?
+  http://portableapps.com/news/2013-07-30--google-chrome-portable-28.0.1500.95-released
+  - cuando pide el dir inicialmente, me dio un nullpointer cuando no queria ingresar nada
   - cambiar el orden de las fotos
   - cambiar el orden de los huesos
   - documentacion de la ui html 
