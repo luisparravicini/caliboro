@@ -54,16 +54,19 @@ public class StoreRootNode {
 		}
 	}
 
+	public void moveImage(Bone sourceBone, BoneImage image, Bone newParent,
+			int childIndex) {
+		if (bones.contains(sourceBone) && bones.contains(newParent)) {
+			sourceBone.remove(image);
+			newParent.addImage(image, childIndex);
+		}
+	}
+
+	public void moeImage(Bone sourceBone, BoneImage image, Bone newParent) {
+		if (bones.contains(sourceBone) && bones.contains(newParent)) {
+			sourceBone.remove(image);
+			newParent.addImage(image);
+		}
+	}
+
 }
-//
-//
-// jsonData.put("lastImageId",lastImageId);
-//
-// JSONArray bones = new JSONArray();
-// for (Bone bone : bones) {
-// JSONObject obj = new JSONObject(bone);
-// bones.put(obj);
-// }
-// jsonData.put(bones);
-//
-// return jsonData;

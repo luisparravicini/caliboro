@@ -234,4 +234,13 @@ public class BonesStore {
 	public void moveBoneLast(Bone bone) {
 		data.moveBoneLast(bone);
 	}
+
+	public void moveImage(Bone sourceBone, BoneImage image, Bone newParent,
+			int childIndex) {
+		data.moveImage(sourceBone, image, newParent, childIndex);
+	}
+
+	public void moveImage(Bone sourceBone, BoneImage sourceImage, Bone newParent) {
+		data.moeImage(sourceBone, sourceImage, newParent);
+	}
 }

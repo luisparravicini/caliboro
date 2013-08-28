@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import ar.com.ktulu.caliboro.ui.treeModel.BaseBoneTreeNode;
 
+//TODO no estoy usando esta clase (si la referencio, pero obtengo el objeto del drag and drop de otro lado)
 public class TransferableItem implements Transferable {
 
 	private BaseBoneTreeNode node;
@@ -25,7 +26,6 @@ public class TransferableItem implements Transferable {
 	}
 
 	public static DataFlavor getBaseBoneTreeNode() {
-//		return new DataFlavor(BaseBoneTreeNode.class, "NodoTransferible");
 		return new DataFlavor(BaseBoneTreeNode.class, "TransferibleNode");
 	}
 

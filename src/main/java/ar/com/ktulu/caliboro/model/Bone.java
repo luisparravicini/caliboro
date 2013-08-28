@@ -46,4 +46,8 @@ public class Bone {
 	public void remove(BoneImage boneImage) {
 		images.remove(boneImage);
 	}
+
+	public void addImage(BoneImage image, int index) {
+		images.add(index, image);
+	}
 }

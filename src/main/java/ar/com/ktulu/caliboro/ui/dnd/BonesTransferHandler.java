@@ -11,6 +11,7 @@ import javax.swing.tree.TreePath;
 
 import ar.com.ktulu.caliboro.BonesStore;
 import ar.com.ktulu.caliboro.model.Bone;
+import ar.com.ktulu.caliboro.model.BoneImage;
 import ar.com.ktulu.caliboro.ui.treeModel.BaseBoneTreeNode;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneTreeNode;
 
@@ -93,16 +94,25 @@ public class BonesTransferHandler extends TransferHandler {
 		} else if (dstNode != null) {
 			if (dstIsBone) {
 				DefaultMutableTreeNode parent = dstNode;
+				Bone sourceBone = (Bone) ((BoneTreeNode) source.getParent())
+						.getUserObject();
 				model.removeNodeFromParent(source);
 				model.insertNodeInto(source, parent,
 						model.getChildCount(parent));
+				store.moveImage(sourceBone, (BoneImage) source.getUserObject(),
+						(Bone) dstNode.getUserObject());
 			} else {
 				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dstNode
 						.getParent();
 				int index = model.getIndexOfChild(parent, dstNode);
 				if (index >= 0) {
+					Bone sourceBone = (Bone) ((BoneTreeNode) source.getParent())
+							.getUserObject();
 					model.removeNodeFromParent(source);
 					model.insertNodeInto(source, parent, index);
+					Bone dstBone = (Bone) parent.getUserObject();
+					BoneImage sourceImage = (BoneImage) source.getUserObject();
+					store.moveImage(sourceBone, sourceImage, dstBone, index);
 				}
 			}
 		}
@@ -110,5 +120,4 @@ public class BonesTransferHandler extends TransferHandler {
 
 		return true;
 	}
-
 }
