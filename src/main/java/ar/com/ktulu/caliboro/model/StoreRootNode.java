@@ -40,6 +40,20 @@ public class StoreRootNode {
 		bones.clear();
 	}
 
+	public void moveBone(Bone bone, int index) {
+		if (index < bones.size() && bones.contains(bone)) {
+			bones.remove(bone);
+			bones.add(index, bone);
+		}
+	}
+
+	public void moveBoneLast(Bone bone) {
+		if (bones.contains(bone)) {
+			bones.remove(bone);
+			bones.add(bone);
+		}
+	}
+
 }
 //
 //

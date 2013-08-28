@@ -9,6 +9,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import ar.com.ktulu.caliboro.BonesStore;
+import ar.com.ktulu.caliboro.model.Bone;
 import ar.com.ktulu.caliboro.ui.treeModel.BaseBoneTreeNode;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneTreeNode;
 
@@ -69,6 +71,8 @@ public class BonesTransferHandler extends TransferHandler {
 		BaseBoneTreeNode source = this.sourceNode;
 		boolean sourceIsBone = (BoneTreeNode.class.isInstance(source));
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+		BonesStore store = BonesStore.getInstance();
+		boolean dstIsBone = (BoneTreeNode.class.isInstance(dstNode));
 
 		if (sourceIsBone) {
 			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) model
@@ -77,23 +81,24 @@ public class BonesTransferHandler extends TransferHandler {
 				model.removeNodeFromParent(source);
 				model.insertNodeInto(source, parent,
 						model.getChildCount(parent));
-			} else {
+				store.moveBoneLast((Bone) source.getUserObject());
+			} else if (dstIsBone) {
 				int index = model.getIndexOfChild(parent, dstNode);
 				if (index >= 0) {
 					model.removeNodeFromParent(source);
 					model.insertNodeInto(source, parent, index);
+					store.moveBone((Bone) source.getUserObject(), index);
 				}
 			}
 		} else if (dstNode != null) {
-			boolean dstIsBone = (BoneTreeNode.class.isInstance(dstNode));
-
 			if (dstIsBone) {
 				DefaultMutableTreeNode parent = dstNode;
 				model.removeNodeFromParent(source);
 				model.insertNodeInto(source, parent,
 						model.getChildCount(parent));
 			} else {
-				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dstNode.getParent();
+				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) dstNode
+						.getParent();
 				int index = model.getIndexOfChild(parent, dstNode);
 				if (index >= 0) {
 					model.removeNodeFromParent(source);
@@ -101,6 +106,7 @@ public class BonesTransferHandler extends TransferHandler {
 				}
 			}
 		}
+		store.save();
 
 		return true;
 	}

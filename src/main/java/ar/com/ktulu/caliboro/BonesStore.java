@@ -227,4 +227,11 @@ public class BonesStore {
 		return data;
 	}
 
+	public void moveBone(Bone bone, int index) {
+		data.moveBone(bone, index);
+	}
+
+	public void moveBoneLast(Bone bone) {
+		data.moveBoneLast(bone);
+	}
 }
