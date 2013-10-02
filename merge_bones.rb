@@ -22,7 +22,7 @@ $bone_count = 0
 def copy_bones(base_path, doc)
 	doc['bones'].tap do |bones|
 		bones.each do |bone|
-			p bone['name']
+			puts bone['name']
 			bone['images'].each do |img|
 				image_file = File.join(base_path, img['imagePath'])
 				puts "\t#{img['name']}"
@@ -52,7 +52,7 @@ bones_a = read_json(path_a)
 bones_b = read_json(path_b)
 
 doc = []
-doc << copy_bones(path_a, bones_a)
-doc << copy_bones(path_b, bones_b)
+doc += copy_bones(path_a, bones_a)
+doc += copy_bones(path_b, bones_b)
 write_json(doc)
 
