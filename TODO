@@ -2,7 +2,6 @@ TODO
 ====
 
   - permitir abrir otro dir de datos sin cerrar/abrir el programa
-  - scroll en la lista de huesos
   - al resizear la pantalla, reacomodar el zoom de la imagen
   - el nombre x default al importar imagenes: quitar la extensión del archivo
   - la pagina inicial de lo que vaya en el CD, deberia ser una que no use jquery (la version que tengo aca) 

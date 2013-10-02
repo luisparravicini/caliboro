@@ -122,7 +122,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		bonesTree = new JTree();
 		bonesTree.setShowsRootHandles(true);
-		splitPane.setLeftComponent(bonesTree);
+		JScrollPane bonesScrollPane = new JScrollPane();
+		bonesScrollPane.setViewportView(bonesTree);
+		
+		splitPane.setLeftComponent(bonesScrollPane);
 
 		panel = new JPanel();
 		splitPane.setRightComponent(panel);
