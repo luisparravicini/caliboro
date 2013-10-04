@@ -9,8 +9,8 @@ TODO
   http://portableapps.com/news/2013-07-30--google-chrome-portable-28.0.1500.95-released
   - documentacion de la ui html 
   - triangulo resize ventana html a veces queda en el medio
-  - reemplazar el icono de los goonies por algo que tenga permisos (la imagen de la cual salio el icono es caliboro.png (se convierte de una con convert))
   - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
+  - poner en algun lado el credito del icono
 
 PRIORIDAD BAJA
 ==============
