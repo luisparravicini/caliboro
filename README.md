@@ -5,6 +5,8 @@ Caliboro es una aplicación con la que podemos agregar puntos de referencias a f
 
 Una vez ingresadas las referencias, se exportan las imagenes como archivos .html que pueden ser visualizados con cualquier (no funciona en IE < 9) navegador.
 
+Esta herramienta fue creada originalmente para que sea usada en el proyecto "Banco de esqueletos" del Instituto Secundario Argentino Danés “Alta Mira”.
+
 Ejecución
 -----------
 
