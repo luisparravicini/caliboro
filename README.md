@@ -3,9 +3,9 @@ Caliboro
 
 Caliboro es una aplicación con la que podemos agregar puntos de referencias a fotos de huesos con el fin de crear un atlas osteológico digital.
 
-Una vez ingresadas las referencias, se exportan las imagenes como archivos .html que pueden ser visualizados con cualquier (no funciona en IE < 9) navegador.
+Una vez ingresadas las referencias, se exportan las imagenes como archivos .html que pueden ser visualizados con cualquier navegador (no funciona en IE < 9).
 
-Esta herramienta fue creada originalmente para que sea usada en el proyecto "Banco de esqueletos" del Instituto Secundario Argentino Danés “Alta Mira”.
+Esta herramienta fue creada originalmente para ser usada en el proyecto "Banco de esqueletos" del Instituto Secundario Argentino Danés “Alta Mira”.
 
 Descarga
 --------
