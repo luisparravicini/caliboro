@@ -96,3 +96,8 @@ Licencia
 ========
 
 Caliboro se distribuye bajo la licencia MIT. El texto completo de la licencia pueder [leerse aquí](LICENSE.txt).
+
+Copyright (c) 2013 Luis Parravicini.
+
+El ícono de la aplicación fue creado por Silvia Parravicini.
+

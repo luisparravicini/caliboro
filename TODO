@@ -9,7 +9,7 @@ TODO
   http://portableapps.com/news/2013-07-30--google-chrome-portable-28.0.1500.95-released
   - documentacion de la ui html 
   - triangulo resize ventana html a veces queda en el medio
-  - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 podrian ser demasiado grandes
+  - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 son demasiado grandes
   - poner en algun lado el credito del icono
 
 PRIORIDAD BAJA
@@ -18,9 +18,8 @@ PRIORIDAD BAJA
   - hacer una excepcion de runtime propia y usarla en todos los lugares donde estoy tirando RuntimeException/IOException
   - revisar en el preview, creo que algunos? puntos quedan un poquito desfazados de lo que se ve en el editor, pero no estoy seguro
   - en una maquina con xp el jar del 1.3 decia que no encontraba el main class pero en el manifest estaba, tenia java 1.6 instalado
-  - que guarde los datos en una carpeta hace que manipulen por afuera la carpeta, deberia repensar lo de usar un zip o algun archivo contenedor
+  - que guarde los datos en una carpeta hace que manipulen por afuera la carpeta, deberia repensar lo de usar un zip o algun archivo contenedor (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/
   - que el programa exporte el log para ver los errores
-  - reemplazar el guardado en una carpeta por un archivo propio (si pudiese ser un zip seria genial)  ver https://github.com/robertjchristian/fs2 https://truezip.java.net/concepts.html https://truevfs.java.net/ 
   - al cargarse, lo de que al cancelar en la seleccion de carpeta sigue preguntando es molestisimo, al menos preguntar si quiere salir 
   - especificar un size minimo para la ventana, ahora puedo achicarla y hacer que se solapen los controles de la imagen
   - en windows, la carpeta de seleccionar dir no tiene el new folder
@@ -34,10 +33,9 @@ PRIORIDAD BAJA
   - el about no toma la version del proyecto
   - no borro el directorio de previsualizacion
   - en win, creo que no se ve el menu (para el about)
-  - guia de uso en markdown (y generar otro formato desde ahi)
   - poner una barra de progreso cuando copia las imagenes al repo local?
   - no permitir agregar fotos dups
-  - la manera de grabar con cada cambio es media pedorra, pero como son pocos datos, no importa
+  - la manera de grabar con cada cambio no es muy buena, pero como son pocos datos, no importa
   - cuando muevo el punto, tengo que moverlo ajustando con el offset del mouse
   - los nombres de los puntos en el editor se ven bastante feos
   - dot.png, pasarlo a algun directorio
