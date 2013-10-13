@@ -1,6 +1,7 @@
 #!/bin/sh
 
-zip=caliboro.zip
+dist=dist
 
-[ -f "$zip" ] && rm "$zip"
-./build.sh && cd docs && markdown && cd .. && zip $zip -X9 docs/* && zip $zip -jX9 target/caliboro-*.exe target/caliboro-*-release.jar
+[ -d "$dist" ] && rm "$dist"
+mkdir "$dist"
+./build.sh && cp target/caliboro-*.exe target/caliboro-*-release.jar dist
