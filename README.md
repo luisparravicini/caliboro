@@ -10,7 +10,7 @@ Esta herramienta fue creada originalmente para que sea usada en el proyecto "Ban
 Ejecución
 -----------
 
-Caliboro se distribuye de dos maneras, una versión para Windows y otra para el resto de las plataformas (OS X y Linux).
+Caliboro se distribuye de dos maneras, una versión para Windows y otra para OS X y Linux.
 
 Hace falta tener Java instalado, en caso de no tenerlo se puede descargar de [http://www.java.com/en/download/index.jsp](http://www.java.com/en/download/index.jsp)
 
