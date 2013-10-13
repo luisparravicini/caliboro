@@ -7,10 +7,15 @@ Una vez ingresadas las referencias, se exportan las imagenes como archivos .html
 
 Esta herramienta fue creada originalmente para que sea usada en el proyecto "Banco de esqueletos" del Instituto Secundario Argentino Danés “Alta Mira”.
 
-Ejecución
------------
+Descarga
+--------
 
 Caliboro se distribuye de dos maneras, una versión para Windows y otra para OS X y Linux.
+
+Los archivos a descargar están en [https://github.com/luisparravicini/caliboro/releases](https://github.com/luisparravicini/caliboro/releases). Para la versión de Windows, descargar el .exe, para las otras plataformas, el .jar.
+
+Ejecución
+---------
 
 Hace falta tener Java instalado, en caso de no tenerlo se puede descargar de [http://www.java.com/en/download/index.jsp](http://www.java.com/en/download/index.jsp)
 
