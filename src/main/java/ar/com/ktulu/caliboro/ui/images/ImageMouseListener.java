@@ -18,14 +18,21 @@ public class ImageMouseListener extends MouseInputAdapter {
 	@Override
 	public void mouseReleased(MouseEvent event) {
 		if (dragging) {
-			if (dragging)
-				imageManager.finishDragging();
+			imageManager.finishDragging();
 			dragging = false;
 			return;
 		}
 
 		Point pos = getPosition(event);
-		imageManager.mousePressed(pos.x, pos.y);
+		imageManager.mouseClicked(pos.x, pos.y);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent event) {
+		if (!dragging) {
+			Point pos = getPosition(event);
+			imageManager.mouseMoved(pos.x, pos.y);
+		}
 	}
 
 	@Override
@@ -40,6 +47,9 @@ public class ImageMouseListener extends MouseInputAdapter {
 		if (dragging)
 			imageManager.finishDragging();
 		dragging = false;
+		
+		Point pos = getPosition(e);
+		imageManager.mousePressed(pos.x, pos.y);
 	}
 
 	@Override

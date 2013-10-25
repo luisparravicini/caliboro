@@ -1,5 +1,7 @@
 package ar.com.ktulu.caliboro.ui.images;
 
+import java.awt.Cursor;
+
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,12 +13,15 @@ import ar.com.ktulu.caliboro.ui.MainFrame;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
 
 public class ImageManager {
-
 	public JSlider imageZoom;
 	public JLabel imageInfo;
 	public ImageView imageView;
 	private Dot draggingPoint;
 	private MainFrame mainFrame;
+	private boolean visible;
+	private Cursor moveCursor = new Cursor(Cursor.HAND_CURSOR);
+	private boolean draggingPointA;
+	private boolean draggingPointB;
 
 	public ImageManager(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -49,7 +54,12 @@ public class ImageManager {
 		setImageVisibility(true);
 	}
 
+	public boolean isVisible() {
+		return visible;
+	}
+
 	private void setImageVisibility(boolean visible) {
+		this.visible = visible;
 		imageView.setVisible(visible);
 		imageInfo.setVisible(visible);
 		imageZoom.setVisible(visible);
@@ -89,10 +99,11 @@ public class ImageManager {
 		return name;
 	}
 
-	public void mousePressed(int x, int y) {
+	public void mouseClicked(int x, int y) {
 		BoneImage img = mainFrame.getImageSelected();
 		if (img == null)
 			return;
+
 		if (!imageView.isInsideImage(x, y))
 			return;
 
@@ -112,6 +123,26 @@ public class ImageManager {
 	}
 
 	public void mouseDragged(int x, int y) {
+		if (isDraggingMeasure())
+			dragScale(x, y);
+		else
+			dragPoint(x, y);
+	}
+
+	private void dragScale(int x, int y) {
+		if (isDraggingMeasure()) {
+			if (draggingPointA)
+				imageView.moveMeasureEndA(x, y);
+			else
+				imageView.moveMeasureEndB(x, y);
+		}
+	}
+
+	private boolean isDraggingMeasure() {
+		return draggingPointA || draggingPointB;
+	}
+
+	private void dragPoint(int x, int y) {
 		if (draggingPoint == null)
 			draggingPoint = imageView.findDotAt(x, y);
 
@@ -122,10 +153,22 @@ public class ImageManager {
 	}
 
 	public void finishDragging() {
-		if (draggingPoint != null)
+		if (draggingPoint != null || isDraggingMeasure())
 			BonesStore.getInstance().dirty();
 
 		draggingPoint = null;
+	}
+
+	public void mouseMoved(int x, int y) {
+		if (imageView.isInsideScaleEnd(x, y))
+			imageView.setCursor(moveCursor);
+		else
+			imageView.setCursor(Cursor.getDefaultCursor());
+	}
+
+	public void mousePressed(int x, int y) {
+		draggingPointA = imageView.isInsideScaleEndA(x, y);
+		draggingPointB = imageView.isInsideScaleEndB(x, y);
 	}
 
 }

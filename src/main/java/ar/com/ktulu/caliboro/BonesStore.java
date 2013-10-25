@@ -17,6 +17,7 @@ import org.json.JSONTokener;
 import ar.com.ktulu.caliboro.model.Bone;
 import ar.com.ktulu.caliboro.model.BoneImage;
 import ar.com.ktulu.caliboro.model.BonePoint;
+import ar.com.ktulu.caliboro.model.BoneScale;
 import ar.com.ktulu.caliboro.model.StoreRootNode;
 
 public class BonesStore {
@@ -57,6 +58,7 @@ public class BonesStore {
 			data = createRootNode();
 			data.setLastImageId(auxData.getInt("lastImageId"));
 			data.clearBones();
+
 			JSONArray bones = auxData.getJSONArray("bones");
 			for (int i = 0; i < bones.length(); i++)
 				addObject(bones.getJSONObject(i));
@@ -86,12 +88,37 @@ public class BonesStore {
 			BoneImage img = new BoneImage(bone);
 			img.setName(imgObj.getString("name"));
 			img.setImagePath(imgObj.getString("imagePath"));
+			readScale(imgObj, img);
 			readPoints(imgObj, img);
 
 			bone.addImage(img);
 		}
 
 		data.addBone(bone);
+	}
+
+	private void readScale(JSONObject imgObj, BoneImage img)
+			throws JSONException {
+		// TODO esto es solo de transicion por los datos cargados que existen
+		// sin este dato
+		if (!imgObj.has("scale")) {
+			BoneScale scale = new BoneScale();
+			scale.setDistance(100);
+			scale.setAx(400);
+			scale.setAy(400);
+			scale.setBx(900);
+			scale.setBy(400);
+			img.setScale(scale);
+		} else {
+			JSONObject obj = imgObj.getJSONObject("scale");
+			BoneScale scale = new BoneScale();
+			scale.setDistance(obj.getInt("distance"));
+			scale.setAx(obj.getInt("ax"));
+			scale.setAy(obj.getInt("ay"));
+			scale.setBx(obj.getInt("bx"));
+			scale.setBy(obj.getInt("by"));
+			img.setScale(scale);
+		}
 	}
 
 	private void readPoints(JSONObject imgObj, BoneImage img)

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 import ar.com.ktulu.caliboro.model.BonePoint;
+import ar.com.ktulu.caliboro.model.BoneScale;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
 
 @SuppressWarnings("serial")
@@ -28,6 +29,7 @@ public class ImageView extends JPanel {
 	private BufferedImage scaledImage;
 	private int zoom;
 	private List<Dot> dots;
+	private BoneScale scale;
 
 	public ImageView() {
 		setup();
@@ -39,16 +41,16 @@ public class ImageView extends JPanel {
 		zoom = 100;
 	}
 
-	public void loadImage(BoneImageTreeNode imgNode, JSlider zoomSlider) throws ImageException {
+	public void loadImage(BoneImageTreeNode imgNode, JSlider zoomSlider)
+			throws ImageException {
 		try {
 			image = ImageIO.read(new File(imgNode.getImagePath()));
 			findProperZoomLevel(zoomSlider);
 			updateZoomedImage();
 
-			List<Dot> newDots = new ArrayList<Dot>();
-			for (BonePoint point : imgNode.getPoints())
-				newDots.add(new Dot(point));
-			dots = newDots;
+			loadDots(imgNode);
+
+			scale = imgNode.getScale();
 		} catch (IIOException e) {
 			throw new ImageException(e);
 		} catch (IOException e) {
@@ -58,6 +60,13 @@ public class ImageView extends JPanel {
 
 		invalidate();
 		repaint();
+	}
+
+	private void loadDots(BoneImageTreeNode imgNode) throws IOException {
+		List<Dot> newDots = new ArrayList<Dot>();
+		for (BonePoint point : imgNode.getPoints())
+			newDots.add(new Dot(point));
+		dots = newDots;
 	}
 
 	private void findProperZoomLevel(JSlider zoomSlider) {
@@ -119,6 +128,46 @@ public class ImageView extends JPanel {
 			}
 			g.drawImage(dot.img, x, y, this);
 		}
+
+		drawMeasurement(g, zoomLevel);
+	}
+
+	private void drawMeasurement(Graphics g, float zoomLevel) {
+		int ax = (int) (scale.getAx() * zoomLevel);
+		int ay = (int) (scale.getAy() * zoomLevel);
+		int bx = (int) (scale.getBx() * zoomLevel);
+		int by = (int) (scale.getBy() * zoomLevel);
+		g.setColor(Color.white);
+		g.drawLine(ax, ay, bx, by);
+
+		AttributedString msg = new AttributedString("  " + scale.getDistance()
+				+ "mm  ");
+		msg.addAttribute(TextAttribute.BACKGROUND, Color.GRAY);
+		msg.addAttribute(TextAttribute.FOREGROUND, Color.WHITE);
+		g.drawString(msg.getIterator(), (ax + bx) / 2, (ay + by) / 2);
+	}
+
+	public boolean isInsideScaleEndA(int x, int y) {
+		return scale != null
+				&& isInsideScaleEnd(scale.getAx(), scale.getAy(), x, y);
+	}
+
+	public boolean isInsideScaleEndB(int x, int y) {
+		return scale != null
+				&& isInsideScaleEnd(scale.getBx(), scale.getBy(), x, y);
+	}
+
+	public boolean isInsideScaleEnd(int x, int y) {
+		return isInsideScaleEndA(x, y) || isInsideScaleEndB(x, y);
+	}
+
+	private boolean isInsideScaleEnd(int posX, int posY, int x, int y) {
+		float zoomLevel = getZoomLevel();
+		int px = (int) (posX * zoomLevel);
+		int py = (int) (posY * zoomLevel);
+		int margin = 10;
+		return x >= px - margin && y >= py - margin && x < px + margin
+				&& y < py + margin;
 	}
 
 	public void addPoint(BonePoint point) {
@@ -190,12 +239,8 @@ public class ImageView extends JPanel {
 				d = (int) (point.img.getWidth() / zoomLevel);
 				hitBox = new Rectangle(pos.x - d, pos.y - d, d * 2, d * 2);
 			}
-			if (hitBox.contains(point.pos)) {
-				System.out.println(pos.x - point.pos.x);
-				System.out.println(pos.y - point.pos.y);
-
+			if (hitBox.contains(point.pos))
 				return point;
-			}
 		}
 
 		return null;
@@ -215,6 +260,19 @@ public class ImageView extends JPanel {
 		dot.setPos(pos.x, pos.y);
 	}
 
+	public void moveMeasureEndA(int x, int y) {
+		Point pos = unzoomPoint(x, y);
+		scale.setAx(pos.x);
+		scale.setAy(pos.y);
+		repaint();
+	}
+
+	public void moveMeasureEndB(int x, int y) {
+		Point pos = unzoomPoint(x, y);
+		scale.setBx(pos.x);
+		scale.setBy(pos.y);
+		repaint();
+	}
 }
 
 class Dot {

@@ -6,6 +6,7 @@ import java.util.List;
 import ar.com.ktulu.caliboro.BonesStore;
 import ar.com.ktulu.caliboro.model.BoneImage;
 import ar.com.ktulu.caliboro.model.BonePoint;
+import ar.com.ktulu.caliboro.model.BoneScale;
 
 @SuppressWarnings("serial")
 public class BoneImageTreeNode extends BaseBoneTreeNode {
@@ -39,5 +40,9 @@ public class BoneImageTreeNode extends BaseBoneTreeNode {
 
 	public boolean fileExists() {
 		return new File(getImagePath()).exists();
+	}
+
+	public BoneScale getScale() {
+		return ((BoneImage) getUserObject()).getScale();
 	}
 }

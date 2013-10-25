@@ -20,6 +20,7 @@ public class BoneImage {
 	private List<BonePoint> points;
 	private Bone parent;
 	private int imageId;
+	private BoneScale scale;
 
 	public BoneImage(Bone parent, String path) {
 		this(parent);
@@ -118,5 +119,13 @@ public class BoneImage {
 					IOUtils.closeQuietly(in);
 			}
 		}
+	}
+
+	public BoneScale getScale() {
+		return scale;
+	}
+
+	public void setScale(BoneScale scale) {
+		this.scale = scale;
 	}
 }

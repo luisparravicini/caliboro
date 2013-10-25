@@ -69,6 +69,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JPanel panel_1;
 	private ImageManager imageManager;
 	private JButton btnAbrir;
+	private JButton btnEscala;
 
 	/**
 	 * Launch the application.
@@ -188,7 +189,17 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		btnBonePoints = new JButton(getBonePointButtonLabel());
 		toolBar.add(btnBonePoints);
-
+		
+		btnEscala = new JButton("Escala");
+		btnEscala.setEnabled(false);
+		toolBar.add(btnEscala);
+		
+		btnEscala.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				drawScale();
+			}
+		});
 		btnExportar = new JButton("Exportar");
 		toolBar.add(btnExportar);
 
@@ -247,6 +258,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		}
 	}
 	
+
+	private void drawScale() {
+	}
+
 	protected void export() {
 		Exporter exporter = new Exporter();
 		try {
@@ -432,18 +447,24 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		updateButtonsStatus((DefaultTreeModel) e.getSource());
 	}
 
+	private void updateButtonsStatus() {
+		updateButtonsStatus((DefaultTreeModel) bonesTree.getModel());
+	}
+
 	private void updateButtonsStatus(DefaultTreeModel model) {
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		boolean bonesExist = root.getChildCount() > 0;
 		boolean boneSelected = (bonesTree.getSelectionCount() > 0);
+		boolean showingImage = imageManager.isVisible();
 
 		btnAddImages.setEnabled(bonesExist && boneSelected);
 		btnRemove.setEnabled(bonesExist && boneSelected);
+		btnEscala.setEnabled(bonesExist && boneSelected && showingImage);
 	}
-
+	
 	@Override
 	public void valueChanged(TreeSelectionEvent event) {
-		updateButtonsStatus((DefaultTreeModel) bonesTree.getModel());
+		updateButtonsStatus();
 		updateBoneImageView(event.getPath());
 	}
 
@@ -453,12 +474,14 @@ public class MainFrame extends JFrame implements TreeModelListener,
 					.getLastPathComponent();
 			if (!isBoneImageNode(node)) {
 				imageManager.hideImage();
+				updateButtonsStatus();
 				return;
 			}
 
 			BoneImageTreeNode imgNode = (BoneImageTreeNode) node;
 			try {
 				imageManager.loadBoneImage(imgNode);
+				updateButtonsStatus();
 			} catch (ImageException e) {
 				EventQueueErrorCatcher.logToFile(e);
 				Util.showError(e.getMessage());

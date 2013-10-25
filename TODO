@@ -1,6 +1,7 @@
 TODO
 ====
 
+  - documentar la escala
   - explicitar que los strings son utf-8. Editaron todo en win y quedaron como iso-8859-1, cuando lo corro aca, el default es utf-8 y se ven mal los acentos.
   - al resizear la pantalla, reacomodar el zoom de la imagen
   - el nombre x default al importar imagenes: quitar la extensión del archivo
@@ -9,7 +10,6 @@ TODO
   - documentacion de la ui html 
   - triangulo resize ventana html a veces queda en el medio
   - manejo de imagenes: exportar a menos de 2048? si van a internet, a 2048 son demasiado grandes
-  - poner en algun lado el credito del icono
 
 PRIORIDAD BAJA
 ==============
