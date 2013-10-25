@@ -18,7 +18,11 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+import ar.com.ktulu.caliboro.BonesStore;
 import ar.com.ktulu.caliboro.model.BonePoint;
 import ar.com.ktulu.caliboro.model.BoneScale;
 import ar.com.ktulu.caliboro.ui.treeModel.BoneImageTreeNode;
@@ -30,9 +34,61 @@ public class ImageView extends JPanel {
 	private int zoom;
 	private List<Dot> dots;
 	private BoneScale scale;
+	private JTextField distanceField;
+	private final String DISTANCE_UNIT = "mm";
 
 	public ImageView() {
+		setLayout(null);
+		setupTextField();
 		setup();
+	}
+
+	private void setupTextField() {
+		distanceField = new JTextField();
+		add(distanceField);
+		distanceField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateValue();
+			}
+
+			private void updateValue() {
+				Integer value = parseValue();
+				if (value != null) {
+					scale.setDistance(value);
+					BonesStore.getInstance().dirty();
+				}
+			}
+
+			private Integer parseValue() {
+				String s = distanceField.getText().trim();
+				try {
+					if (s.endsWith(DISTANCE_UNIT))
+						s = s.substring(0, s.length() - 2);
+
+					int distance = Integer.parseInt(s);
+					if (distance < 0)
+						throw new NumberFormatException();
+
+					distanceField.setBackground(Color.WHITE);
+
+					return distance;
+				} catch (NumberFormatException e) {
+					distanceField.setBackground(Color.RED);
+				}
+				return null;
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateValue();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+			}
+		});
 	}
 
 	private void setup() {
@@ -51,6 +107,7 @@ public class ImageView extends JPanel {
 			loadDots(imgNode);
 
 			scale = imgNode.getScale();
+			distanceField.setText(scale.getDistance() + DISTANCE_UNIT);
 		} catch (IIOException e) {
 			throw new ImageException(e);
 		} catch (IOException e) {
@@ -140,11 +197,7 @@ public class ImageView extends JPanel {
 		g.setColor(Color.white);
 		g.drawLine(ax, ay, bx, by);
 
-		AttributedString msg = new AttributedString("  " + scale.getDistance()
-				+ "mm  ");
-		msg.addAttribute(TextAttribute.BACKGROUND, Color.GRAY);
-		msg.addAttribute(TextAttribute.FOREGROUND, Color.WHITE);
-		g.drawString(msg.getIterator(), (ax + bx) / 2, (ay + by) / 2);
+		distanceField.setBounds((ax + bx) / 2, (ay + by) / 2, 75, 20);
 	}
 
 	public boolean isInsideScaleEndA(int x, int y) {
