@@ -2,6 +2,7 @@ TODO
 ====
 
   - documentar la escala
+  - borrar en la proxima version de BonesStore el if por si scale es null. Eso es solo para cuando editen por primera vez los datos qua ya tienen cargados
   - mostrar la escala en la exportacion
   - en la exportacion, solo dejar la escala, no la linea medida?
   - explicitar que los strings son utf-8. Editaron todo en win y quedaron como iso-8859-1, cuando lo corro aca, el default es utf-8 y se ven mal los acentos.
