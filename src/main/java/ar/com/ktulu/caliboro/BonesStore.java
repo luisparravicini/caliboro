@@ -28,7 +28,11 @@ public class BonesStore {
 	private File storeBasePath;
 
 	private BonesStore() {
-		data = new StoreRootNode();
+		data = createRootNode();
+	}
+
+	private StoreRootNode createRootNode() {
+		return new StoreRootNode();
 	}
 
 	public static BonesStore getInstance() {
@@ -50,6 +54,7 @@ public class BonesStore {
 			JSONObject auxData = new JSONObject(new JSONTokener(reader));
 			reader.close();
 
+			data = createRootNode();
 			data.setLastImageId(auxData.getInt("lastImageId"));
 			data.clearBones();
 			JSONArray bones = auxData.getJSONArray("bones");

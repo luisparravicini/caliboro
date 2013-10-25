@@ -32,6 +32,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
@@ -67,6 +68,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	private JPanel panel;
 	private JPanel panel_1;
 	private ImageManager imageManager;
+	private JButton btnAbrir;
 
 	/**
 	 * Launch the application.
@@ -124,7 +126,7 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		bonesTree.setShowsRootHandles(true);
 		JScrollPane bonesScrollPane = new JScrollPane();
 		bonesScrollPane.setViewportView(bonesTree);
-		
+
 		splitPane.setLeftComponent(bonesScrollPane);
 
 		panel = new JPanel();
@@ -162,6 +164,16 @@ public class MainFrame extends JFrame implements TreeModelListener,
 
 		toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
+
+		btnAbrir = new JButton("Abrir");
+		toolBar.add(btnAbrir);
+
+		btnAbrir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				openData();
+			}
+		});
 
 		btnAgregar = new JButton("Agregar hueso");
 		toolBar.add(btnAgregar);
@@ -224,6 +236,17 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		imageManager.hideImage();
 	}
 
+	protected void openData() {
+		File path = Util.askForFolder();
+		if (path != null) {
+			BonesStore store = BonesStore.getInstance();
+			store.setPath(path);
+			store.load();
+			loadBones();
+			imageManager.hideImage();
+		}
+	}
+	
 	protected void export() {
 		Exporter exporter = new Exporter();
 		try {
@@ -267,22 +290,10 @@ public class MainFrame extends JFrame implements TreeModelListener,
 	}
 
 	protected void setup() {
-		DefaultTreeModel model = new DefaultTreeModel(
-				new DefaultMutableTreeNode());
-		model.addTreeModelListener(this);
 		bonesTree.setRootVisible(false);
-		bonesTree.setModel(model);
+		bonesTree.setModel(createTreeModel());
 		bonesTree.setEditable(true);
 		bonesTree.addTreeSelectionListener(this);
-
-		BonesStore store = BonesStore.getInstance();
-		store.freeze();
-		try {
-			for (Bone bone : BonesStore.getInstance().data())
-				addBone(bone);
-		} finally {
-			store.unfreeze();
-		}
 
 		bonesTree.setDragEnabled(true);
 		bonesTree.setDropMode(DropMode.ON);
@@ -291,6 +302,28 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		ImageMouseListener mouseListener = new ImageMouseListener(imageManager);
 		scrollPane.addMouseListener(mouseListener);
 		scrollPane.addMouseMotionListener(mouseListener);
+		
+		loadBones();
+	}
+
+	private TreeModel createTreeModel() {
+		DefaultTreeModel model = new DefaultTreeModel(
+				new DefaultMutableTreeNode());
+		model.addTreeModelListener(this);
+		return model;
+	}
+
+	private void loadBones() {
+		bonesTree.setModel(createTreeModel());
+		
+		BonesStore store = BonesStore.getInstance();
+		store.freeze();
+		try {
+			for (Bone bone : BonesStore.getInstance().data())
+				addBone(bone);
+		} finally {
+			store.unfreeze();
+		}
 	}
 
 	protected void removeNode() {
