@@ -102,7 +102,7 @@ public class BaseExporter {
 	protected void deployResources(File dir) throws FileNotFoundException,
 			IOException {
 		deployResource("dot.png", dir);
-		deployResource("scale-01.png", dir);
+		deployResource("scale.svg", dir);
 
 		createDirectory(dir, "js");
 		deployResource("js/jquery-2.0.2.min.js", dir);

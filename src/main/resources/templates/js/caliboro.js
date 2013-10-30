@@ -245,7 +245,7 @@ Caliboro.updateScale = function() {
 Caliboro.setupScale = function() {
   var img = Caliboro.getImageContainer();
   var scale = new Image();
-  scale.src = "scale-01.png";
+  scale.src = "scale.svg";
   $(scale).addClass('scale');
   $(img).append(scale);
 
