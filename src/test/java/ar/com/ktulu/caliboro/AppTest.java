@@ -10,12 +10,6 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import ar.com.ktulu.caliboro.model.Bone;
 import ar.com.ktulu.caliboro.ui.Util;
 
