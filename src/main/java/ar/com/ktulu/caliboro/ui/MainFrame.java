@@ -441,7 +441,6 @@ public class MainFrame extends JFrame implements TreeModelListener,
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 		boolean bonesExist = root.getChildCount() > 0;
 		boolean boneSelected = (bonesTree.getSelectionCount() > 0);
-		boolean showingImage = imageManager.isVisible();
 
 		btnAddImages.setEnabled(bonesExist && boneSelected);
 		btnRemove.setEnabled(bonesExist && boneSelected);
