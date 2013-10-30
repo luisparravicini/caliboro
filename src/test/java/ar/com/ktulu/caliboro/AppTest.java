@@ -49,24 +49,6 @@ public class AppTest extends TestCase {
 		assertTrue(previewer.getIndexContent().contains(expected));
 	}
 
-	public void testPreviewerList() throws URISyntaxException,
-			IOException {
-		List<Bone> bones = new ArrayList<Bone>();
-		bones.add(new Bone("nombre1"));
-		Bone bone = new Bone("nombre2");
-		bone.addImage("/xxyyzz");
-		bones.add(bone);
-		previewer.process(bones, new File("/"));
-		String expected = String.format("Caliboro.data = %s;", new JSONArray(
-				CollectionUtils.collect(bones, new Transformer() {
-					@Override
-					public Object transform(Object obj) {
-						return new JSONObject(obj);
-					}
-				})));
-		assertTrue(previewer.getIndexContent().contains(expected));
-	}
-
 	public void testEncodePath() throws IOException {
 		assertEquals(new URL("file:/a%20b%20c"), Util.encodePath("/a b c"));
 	}
