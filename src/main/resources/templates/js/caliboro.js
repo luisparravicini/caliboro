@@ -231,7 +231,7 @@ Caliboro.setupImageContainer = function() {
 
 Caliboro.updateScale = function() {
   var pixelLength = this.currentImage.scale;
-  var width = (10 / pixelLength) * this.zoom / 100;
+  var width = (50 / pixelLength) * this.zoom / 100;
 
   $('.scale').css('width', width + 'px');
 };
