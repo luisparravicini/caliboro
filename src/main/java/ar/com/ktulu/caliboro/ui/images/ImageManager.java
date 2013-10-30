@@ -123,6 +123,9 @@ public class ImageManager {
 	}
 
 	public void mouseDragged(int x, int y) {
+		if (!imageView.isInsideImage(x, y))
+			return;
+
 		if (isDraggingMeasure())
 			dragScale(x, y);
 		else
