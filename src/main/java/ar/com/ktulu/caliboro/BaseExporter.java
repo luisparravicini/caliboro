@@ -93,7 +93,7 @@ public class BaseExporter {
 		int by = scale.getInt("by");
 		int distanceInMM = scale.getInt("distance");
 
-		double segmentLength = Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(ay - by, 2));
+		double segmentLength = Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(by - ay, 2));
 		double pixelLength = segmentLength / distanceInMM;
 
 		image.put("scale", pixelLength);
