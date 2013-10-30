@@ -113,6 +113,7 @@ Caliboro.changeZoom = function(zoom) {
   Caliboro.updateZoomText();
   Caliboro.updateReferences();
   Caliboro.updateReferencesContainer();
+  this.updateScale();
 };
 
 Caliboro.updateZoomText = function() {
@@ -162,6 +163,7 @@ Caliboro.showImage = function(node) {
 
   Caliboro.getImageContainer().resizable('destroy');
   Caliboro.setupImageContainer();
+  this.setupScale();
 };
 
 Caliboro.listImages = function(bone) {
@@ -225,6 +227,23 @@ Caliboro.setupImageContainer = function() {
   container.resize(function() {
     Caliboro.updateReferencesContainer();
   });
+};
+
+Caliboro.updateScale = function() {
+  var pixelLength = this.currentImage.scale;
+  var width = (10 / pixelLength) * this.zoom / 100;
+
+  $('.scale').css('width', width + 'px');
+};
+
+Caliboro.setupScale = function() {
+  var img = Caliboro.getImageContainer();
+  var scale = new Image();
+  scale.src = "scale-01.png";
+  $(scale).addClass('scale');
+  $(img).append(scale);
+
+  this.updateScale();
 };
 
 Caliboro.init = function() {

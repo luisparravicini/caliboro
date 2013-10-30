@@ -106,3 +106,9 @@ body, a {
   float: right;
   margin: 0 20px;
 }
+
+.scale {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}

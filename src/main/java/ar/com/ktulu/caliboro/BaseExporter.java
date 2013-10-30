@@ -16,6 +16,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import ar.com.ktulu.caliboro.model.Bone;
@@ -66,14 +67,42 @@ public class BaseExporter {
 		return new JSONArray(CollectionUtils.collect(data, new Transformer() {
 			@Override
 			public Object transform(Object obj) {
-				return new JSONObject(obj);
+				JSONObject result = new JSONObject(obj);
+				try {
+					JSONArray images = result.getJSONArray("images");
+					for (int i = 0; i < images.length(); i++) {
+						JSONObject image = images.getJSONObject(i);
+						setupImageData(image);
+					}
+				} catch (JSONException e) {
+					// viva la runtime exception
+					throw new RuntimeException(e);
+				}
+				return result;
 			}
 		}));
+	}
+
+	private void setupImageData(JSONObject image) throws JSONException {
+		JSONObject scale = image.getJSONObject("scale");
+		image.remove("scale");
+
+		int ax = scale.getInt("ax");
+		int ay = scale.getInt("ay");
+		int bx = scale.getInt("bx");
+		int by = scale.getInt("by");
+		int distanceInMM = scale.getInt("distance");
+
+		double segmentLength = Math.sqrt(Math.pow(bx - ax, 2) + Math.pow(ay - by, 2));
+		double pixelLength = segmentLength / distanceInMM;
+
+		image.put("scale", pixelLength);
 	}
 
 	protected void deployResources(File dir) throws FileNotFoundException,
 			IOException {
 		deployResource("dot.png", dir);
+		deployResource("scale-01.png", dir);
 
 		createDirectory(dir, "js");
 		deployResource("js/jquery-2.0.2.min.js", dir);
