@@ -45,7 +45,8 @@ El programa permite:
   - Agregar / Borrar / Cambiar el nombre de una imagen asociada a un hueso.
   - Agregar / Borrar / Cambiar de lugar puntos en una imagen.
   - Cambiar el orden de huesos / imágenes arrastrandolos.
-  - Cambiar el nivel de zoom de las imagenes que estamos editando
+  - Cambiar el nivel de zoom de las imagenes que estamos editando.
+  - Especificar una medida para que luego pueda presentarse una escala sobre la imagen.
 
 ### Renombrar huesos / imágenes
 
@@ -79,6 +80,13 @@ Si hacemos click sobre un punto existente en la imagen y sin soltar el botón mo
 #### Cambiar el nombre de un punto
 
 Por el momento, la única manera de cambiar el nombre de un punto es borrarlo y crearlo de nuevo.
+
+
+### Escala
+
+Se pueden arrastrar los extremos del segmento usado para realizar la medida e ingresar cuanto mide ese segmento (en milímetros).
+
+La escala es mostrada sobre las fotos cuando se previsualiza / exporta.
 
 
 ### Previsualizar
