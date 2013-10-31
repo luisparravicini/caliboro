@@ -1,3 +1,8 @@
+#bones {
+    margin-left: 20px;
+    width: 20%;
+}
+
 #bones ul {
   list-style-type: none;
   margin: 0;
@@ -67,7 +72,7 @@ body, a {
 }
 
 #image, #refs {
-  width: 400px;
+  width: 75%;
   height: 400px;
 }
 
@@ -115,6 +120,19 @@ body, a {
   left: 4px;
 }
 
-.images li:hover {
+.images li:hover, li.bone:hover {
   cursor: pointer;
 }
+
+li.bone {
+  list-style: url(../triang.png) outside;
+}
+
+li.selected-bone {
+  list-style: url(../triang-down.png) outside;  
+}
+
+ul.images li {
+  list-style: none;
+}
+

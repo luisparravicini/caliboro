@@ -194,10 +194,12 @@ Caliboro.listBones = function() {
   var bones = Caliboro.data;
   var node = $("<ul class='bones'>")
   bones.forEach(function(bone) {
-    node.append($("<li>").text(bone.name).append(Caliboro.listImages(bone)));
+    node.append($("<li>").addClass('bone').text(bone.name).append(Caliboro.listImages(bone)));
   });
 
   div.append(node);
+
+  this.setupMenu();
 };
 
 Caliboro.updateReferencesContainer = function() {
@@ -250,6 +252,15 @@ Caliboro.setupScale = function() {
   $(img).append(scale);
 
   this.updateScale();
+};
+
+Caliboro.setupMenu = function() {
+  $('ul.images').hide();
+  $('li.bone').click(function() {
+    $(this).siblings('li.bone').removeClass('selected-bone').find('ul').slideUp({ duration: 'fast' });
+    $(this).find('ul').slideToggle({ duration: 'fast' });
+    $(this).toggleClass('selected-bone');
+  });
 };
 
 Caliboro.init = function() {

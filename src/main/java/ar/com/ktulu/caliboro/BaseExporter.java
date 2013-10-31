@@ -103,6 +103,8 @@ public class BaseExporter {
 			IOException {
 		deployResource("dot.png", dir);
 		deployResource("scale.svg", dir);
+		deployResource("triang.png", dir);
+		deployResource("triang-down.png", dir);
 
 		createDirectory(dir, "js");
 		deployResource("js/jquery-2.0.2.min.js", dir);
