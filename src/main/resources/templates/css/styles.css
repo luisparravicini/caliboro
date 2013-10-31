@@ -112,3 +112,7 @@ body, a {
   top: 4px;
   left: 4px;
 }
+
+.images li:hover {
+  cursor: pointer;
+}

@@ -170,14 +170,14 @@ Caliboro.listImages = function(bone) {
   var images = bone['images'];
   var node = $("<ul class='images'>");
   images.forEach(function(image) {
-    var linkNode = $("<a href='#'>").text(image.name).data('image-data', image)
-    .click(function() {
+    var linkNode = $("<a href='#'>").text(image.name).data('image-data', image);
+    var item = $("<li>").append(linkNode).click(function() {
       Caliboro.getBonesContainer().find('li').removeClass('selected');
-      $(this).parent().addClass('selected');
-      Caliboro.showImage(this);
+      $(this).addClass('selected');
+      Caliboro.showImage(linkNode);
       return false;
     });
-    node.append($("<li>").append(linkNode));
+    node.append(item);
   });
 
   return node;
