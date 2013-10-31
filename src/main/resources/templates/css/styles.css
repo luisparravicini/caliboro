@@ -21,7 +21,7 @@
   margin-right: auto;
   text-align: center;
   width: 40%;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #controls .updateRefs {
@@ -45,6 +45,7 @@ body {
   font-family: Arial, Verdana, sans-serif;
   font-size: 14px;
   background: #202020;
+  padding-top: 50px;
 }
 
 body, a {
@@ -62,6 +63,7 @@ body, a {
   margin-right: auto;
   border: 2px solid #808080;
   border-width: thin;
+  background: #000000;
 }
 
 #image, #refs {
@@ -99,7 +101,7 @@ body, a {
 }
 
 #container {
-  border: 1px solid #101010;
+  border: 1px solid #202020;
 }
 
 .zoom-text {
