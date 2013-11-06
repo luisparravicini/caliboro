@@ -101,7 +101,7 @@ public class BonesStore {
 			throws JSONException {
 		// TODO esto es solo de transicion por los datos cargados que existen
 		// sin este dato
-		if (!imgObj.has("scale")) {
+		if (!imgObj.has("scale") || imgObj.isNull("scale")) {
 			BoneScale scale = new BoneScale();
 			scale.setDistance(100);
 			scale.setAx(400);
