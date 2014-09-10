@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+#coding: utf-8
 
 require 'json'
 require 'fileutils'
@@ -15,7 +16,8 @@ if path_a.nil? || path_b.nil? || $out_path.nil?
 end
 
 def read_json(path)
-	doc = JSON.load(IO.read(File.join(path, 'bones.json')))
+  data = IO.read(File.join(path, 'bones.json')).force_encoding('iso-8859-1')
+	JSON.load(data)
 end
 
 $bone_count = 0
