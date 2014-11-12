@@ -21,6 +21,8 @@ Hace falta tener Java instalado, en caso de no tenerlo se puede descargar de [ht
 
 Para correr la versión de Windows, hacer doble click sobre el archivo .exe. Para otras plataformas, podríamos correr Caliboro desde la línea de comandos con: 'java -jar caliboro-x-release.jar' (reemplazando x por el número de versión del programa) o en algunos casos podría funcionar hacer doble click sobre el jar.
 
+Acepta exportar una carpeta tanto por medio de la UI como por línea de comandos. Para esto último, pasar los argumentos "-e <path-1> <path-2>" donde _path-1_ es el path donde hay huesos editados y _path-2_ el path donde se desea que se exporten a HTML.
+
 
 Almacenamiento de datos
 -----------------------

@@ -31,6 +31,7 @@ PRIORIDAD BAJA
   - cuando tengo que agregar fotos, es molesto agregar de a una
   - cambiar nombre de un punto que ya existe
   - el about no toma la version del proyecto
+  - al editar una medicion: deja los "mm", y con eso no valida como numero
   - no borro el directorio de previsualizacion
   - en win, creo que no se ve el menu (para el about)
   - poner una barra de progreso cuando copia las imagenes al repo local?
