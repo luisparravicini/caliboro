@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby
 
 require 'json'
+require 'fileutils'
 
 #
 # Lista las imagenes de cierto path que no estan siendo referenciadas por Caliboro
 #
 
 dir = ARGV.shift
+remove = (ARGV.shift == "-r")
 if dir.nil?
-  puts "usage: #{$0} <path>"
+  puts "usage: #{$0} <path> [-r]"
   exit 1
 end
 
@@ -32,7 +34,10 @@ Dir.glob(File.join(dir, '*')).each do |path|
     name = File.basename(subpath)
     next unless name =~ /\.jpg$/i
 
-    puts subpath unless used.include?(name)
+    unless used.include?(name)
+      puts subpath
+      FileUtils.rm(subpath)
+    end
   end
 
 
